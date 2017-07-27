@@ -1,0 +1,34 @@
+---
+# REM: maunally install before using with
+# $ ansible-galaxy install -r requirements.yml
+
+- src: https://github.com/dheles/ansible-role-login-user
+  name: login-user
+
+- src: https://github.com/dheles/ansible-role-secure-ssh
+  name: secure-ssh
+
+- src: https://github.com/dheles/ansible-role-java.git
+  name: java
+
+- src: https://github.com/dheles/ansible-role-apache.git
+  name: apache
+
+- src: https://github.com/dheles/ansible-role-passenger.git
+  name: passenger
+
+- src: https://github.com/farooqsadiq/ansible-chruby.git
+  name: chruby
+
+  # git
+  # node
+
+  # open jdk 8
+  # apache
+  # passenger
+  # ruby (2.2.2) (and rails 4.2.4 via bundler)
+
+  # capistrano (2.15.9?)
+  # jetty 8 or 9
+  # MariaDB or MySQL, if there is not a staging db server available
+  # solr (external, if possible)

@@ -1,0 +1,11 @@
+# dev (vagrant):
+# ------------------
+[build]
+build.catalyst.test
+
+#[db]
+#build.catalyst.test
+
+[dev:children]
+build
+#db

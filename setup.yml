@@ -1,0 +1,13 @@
+---
+- name: create login user for installation & configuration
+  hosts: all
+
+  roles:
+  - { role: login-user }
+
+- name: secure SSH
+  hosts: all
+  become: true
+
+  roles:
+  - { role: secure-ssh }
