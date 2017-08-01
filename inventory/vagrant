@@ -3,9 +3,13 @@
 [build]
 build.catalyst.test
 
+[deploy]
+build.catalyst.test
+
 #[db]
 #build.catalyst.test
 
 [dev:children]
 build
+deploy
 #db

@@ -40,7 +40,7 @@ Vagrant.configure(2) do |config|
 
       host.vm.provider "virtualbox" do |vb|
         vb.name = "#{short_name}.#{domain}"
-        vb.memory = 256
+        vb.memory = 2048
         vb.linked_clone = true
       end
 
