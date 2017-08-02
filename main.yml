@@ -1,10 +1,4 @@
 ---
-- name: install prereqs
-  hosts: all
-  # become: true
-
-  roles:
-  - { role: java, become: true }
-  - { role: chruby, become: true }
-  - { role: apache }
-  - { role: passenger }
+- include: playbooks/catalyst_prereqs.yml
+- include: playbooks/catalyst_install.yml
+- include: playbooks/horizonws_prereqs.yml

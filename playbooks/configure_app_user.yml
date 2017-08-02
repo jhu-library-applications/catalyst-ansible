@@ -1,0 +1,30 @@
+---
+# configures the application user, according to the mode
+
+# begin dev mode block
+- block:
+  - name: use login user as application user
+    set_fact:
+      app_user: "{{ ansible_env.USER }}"
+  when: mode == "dev"
+# end dev mode block
+
+# begin deploy mode block
+- block:
+  - name: add app user group
+    group:
+      name: "{{ app_group }}"
+      gid:  "{{ app_group_gid | default(omit) }}"
+      state: present
+    become: true
+
+  - name: add app user
+    user:
+      name: "{{ app_user }}"
+      shell: "/bin/bash"
+      uid:    "{{ app_user_uid  | default(omit) }}"
+      group:  "{{ app_group  }}"
+    become: true
+
+  when: mode == "deploy"
+# end deploy mode block

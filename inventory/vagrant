@@ -1,15 +1,20 @@
 # dev (vagrant):
 # ------------------
-[build]
-build.catalyst.test
 
-[deploy]
-build.catalyst.test
+[traject]
+catalyst.test
 
-#[db]
-#build.catalyst.test
+[pull-reserves]
+catalyst.test
+
+[horizon-ws]
+catalyst.test
+
+[catalyst]
+catalyst.test
 
 [dev:children]
-build
-deploy
-#db
+catalyst
+horizon-ws
+pull-reserves
+traject

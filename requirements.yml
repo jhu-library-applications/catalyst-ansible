@@ -20,6 +20,12 @@
 - src: https://github.com/farooqsadiq/ansible-chruby.git
   name: chruby
 
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-mysql
+  name: mysql
+
+# - src: https://github.com/dheles/jetty-ansible-role
+#   name: jetty
+
   # git
   # node
 
@@ -27,8 +33,8 @@
   # apache
   # passenger
   # ruby (2.2.2) (and rails 4.2.4 via bundler)
-
-  # capistrano (2.15.9?)
-  # jetty 8 or 9
   # MariaDB or MySQL, if there is not a staging db server available
   # solr (external, if possible)
+  # jetty 8 or 9
+
+  # capistrano (2.15.9?)

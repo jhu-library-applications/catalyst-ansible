@@ -1,8 +1,0 @@
----
-- name: provision the machine to which catalyst will be deployed
-  hosts: deploy
-  # become: true
-
-  roles:
-  - { role: java }
-  - { role: jetty }

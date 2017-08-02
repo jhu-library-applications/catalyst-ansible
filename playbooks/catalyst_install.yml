@@ -1,0 +1,33 @@
+---
+- name: install catalyst rails application
+  hosts: catalyst
+  # become: true
+
+  tasks:
+  - name: install required packages
+    package:
+      name: "{{ item }}"
+      state: present
+    become: true
+    with_items:
+      - git
+      - nodejs
+
+  - name: configure application user
+    include: configure_app_user.yml
+
+  - name: make sure deploy dir exists
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ app_user }}"
+      group: "{{ app_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  # TODO: this is a private repo, so we need to set up a deploy key for it...
+  - name: get application from repo
+    git:
+      repo: "{{ app_repo }}"
+      dest: "{{ deploy_dir }}"
+      version: "{{ app_branch | default('HEAD') }}"

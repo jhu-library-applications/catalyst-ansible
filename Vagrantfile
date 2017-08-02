@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-domain          = "catalyst.test"
+domain          = "test"
 setup_complete  = false
 
 # NOTE: currently using the same OS for all boxen
@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
   {
     # 'solr'  => '10.11.12.103',
     # 'db'    => '10.11.12.102',
-    'build'   => '10.11.12.101'
+    'catalyst'   => '10.11.12.101'
   }.each do |short_name, ip|
     config.vm.define short_name do |host|
       host.vm.network 'private_network', ip: ip
@@ -44,7 +44,7 @@ Vagrant.configure(2) do |config|
         vb.linked_clone = true
       end
 
-      if short_name == "build" # last in the list
+      if short_name == "catalyst" # last in the list
         setup_complete = true
       end
 
