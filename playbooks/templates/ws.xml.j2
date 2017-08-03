@@ -1,0 +1,45 @@
+<!-- jetty CONTEXT file template
+
+     will be filled in with horizon.yml connection details for current
+     rails_env, then copied into jetty etc directory, and jetty
+     will be started included this conf file, so the horizon-extras
+     datasource will be avail to our servlet. -->
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <Set name="contextPath">/ws</Set>
+    <Set name="war">{{ jetty_base }}/webapps/ws.war</Set>
+
+
+
+
+    <!-- =========================================================== -->
+    <!-- define data source used by items servlet      jrochkind, dheles, & djiao     -->
+    <!-- =========================================================== -->
+    <New id="horizon-extras" class="org.eclipse.jetty.plus.jndi.Resource">
+      <Arg></Arg>
+      <Arg>horizon-extras</Arg>
+      <Arg>
+        <New class="org.apache.commons.dbcp.BasicDataSource">
+          <Set name="driverClassName">net.sourceforge.jtds.jdbcx.JtdsDataSource</Set>
+          <Set name="url">jdbc:jtds:sybase://{{ horizon_db_host }}:{{ horizon_db_port }}/{{ horizon_db_name }};charset=cp850;socketTimeout=10;loginTimeout=5</Set>
+          <Set name="username">{{ horizon_db_user }}</Set>
+          <Set name="password">{{ horizon_db_pass }}</Set>
+          <Set name="maxWait">200</Set>
+          <Set name="maxActive">30</Set>
+          <Set name="maxIdle">10</Set>
+          <Set name="initialSize">10</Set>
+          <Set name="validationQuery">SELECT 1</Set>
+
+          <!-- in case our servlets are not closing their connections
+               properly, the idle-evict settings will have dbcp set
+               up a thread to close idle ones.
+               http://commons.apache.org/dbcp/configuration.html -->
+          <Set name="removeAbandoned">true</Set>
+          <Set name="removeAbandonedTimeout">300</Set> <!-- 300s == 5 minutes -->
+          <!-- optionally enable for logging at expense of performance -->
+          <!-- <Set name="logAbandoned">true</Set> -->
+        </New>
+      </Arg>
+    </New>
+
+</Configure>

@@ -1,0 +1,68 @@
+---
+- name: install the horizon webservice
+  hosts: horizon-ws
+
+  tasks:
+  # TODO: refactor
+  - name: make sure jetty webapps directory exists
+    file:
+      path: "{{ jetty_base }}/webapps"
+      owner: "{{ jetty_user }}"
+      group: "{{ jetty_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: deploy the war file
+    copy:
+      src: "{{ deploy_dir }}/horizon-servlet/deploy/ws.war"
+      dest: "{{ jetty_base }}/webapps/ws.war"
+      owner: "{{ jetty_user }}"
+      group: "{{ jetty_group }}"
+      mode: 0644
+      remote_src: true
+    become: true
+    notify: restart jetty
+
+  - name: deploy the context file
+    template:
+      src:  "templates/ws.xml.j2"
+      dest:  "{{ jetty_base }}/webapps/ws.xml"
+      owner: "{{ jetty_user }}"
+      group: "{{ jetty_group }}"
+    become: true
+    notify: restart jetty
+
+  # TODO: refactor
+  - name: make sure jetty lib ext directory exists
+    file:
+      path: "{{ jetty_base }}/lib/ext"
+      owner: "{{ jetty_user }}"
+      group: "{{ jetty_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: deploy the java libraries
+    shell: "cp {{ deploy_dir }}/horizon-servlet/deploy/lib/* {{ jetty_base }}/lib/ext"
+    become: true
+    notify: restart jetty
+
+  - name: make sure jetty ownership is correct
+    file:
+      path: "{{ jetty_base }}"
+      owner: "{{ jetty_user }}"
+      group: "{{ jetty_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  # TODO: refactor
+  handlers:
+  - name: restart jetty
+    systemd:
+      name: "jetty"
+      daemon_reload: yes
+      enabled: yes
+      state: restarted
+    become: true
