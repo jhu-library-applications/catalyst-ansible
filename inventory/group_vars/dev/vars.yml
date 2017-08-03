@@ -1,6 +1,6 @@
 # setup vars
 environ:                "dev" # dev || stage || prod
-debugging:              false
+debugging:              true
 
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
@@ -14,7 +14,19 @@ domainname:             "test"
 apache_remove_welcome:  false
 apache_https:           true
 ssl_self_sign_cert:     true
+# TODO: only works for CentOS. + needs refactoring
+apache_service:         "httpd"
 
 # passenger vars
  # TODO: adopt and move up
-update_packages: false
+update_packages:        false
+
+# database config vars
+db_name:                "catalyst_dev"
+db_host:                "mysql.dev.mse.jhu.edu"
+db_user:                "{{ vault_db_user }}"
+db_pass:                "{{ vault_db_pass }}"
+db_port:                3306
+
+# solr vars
+solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
