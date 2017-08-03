@@ -1,8 +1,9 @@
 # setup vars
-environ:  "dev" # dev || stage || prod
+environ:                "dev" # dev || stage || prod
+debugging:              false
 
 # private vars
-login_user_passphrase: "{{ vault_login_user_passphrase }}"
+login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # ruby vars
-chruby_ruby_version: ruby-2.2.2
+chruby_ruby_version:     "ruby-2.2.2"

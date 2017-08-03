@@ -13,10 +13,17 @@ ssh_port: 22
 
 mode:             "dev" # dev || deploy
 
-app_repo:         "https://github.com/jhu-sheridan-libraries/blacklight-rails"
+app_repo:         "git@github.com:jhu-sheridan-libraries/blacklight-rails.git" #"https://github.com/jhu-sheridan-libraries/blacklight-rails"
 app_branch:       "master"
 app_name:         "catalyst"
 app_user:         "{{ app_name }}"
 app_group:        "{{ app_user }}"
 base_deploy_dir:  "/opt"
 deploy_dir:       "{{ base_deploy_dir }}/{{ app_name }}"
+
+# deploy keys vars
+deploy_private_key:           "{{ vault_deploy_private_key }}"
+deploy_public_key:            "{{ vault_deploy_public_key }}"
+deploy_user:                  "{{ login_user }}"
+deploy_key_name:              "catalyst_deploy_key"
+deploy_key_full_path:         "/home/{{ deploy_user }}/.ssh/{{ deploy_key_name }}"

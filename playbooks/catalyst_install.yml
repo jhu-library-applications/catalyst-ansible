@@ -1,7 +1,9 @@
 ---
 - name: install catalyst rails application
   hosts: catalyst
-  # become: true
+
+  roles:
+  - { role: deploy-keys }
 
   tasks:
   - name: install required packages
@@ -25,9 +27,10 @@
       recurse: true
     become: true
 
-  # TODO: this is a private repo, so we need to set up a deploy key for it...
   - name: get application from repo
     git:
       repo: "{{ app_repo }}"
       dest: "{{ deploy_dir }}"
       version: "{{ app_branch | default('HEAD') }}"
+      key_file: "{{ deploy_key_full_path }}"
+      ssh_opts: "-o StrictHostKeyChecking=no"
