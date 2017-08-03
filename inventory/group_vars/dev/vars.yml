@@ -7,3 +7,14 @@ login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # ruby vars
 chruby_ruby_version:     "ruby-2.2.2"
+
+# apache vars:
+hostname:               "{{ app_name }}"
+domainname:             "test"
+apache_remove_welcome:  false
+apache_https:           true
+ssl_self_sign_cert:     true
+
+# passenger vars
+ # TODO: adopt and move up
+update_packages: false

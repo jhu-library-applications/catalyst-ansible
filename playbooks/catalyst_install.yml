@@ -14,6 +14,8 @@
     with_items:
       - git
       - nodejs
+      - "@Development tools"
+      - mysql-devel
 
   - name: configure application user
     include: configure_app_user.yml
@@ -34,3 +36,24 @@
       version: "{{ app_branch | default('HEAD') }}"
       key_file: "{{ deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
+
+  - name: configure bundle install based on mode
+    set_fact:
+      deployment_mode: false
+  - set_fact:
+      deployment_mode: true
+    when: mode == "deploy"
+
+  # NOTE: don't install spring in production environments:
+  # https://github.com/projecthydra/hydra-head/issues/201
+  - name: adjust for the rails environment
+    set_fact:
+      exclude: "development, test"
+    when: rails_env == 'production'
+
+  - name: install the project's gems for deployment
+    bundler:
+      chdir: "{{ deploy_dir }}"
+      gem_path: "vendor/bundle"
+      deployment_mode: "{{ deployment_mode }}"
+      exclude_groups: "{{ exclude | default(omit) }}"

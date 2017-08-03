@@ -16,7 +16,7 @@ mode:             "dev" # dev || deploy
 app_repo:         "git@github.com:jhu-sheridan-libraries/blacklight-rails.git" #"https://github.com/jhu-sheridan-libraries/blacklight-rails"
 app_branch:       "master"
 app_name:         "catalyst"
-app_user:         "{{ app_name }}"
+app_user:         "{{ login_user }}" #"{{ app_name }}"
 app_group:        "{{ app_user }}"
 base_deploy_dir:  "/opt"
 deploy_dir:       "{{ base_deploy_dir }}/{{ app_name }}"
@@ -27,3 +27,6 @@ deploy_public_key:            "{{ vault_deploy_public_key }}"
 deploy_user:                  "{{ login_user }}"
 deploy_key_name:              "catalyst_deploy_key"
 deploy_key_full_path:         "/home/{{ deploy_user }}/.ssh/{{ deploy_key_name }}"
+
+# rails vars
+rails_env:                    "development"
