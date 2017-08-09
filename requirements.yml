@@ -20,7 +20,7 @@
 - src: https://github.com/dheles/ansible-role-passenger.git
   name: passenger
 
-- src: https://github.com/farooqsadiq/ansible-chruby.git
+- src: https://github.com/dheles/ansible-chruby.git
   name: chruby
 
 - src: https://github.com/jhu-sheridan-libraries/ansible-role-mysql
@@ -28,16 +28,3 @@
 
 - src: https://github.com/dheles/jetty-ansible-role
   name: jetty
-
-  # git
-  # node
-
-  # open jdk 8
-  # apache
-  # passenger
-  # ruby (2.2.2) (and rails 4.2.4 via bundler)
-  # MariaDB or MySQL, if there is not a staging db server available
-  # solr (external, if possible)
-  # jetty 8 or 9
-
-  # capistrano (2.15.9?)
