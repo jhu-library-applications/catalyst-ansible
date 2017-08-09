@@ -1,0 +1,14 @@
+---
+- hosts: catalyst
+  # connection: local
+
+  vars:
+    rubies:
+      - "ruby-2.2.2"
+      - "jruby-9.1.12"
+      - "jruby-9.1.12.0"
+      - "jruby"
+
+  tasks:
+    - include: test_regex.yml
+      with_items: "{{ rubies }}"
