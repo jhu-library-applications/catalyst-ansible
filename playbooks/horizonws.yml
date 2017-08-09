@@ -1,0 +1,3 @@
+---
+- include: horizonws_prereqs.yml
+- include: horizonws_install.yml

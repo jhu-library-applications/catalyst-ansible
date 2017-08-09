@@ -1,7 +1,6 @@
 ---
 - name: install prerequisites for the horizon webservice
   hosts: horizon-ws
-  # become: true
 
   roles:
   - { role: java }
