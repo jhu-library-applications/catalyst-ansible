@@ -2,10 +2,7 @@
 - name: install catalyst rails application
   hosts: catalyst
 
-  roles:
-  - { role: deploy-keys }
-
-  tasks:
+  pre_tasks:
   - name: install required packages
     package:
       name: "{{ item }}"
@@ -17,6 +14,10 @@
       - "@Development tools"
       - mysql-devel
 
+  roles:
+  - { role: deploy-keys }
+
+  tasks:
   - name: configure application user
     include: configure_app_user.yml
 

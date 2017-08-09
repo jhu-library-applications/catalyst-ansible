@@ -2,3 +2,4 @@
 - include: playbooks/catalyst_prereqs.yml
 - include: playbooks/catalyst_install.yml
 - include: playbooks/horizonws_prereqs.yml
+- include: playbooks/horizonws_install.yml

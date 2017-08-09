@@ -26,8 +26,8 @@
 - src: https://github.com/jhu-sheridan-libraries/ansible-role-mysql
   name: mysql
 
-# - src: https://github.com/dheles/jetty-ansible-role
-#   name: jetty
+- src: https://github.com/dheles/jetty-ansible-role
+  name: jetty
 
   # git
   # node
