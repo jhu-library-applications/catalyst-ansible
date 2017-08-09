@@ -1,0 +1,8 @@
+---
+- name: install prerequisites for the catalyst services (pull reserves, traject)
+  hosts: services
+
+  roles:
+  - { role: java, become: true }
+  - { role: chruby, become: true }
+  - { role: deploy-keys }

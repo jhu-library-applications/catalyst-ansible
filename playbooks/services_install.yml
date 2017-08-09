@@ -1,0 +1,113 @@
+---
+- name: install catalyst services (pull reserves, traject)
+  hosts: services
+
+  tasks:
+  - name: set rails environment var
+    lineinfile:
+      dest:   "/etc/profile.d/rails.sh"
+      regexp: "^export RAILS_ENV="
+      line:   "export RAILS_ENV={{ rails_env }}"
+      state:  present
+      create: yes
+    become: true
+
+  - name: set debugging environment var
+    lineinfile:
+      dest:   "/etc/profile.d/rails.sh"
+      regexp: "^export DEBUGGING="
+      line:   "export DEBUGGING={{ debugging | default('false') }}"
+      state:  present
+      create: yes
+    become: true
+
+  - name: configure application user
+    include: configure_app_user.yml
+
+  - name: make sure deploy dir exists
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: get application from repo
+    git:
+      repo: "{{ app_repo }}"
+      dest: "{{ download_dir }}"
+      version: "{{ app_branch | default('HEAD') }}"
+      key_file: "{{ deploy_key_full_path }}"
+      ssh_opts: "-o StrictHostKeyChecking=no"
+
+  - name: deploy pull reserves
+    shell: "cp {{ download_dir }}/{{ app_name }}/* {{ deploy_dir }}"
+
+  - name: configure bundle install based on mode
+    set_fact:
+      deployment_mode: false
+  - set_fact:
+      deployment_mode: true
+    when: mode == "deploy"
+
+  # NOTE: don't install spring in production environments:
+  # https://github.com/projecthydra/hydra-head/issues/201
+  - name: adjust for the rails environment
+    set_fact:
+      exclude: "development, test"
+    when: rails_env == 'production'
+
+  - name: install the project's gems for deployment
+    bundler:
+      chdir: "{{ deploy_dir }}"
+      gem_path: "vendor/bundle"
+      deployment_mode: "{{ deployment_mode }}"
+      exclude_groups: "{{ exclude | default(omit) }}"
+
+  - name: make sure config dir exists
+    file:
+      path: "{{ deploy_dir }}/config"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+
+  - name: configure catalyst database connection
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/database.yml.j2"
+      dest:  "{{ deploy_dir }}/config/database.yml"
+
+  - name: configure horizon database connection
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/horizon.yml.j2"
+      dest:  "{{ deploy_dir }}/config/horizon.yml"
+
+  - name: make sure log dir exists
+    file:
+      path: "{{ deploy_dir }}/log"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: set ownership of deploy dir and contents
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ app_user }}"
+      group: "{{ app_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  # Creates a cron file under /etc/cron.d
+  # runs every 5 minutes between the hours of 6am and 11pm
+  - cron:
+      name: "pull reserves"
+      minute: "*/5"
+      hour: "6-23"
+      user: "{{ app_user }}"
+      job: "/bin/bash -lc 'cd {{ deploy_dir }} && ruby ./pull_reserves.rb >> log/pull_reserves_cron.log 2>&1'"
+      cron_file: "pull_reserves"
+      state: present
+    become: true
