@@ -2,10 +2,10 @@
 # ------------------
 
 [traject]
-catalyst.test
+catalyst-services.test
 
 [pull-reserves]
-catalyst.test
+catalyst-services.test
 
 [horizon-ws]
 catalyst.test
@@ -16,5 +16,9 @@ catalyst.test
 [dev:children]
 catalyst
 horizon-ws
+pull-reserves
+traject
+
+[services:children]
 pull-reserves
 traject
