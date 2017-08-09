@@ -9,13 +9,9 @@
       state: present
     become: true
     with_items:
-      - git
       - nodejs
       - "@Development tools"
       - mysql-devel
-
-  roles:
-  - { role: deploy-keys }
 
   tasks:
   - name: configure application user
