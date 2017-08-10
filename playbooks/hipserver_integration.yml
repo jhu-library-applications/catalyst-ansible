@@ -1,0 +1,24 @@
+---
+# NOTE: in the normal course of things, this playbook needn't be run,
+# as catalyst_install will do all the work this one does.
+# we used it during development and testing, though, so i'm leaving it for now
+
+- name: configure integration with hip server
+  hosts: catalyst
+
+  tasks:
+  - name: Configure environment vars
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/dotenv.j2"
+      dest:  "{{ deploy_dir }}/.env"
+    notify: restart apache
+
+  # TODO: refactor
+  handlers:
+  - name: restart apache
+    service:
+      name: "{{ apache_service }}"
+      enabled: true
+      state: restarted
+    become: true

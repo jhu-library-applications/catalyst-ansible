@@ -35,6 +35,13 @@ horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
+# hip server vars
+hip_host:               "hip-staging.library.jhu.edu"
+horizon_ws_url:         "http://localhost:8080/ws" # default
+borrower_ws_username:   "{{ vault_borrower_ws_username }}"
+borrower_ws_password:   "{{ vault_borrower_ws_password }}"
+force_default_jhed:     "{{ vault_force_default_jhed }}"
+
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
