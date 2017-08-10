@@ -1,0 +1,27 @@
+# stage:
+# ------------------
+
+[traject]
+catsolr04.mse.jhu.edu
+
+[pull-reserves]
+catsolr04.mse.jhu.edu
+
+[horizon-ws]
+catalyst.test.mse.jhu.edu
+
+[catalyst]
+catalyst.test.mse.jhu.edu
+
+[hip-server]
+hip-staging.mse.jhu.edu
+
+[stage:children]
+catalyst
+horizon-ws
+pull-reserves
+traject
+
+[services:children]
+pull-reserves
+traject

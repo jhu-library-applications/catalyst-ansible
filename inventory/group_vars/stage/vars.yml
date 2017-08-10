@@ -1,0 +1,54 @@
+# setup vars
+environ:                "stage" # dev || stage || prod
+debugging:              true
+
+# private vars
+login_user_passphrase:  "{{ vault_login_user_passphrase }}"
+
+# ruby vars
+chruby_ruby_version:    "ruby-2.2.2"
+
+# rails vars
+rails_env:              "production"
+
+# apache vars:
+hostname:               "{{ app_name }}"
+domainname:             "mse.jhu.edu"
+apache_remove_welcome:  true
+apache_https:           true
+ssl_self_sign_cert:     false
+# TODO: only works for CentOS. + needs refactoring
+apache_service:         "httpd"
+
+# passenger vars
+ # TODO: adopt and move up
+update_packages:        false
+
+# database config vars
+# catalyst_db
+catalyst_db_name:       "catalyst_dev"
+catalyst_db_host:       "mysql.dev.mse.jhu.edu"
+catalyst_db_user:       "{{ vault_catalyst_db_user }}"
+catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
+catalyst_db_port:       3306
+# horizon_db
+horizon_db_name:        "horizonstage"
+horizon_db_host:        "horizontest.mse.jhu.edu"
+horizon_db_user:        "{{ vault_horizon_db_user }}"
+horizon_db_pass:        "{{ vault_horizon_db_pass }}"
+horizon_db_port:        2025
+
+# hip server vars
+hip_host:               "hip-staging.library.jhu.edu"
+horizon_ws_url:         "http://localhost:8080/ws" # default
+borrower_ws_username:   "{{ vault_borrower_ws_username }}"
+borrower_ws_password:   "{{ vault_borrower_ws_password }}"
+force_default_jhed:     "{{ vault_force_default_jhed }}"
+
+# solr vars
+solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
+
+# jetty vars
+jetty_base:             "/opt/jetty"
+jetty_user:             "jetty"
+jetty_group:            "{{ jetty_user }}"
