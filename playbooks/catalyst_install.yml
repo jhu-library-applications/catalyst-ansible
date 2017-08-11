@@ -17,11 +17,19 @@
   - name: configure application user
     include: configure_app_user.yml
 
+  - name: install rails for login user
+    gem:
+      name: rails
+      version: "{{ rails_version }}"
+      state: present
+    become_user: "{{ item }}"
+    with_items:
+      - "{{ login_user }}"
+
   - name: make sure deploy dir exists
     file:
       path: "{{ deploy_dir }}"
-      owner: "{{ app_user }}"
-      group: "{{ app_group }}"
+      owner: "{{ login_user }}"
       state: directory
       recurse: true
     become: true
@@ -55,12 +63,44 @@
       deployment_mode: "{{ deployment_mode }}"
       exclude_groups: "{{ exclude | default(omit) }}"
 
-  - name: Configure database
+  - name: generate rails secret_key_base
+    # TODO: use or lose
+    # command: bash -lc "bundle exec rake secret"
+    command: "openssl rand -hex 64"
+    register: secret_key_base_result
+    no_log: "{{ not debugging }}"
+
+  - name: set secret_key_base
+    set_fact:
+      secret_key_base: "{{ secret_key_base_result.stdout }}"
+
+  - name: Configure environment variables
     no_log: "{{ not debugging }}"
     template:
       src:  "templates/dotenv.j2"
       dest:  "{{ deploy_dir }}/.env"
     notify: restart apache
+
+  # TODO: update to rails command upon updating rails version
+  - name: precompile assets
+    command: bash -lc "bundle exec rake assets:precompile"
+    args:
+      chdir: "{{ deploy_dir }}"
+    when: rails_env == "production"
+    # environment:
+    #   RAILS_ENV: '{{ rails_env }}'
+    #   SECRET_KEY_BASE: "{{ secret_key_base.stdout }}"
+
+  - name: set ownership of deploy dir and contents
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ app_user }}"
+      group: "{{ app_group }}"
+      state: directory
+      recurse: true
+    become: true
+    notify: restart apache
+    when: mode == "deploy"
 
   # TODO: refactor
   handlers:

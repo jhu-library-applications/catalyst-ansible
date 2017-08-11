@@ -11,12 +11,12 @@ ssh_port: 22
 # uncomment after first run (if not 22):
 # ansible_ssh_port: "{{ ssh_port }}"
 
-mode:                         "dev" # dev || deploy
+mode:                         "deploy" # dev || deploy
 
 app_repo:                     "git@github.com:jhu-sheridan-libraries/blacklight-rails.git" #"https://github.com/jhu-sheridan-libraries/blacklight-rails"
 app_branch:                   "ansibilize"
 app_name:                     "catalyst"
-app_user:                     "{{ login_user }}" #"{{ app_name }}"
+app_user:                     "{{ app_name }}"
 app_group:                    "{{ app_user }}"
 base_deploy_dir:              "/opt"
 deploy_dir:                   "{{ base_deploy_dir }}/{{ app_name }}"
@@ -30,3 +30,7 @@ deploy_key_full_path:         "/home/{{ deploy_user }}/.ssh/{{ deploy_key_name }
 
 # rails vars
 rails_env:                    "development"
+# NOTE: need to keep in sync with application Gemfile
+# TODO: test updating to recent version
+rails_version:                "4.2.4"
+secret_key_base:              "" # will be generated
