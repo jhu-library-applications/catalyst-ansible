@@ -29,3 +29,6 @@
 - src: https://github.com/dheles/jetty-ansible-role
   name: jetty
 
+- src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
+  name: shib
+
