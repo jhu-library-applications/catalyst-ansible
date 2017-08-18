@@ -55,6 +55,9 @@ borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
 force_default_jhed:     "{{ vault_force_default_jhed }}"
 
+# borrow_direct vars
+borrow_direct_host:     "borrow-direct.relaisd2d.com"
+
 #shib
 shib_sp_cert:           "{{ vault_shib_sp_cert }}"
 shib_sp_key:            "{{ vault_shib_sp_key }}"
