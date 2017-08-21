@@ -1,0 +1,12 @@
+  # Protect the shibboleth endpoint in the app
+  <Location /shibboleth_login>
+    AuthType shibboleth
+    ShibRequestSetting requireSession 1
+    Require valid-user
+  </Location>
+
+  # Let Shib through! passenger
+  <Location /Shibboleth.sso>
+    PassengerEnabled off
+  </Location>
+

@@ -7,3 +7,4 @@
   - { role: apache }
   - { role: passenger }
   - { role: deploy-keys }
+  - { role: shib, tags: ['shib'] }

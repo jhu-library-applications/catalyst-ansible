@@ -13,7 +13,16 @@ hostname:               "{{ app_name }}"
 domainname:             "test"
 apache_remove_welcome:  false
 apache_https:           true
-ssl_self_sign_cert:     true
+
+ssl_self_sign_cert:               false
+ssl_provided_cert:                true
+ssl_certificate_file:             "star_library_jhu_edu.crt"
+ssl_certificate_content:          "{{ vault_ssl_certificate_content }}"
+ssl_certificate_key_file:         "star_library_jhu_edu.key"
+ssl_certificate_key_content:      "{{ vault_ssl_certificate_key_content }}"
+ssl_certificate_chain_file:       "star_library_jhu_edu_interm.crt"
+ssl_certificate_chain_content:    "{{ vault_ssl_certificate_chain_content }}"
+
 # TODO: only works for CentOS. + needs refactoring
 apache_service:         "httpd"
 
@@ -41,6 +50,16 @@ horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
 force_default_jhed:     "{{ vault_force_default_jhed }}"
+
+# borrow_direct vars
+borrow_direct_host:     "bdtest.relaisd2d.com"
+
+#shib
+shib_sp_cert:           "{{ vault_shib_sp_cert }}"
+shib_sp_key:            "{{ vault_shib_sp_key }}"
+shib_idp_metadata_xml:  "{{ vault_shib_idp_metadata_xml}}"
+shib_entity_id:         "blacklight.mse.jhu.edu"
+shib_idps:              "{{ vault_shib_idps }}"
 
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
