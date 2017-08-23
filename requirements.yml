@@ -14,7 +14,7 @@
 - src: https://github.com/dheles/ansible-role-java.git
   name: java
 
-- src: https://github.com/farooqsadiq/ansible-role-apache.git
+- src: https://github.com/dheles/ansible-role-apache.git
   name: apache
 
 - src: https://github.com/dheles/ansible-role-passenger.git
@@ -31,4 +31,3 @@
 
 - src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
   name: shib
-
