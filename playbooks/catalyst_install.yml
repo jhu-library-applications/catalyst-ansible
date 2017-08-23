@@ -20,15 +20,6 @@
   - name: configure application user
     include: configure_app_user.yml
 
-  - name: install rails for login user
-    gem:
-      name: rails
-      version: "{{ rails_version }}"
-      state: present
-    become_user: "{{ item }}"
-    with_items:
-      - "{{ login_user }}"
-
   - name: make sure deploy dir exists
     file:
       path: "{{ deploy_dir }}"
