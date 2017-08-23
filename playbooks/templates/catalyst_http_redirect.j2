@@ -1,0 +1,19 @@
+  # We run Catalyst/Blacklight in the main virtual host, and we require
+  # https access. So this :80 virtual host insists on redirects to https.
+  #
+  # This could also be put in <Location> directives if it wasn't the whole
+  # server that was so restricted.
+  #
+  # Except Refworks sometimes refuses to make callbacks to https, so we
+  # have to allow refworks-formatted exports in http.
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{REQUEST_URI} !refworks_marc_txt$
+  RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+  # And have to make sure non-https refworks callbacks actually
+  # make it to our passenger deployed app
+  # Removed by DJB by request from Jonathan Rochkind - 12/14/2012
+  #ProxyRequests off
+  #SSLProxyEngine On
+  #RewriteRule /catalog/(.*)\.refworks_marc_txt https://catalyst.library.jhu.edu/catalog/$1.refworks_marc_txt [P]

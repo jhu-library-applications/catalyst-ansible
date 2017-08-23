@@ -84,15 +84,30 @@
       dest:  "{{ deploy_dir }}/.env"
     notify: restart apache
 
+  - name: insert http redirect into virtualhost config
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/catalyst_http_redirect.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} {{ apache_http_redirect_marker }}"
+      insertafter: "<VirtualHost *:80>"
+    notify: restart apache
+    become: true
+
+  - name: insert catalyst configs into virtualhost config
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/catalyst_virtualhost.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} catalyst configs"
+      insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
+
   # TODO: update to rails command upon updating rails version
   - name: precompile assets
     command: bash -lc "bundle exec rake assets:precompile"
     args:
       chdir: "{{ deploy_dir }}"
     when: rails_env == "production"
-    # environment:
-    #   RAILS_ENV: '{{ rails_env }}'
-    #   SECRET_KEY_BASE: "{{ secret_key_base.stdout }}"
 
   - name: set ownership of deploy dir and contents
     file:

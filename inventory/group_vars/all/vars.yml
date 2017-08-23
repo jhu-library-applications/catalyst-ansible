@@ -34,3 +34,8 @@ rails_env:                    "development"
 # TODO: test updating to recent version
 rails_version:                "4.2.4"
 secret_key_base:              "" # will be generated
+
+# apache vars
+apache_config_file:           "/etc/{{ apache_service }}/conf.d/01_{{ hostname }}.conf"
+# apache_config_template:     "templates/apache.conf.j2"
+apache_http_redirect_marker:  "http redirect"
