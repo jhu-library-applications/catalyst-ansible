@@ -3,6 +3,6 @@
   hosts: services
 
   roles:
-  - { role: java, become: true }
-  - { role: chruby, become: true }
-  - { role: deploy-keys }
+  - { role: java,         tags: ['java'],   become: true }
+  - { role: chruby,       tags: ['chruby'], become: true }
+  - { role: deploy-keys,  tags: ['deploy-keys'] }

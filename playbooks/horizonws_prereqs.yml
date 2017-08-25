@@ -3,5 +3,5 @@
   hosts: horizon-ws
 
   roles:
-  - { role: java }
-  - { role: jetty }
+  - { role: java,   tags: ['java'] }
+  - { role: jetty,  tags: ['jetty'] }
