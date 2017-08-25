@@ -16,6 +16,11 @@
       - "@Development tools"
       - mysql-devel
 
+  - name: include apache role to get its handlers
+    include_role:
+      name: apache
+      tasks_from: dolittle
+
   tasks:
   - name: configure application user
     include: configure_app_user.yml
@@ -110,12 +115,3 @@
     become: true
     notify: restart apache
     when: mode == "deploy"
-
-  # TODO: refactor
-  handlers:
-  - name: restart apache
-    service:
-      name: "{{ apache_service }}"
-      enabled: true
-      state: restarted
-    become: true
