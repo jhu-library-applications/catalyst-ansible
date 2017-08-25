@@ -26,10 +26,6 @@ ssl_certificate_chain_content:    "{{ vault_ssl_certificate_chain_content }}"
 # TODO: only works for CentOS. + needs refactoring
 apache_service:         "httpd"
 
-# passenger vars
- # TODO: adopt and move up
-update_packages:        false
-
 # database config vars
 # catalyst_db
 catalyst_db_name:       "catalyst_dev"
