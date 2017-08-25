@@ -1,66 +1,14 @@
-  ### skip
-  # ServerName catalyst.library.jhu.edu
-  # ServerAlias *.library.jhu.edu
-
-  ### skip
-  # DocumentRoot /opt/catalyst/app/current/public
-  # <Directory /opt/catalyst/app/current/public>
-  # 	Allow from all
-  # 	Options -MultiViews
-  # </Directory>
-
-  ### skip
-  # # Let Shib through!
-  # <Location /Shibboleth.sso>
-  #   PassengerEnabled off
-  # </Location>
-
-  ### discuss
+  ### TODO: look into other options
   # allow capistrano to set app in maintenace mode or not
   # with `cap deploy:web:disable` or deploy:web:enable
   # More Info: http://www.shiftcommathree.com/articles/make-your-rails-maintenance-page-respond-with-a-503
-  ErrorDocument 503 /system/maintenance.html
-  RewriteEngine On
-  RewriteCond %{REQUEST_URI} !.(css|gif|jpg|png)$
-  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-  RewriteRule ^.*$  -  [redirect=503,last]
+  #ErrorDocument 503 /system/maintenance.html
+  #RewriteEngine On
+  #RewriteCond %{REQUEST_URI} !.(css|gif|jpg|png)$
+  #RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  #RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  #RewriteRule ^.*$  -  [redirect=503,last]
 
-  ### skip
-  # # maybe more stuff
-  # ErrorLog /var/log/httpd/catalyst.library.jhu.edu_error.log
-  # LogLevel warn
-  # CustomLog /var/log/httpd/catalyst.library.jhu.edu_access.log combined
-  # ServerSignature Off
-
-  ### discuss
-  # KeepAlive: Whether or not to allow persistent connections (more than
-  # one request per connection). Set to "Off" to deactivate. We choose
-  # to have it on for efficiency.
-  #
-  KeepAlive On
-  #
-  # MaxKeepAliveRequests: The maximum number of requests to allow
-  # during a persistent connection. Set to 0 to allow an unlimited amount.
-  # We recommend you leave this number high, for maximum performance.
-  #
-  MaxKeepAliveRequests 100
-  #
-  # KeepAliveTimeout: Number of seconds to wait for the next request from the
-  # same client on the same connection. Umlaut lowers to 5, less than default
-  # 15, just to be safe.
-  #
-  KeepAliveTimeout 5
-
-  ### skip
-  # # Protect the shibboleth endpoint in the app
-  # <Location /shibboleth_login>
-  #   AuthType shibboleth
-  #   ShibRequestSetting requireSession 1
-  #   Require valid-user
-  # </Location>
-
-  ### keep
   ##
   # Redirects of legacy and standardized URLs to Catalyst Rails
   # URLs.
@@ -68,22 +16,23 @@
   # get redirected to proper hostname.
   ###
 
-  ### discuss, works
   # permalink format we've used before
   # /bib/123455 => /catalog/bib_12345
   RewriteRule /bib/([^/]*)$ https://catalyst.library.jhu.edu/catalog/bib_$1? [R,L]
   # And with a format on the end, just pass it on
   RewriteRule /bib/([^/]*)/([^/]*)$ https://catalyst.library.jhu.edu/catalog/bib_$1.$2 [R,L]
 
-  ### discuss, broken
   # HIP direct to bib lookup
   RewriteCond %{QUERY_STRING} index=BIB&term=(\d+)
   RewriteRule ^/ipac20/ipac\.jsp https://catalyst.library.jhu.edu/catalog/bib_%1? [R,L]
 
-  ### discuss
-  # Rails finger-printed assets, make them cached forever.
+  ### TODO: test
+  # Cache Rails finger-printed assets, as per
+  # http://guides.rubyonrails.org/asset_pipeline.html#precompiling-assets
   # Try only match if the asset actually has a fingerprint in it.
-  <LocationMatch "^/assets/.*-[0-9a-f]{32}.*$">
+  # <LocationMatch "^/assets/.*-[0-9a-f]{32}.*$">
+  <Location /assets/>
+    # Use of ETag is discouraged when Last-Modified is present
     Header unset ETag
     FileETag None
     # RFC says only cache for 1 year
@@ -91,7 +40,7 @@
     ExpiresDefault "access plus 1 year"
   </LocationMatch>
 
-  ### discuss
+  ### TODO: research
   # Let apache serve the pre-compiled .gz version of static assets,
   # if available, and the user-agent can handle it. Set all headers
   # correctly when doing so.
@@ -108,7 +57,6 @@
     RewriteRule ^(.+)$ $1.gz
   </LocationMatch>
 
-  ### discuss
   # Make sure Content-Type is set for 'real' type, not gzip,
   # and Content-Encoding is there to tell browser it needs to
   # unzip to get real type.
