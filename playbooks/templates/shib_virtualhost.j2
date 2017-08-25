@@ -1,3 +1,4 @@
+{% if force_default_jhed == "" %}
   # Protect the shibboleth endpoint in the app
   <Location /shibboleth_login>
     AuthType shibboleth
@@ -5,8 +6,8 @@
     Require valid-user
   </Location>
 
+{% endif %}
   # Let Shib through! passenger
   <Location /Shibboleth.sso>
     PassengerEnabled off
   </Location>
-
