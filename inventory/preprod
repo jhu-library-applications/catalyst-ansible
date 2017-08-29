@@ -1,0 +1,30 @@
+# preprod:
+# ------------------
+
+[traject]
+catsolr04.mse.jhu.edu
+# catsolrmaster.library.jhu.edu
+
+[pull-reserves]
+catsolr04.mse.jhu.edu
+# catsolrmaster.library.jhu.edu
+
+[horizon-ws]
+catalyst-preprod.library.jhu.edu
+
+[catalyst]
+catalyst-preprod.library.jhu.edu
+
+[hip-server]
+hip-staging.mse.jhu.edu
+# hip.library.jhu.edu
+
+[preprod:children]
+catalyst
+horizon-ws
+pull-reserves
+traject
+
+[services:children]
+pull-reserves
+traject
