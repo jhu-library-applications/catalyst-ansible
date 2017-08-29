@@ -2,6 +2,12 @@
 - name: install the horizon webservice
   hosts: horizon-ws
 
+  pre_tasks:
+  - name: include jetty role to get its handlers
+    include_role:
+      name: jetty
+      tasks_from: dolittle
+
   tasks:
   # TODO: refactor
   - name: make sure jetty webapps directory exists
@@ -55,14 +61,4 @@
       group: "{{ jetty_group }}"
       state: directory
       recurse: true
-    become: true
-
-  # TODO: refactor
-  handlers:
-  - name: restart jetty
-    systemd:
-      name: "jetty"
-      daemon_reload: yes
-      enabled: yes
-      state: restarted
     become: true
