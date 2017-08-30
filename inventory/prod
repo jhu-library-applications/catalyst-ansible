@@ -1,0 +1,27 @@
+# prod:
+# ------------------
+
+[traject]
+catsolrmaster.library.jhu.edu
+
+[pull-reserves]
+catsolrmaster.library.jhu.edu
+
+[horizon-ws]
+catalyst.library.jhu.edu
+
+[catalyst]
+catalyst.library.jhu.edu
+
+[hip-server]
+hip.library.jhu.edu
+
+[prod:children]
+catalyst
+horizon-ws
+pull-reserves
+traject
+
+[services:children]
+pull-reserves
+traject
