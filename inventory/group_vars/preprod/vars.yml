@@ -35,20 +35,20 @@ update_packages:        false
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_dev" # catalyst_preprod
+catalyst_db_name:       "catalyst_preprod"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
-horizon_db_name:        "horizonstage" # horizon
-horizon_db_host:        "horizontest.mse.jhu.edu" # horizon.mse.jhu.edu
+horizon_db_name:        "horizonstage"
+horizon_db_host:        "horizontest.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
 # hip server vars
-hip_host:               "hip-staging.library.jhu.edu" # hip.library.jhu.edu
+hip_host:               "hip-staging.library.jhu.edu"
 horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
