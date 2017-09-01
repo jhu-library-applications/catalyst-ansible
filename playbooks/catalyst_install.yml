@@ -80,21 +80,21 @@
       dest:  "{{ deploy_dir }}/.env"
     notify: restart apache
 
-  - name: insert http redirect into virtualhost config
-    blockinfile:
-      block:  "{{ lookup('template', 'templates/catalyst_http_redirect.j2') }}"
-      dest: "{{ apache_config_file }}"
-      marker: "# {mark} {{ apache_http_redirect_marker }}"
-      insertafter: "<VirtualHost *:80>"
-    notify: restart apache
-    become: true
-
   - name: insert catalyst configs into virtualhost config
     blockinfile:
       block:  "{{ lookup('template', 'templates/catalyst_virtualhost.j2') }}"
       dest: "{{ apache_config_file }}"
       marker: "# {mark} catalyst configs"
       insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
+
+  - name: override default http redirect in virtualhost config
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/http_redirect.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} {{ apache_http_redirect_marker }}"
+      insertafter: "<VirtualHost *:80>"
     notify: restart apache
     become: true
 
