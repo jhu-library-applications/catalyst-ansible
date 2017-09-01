@@ -59,6 +59,12 @@ shib_idp_metadata_xml:  "{{ vault_shib_idp_metadata_xml}}"
 shib_entity_id:         "blacklight.mse.jhu.edu"
 shib_idps:              "{{ vault_shib_idps }}"
 
+# NOTE: we could test against prod by using catsolrslave instead of catsolr04
+# this would necessitate adding the IP of catalyst-preprod to catsolrslave's firewall
+# this may not be a worthwhile endeavor, however, as our understanding is that both
+# catsolrslave and catsolr04 both follow catsolr master. at some point,
+# it may be edifying to retest this assumption by checking the propagation of
+# a changed record in master. perhaps not today, however...
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
