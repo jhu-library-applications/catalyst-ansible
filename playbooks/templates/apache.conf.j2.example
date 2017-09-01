@@ -1,0 +1,76 @@
+{#
+  NOTE: example template to override default apache conf in its entirety
+
+  to use, rename to apache.conf.j2
+  and include the variable:
+    apache_config_template:     "templates/apache.conf.j2"
+
+  any vars you use here must be defined in the project.
+  ...project templates can't used vars only defined in included roles
+#}
+<VirtualHost *:80>
+  ServerName {{ hostname }}
+  ServerAlias {{ apache_fqdn }}
+
+{% if apache_https %}
+# BEGIN {{ apache_http_redirect_marker }}
+  Redirect "/" "https://{{ apache_fqdn }}/"
+# END {{ apache_http_redirect_marker }}
+{% endif %}
+
+# BEGIN {{ apache_http_logging_marker }}
+  LogLevel {{ apache_log_level }}
+  ErrorLog "{{ apache_log_path }}/{{ apache_hostname }}-error.log"
+  CustomLog "{{ apache_log_path }}/{{ apache_hostname }}-access.log" combined
+# END {{ apache_http_logging_marker }}
+</VirtualHost>
+
+{% if apache_https %}
+<VirtualHost *:443>
+  ServerName {{ apache_hostname }}
+  ServerAlias {{ apache_fqdn }}
+
+# BEGIN {{ apache_https_logging_marker }}
+  LogLevel {{ apache_log_level }}
+  ErrorLog "{{ apache_log_path }}/{{ apache_hostname }}-ssl-error.log"
+  CustomLog "{{ apache_log_path }}/{{ apache_hostname }}-ssl-access.log" combined
+# END {{ apache_https_logging_marker }}
+
+  SSLEngine on
+
+  #vSSLProtocol all -SSLv2
+  # SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
+
+  SSLCertificateFile {{ ssl_certificate_path }}/{{ ssl_certificate_file }}
+  SSLCertificateKeyFile {{ ssl_certificate_key_path }}/{{ ssl_certificate_key_file }}
+{% if ssl_certificate_chain_file | default(false) %}
+  SSLCertificateChainFile {{ ssl_certificate_path }}/{{ ssl_certificate_chain_file }}
+{% endif %}
+
+</VirtualHost>
+
+# BEGIN {{ apache_ssl_config_marker }}
+# Begin recommendations from:
+# https://www.digitalocean.com/community/tutorials/how-to-create-an-ssl-certificate-on-apache-for-centos-7
+# (in turn) from https://cipherli.st/
+# and https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html
+
+SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+SSLProtocol All -SSLv2 -SSLv3
+SSLHonorCipherOrder On
+# Disable preloading HSTS for now.  You can use the commented out header line that includes
+# the "preload" directive if you understand the implications.
+#Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains; preload"
+Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains"
+Header always set X-Frame-Options DENY
+Header always set X-Content-Type-Options nosniff
+# Requires Apache >= 2.4
+SSLCompression off
+SSLUseStapling on
+SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
+# Requires Apache >= 2.4.11
+# SSLSessionTickets Off
+
+# END {{ apache_ssl_config_marker }}
+
+{% endif %}

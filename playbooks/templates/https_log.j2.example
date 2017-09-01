@@ -1,0 +1,11 @@
+{#
+  NOTE: example template to override default apache https logging
+
+  to use, rename to https_log.j2
+  and comment in the appropriate blockinfile section
+  
+  a single level of indentation will fit nicely in the apache conf file
+#}
+  LogLevel {{ apache_log_level }}
+  ErrorLog "{{ apache_log_path }}/{{ hostname }}-ssl-error-example.log"
+  CustomLog "{{ apache_log_path }}/{{ hostname }}-ssl-access-example.log" combined

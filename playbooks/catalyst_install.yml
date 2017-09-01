@@ -98,6 +98,36 @@
     notify: restart apache
     become: true
 
+  # NOTE: example
+  # - name: override default http logging in virtualhost config
+  #   blockinfile:
+  #     block:  "{{ lookup('template', 'templates/http_log.j2') }}"
+  #     dest: "{{ apache_config_file }}"
+  #     marker: "# {mark} {{ apache_http_logging_marker }}"
+  #     insertafter: "<VirtualHost *:80>"
+  #   notify: restart apache
+  #   become: true
+
+  # NOTE: example
+  # - name: override default https logging in virtualhost config
+  #   blockinfile:
+  #     block:  "{{ lookup('template', 'templates/https_log.j2') }}"
+  #     dest: "{{ apache_config_file }}"
+  #     marker: "# {mark} {{ apache_https_logging_marker }}"
+  #     insertbefore: "</VirtualHost>"
+  #   notify: restart apache
+  #   become: true
+
+  # NOTE: example
+  # - name: override default ssl config in virtualhost config
+  #   blockinfile:
+  #     block:  "{{ lookup('template', 'templates/ssl_config.j2') }}"
+  #     dest: "{{ apache_config_file }}"
+  #     marker: "# {mark} {{ apache_ssl_config_marker }}"
+  #     insertbefore: "</VirtualHost>"
+  #   notify: restart apache
+  #   become: true
+
   # TODO: update to rails command upon updating rails version
   - name: precompile assets
     command: bash -lc "bundle exec rake assets:precompile"

@@ -1,0 +1,40 @@
+{#
+  NOTE: example template to override default passenger apache configuration
+
+  to use, rename to passenger_virtualhost.j2
+  and include the variable:
+    passenger_virtualhost_template:     "templates/passenger_virtualhost.j2"
+
+  a single level of indentation will fit nicely in the apache conf file
+
+  any vars you use here must be defined in the project.
+  ...project templates can't used vars only defined in included roles
+
+  and maybe remove the following comment...
+#}
+# EXAMPLE TEMPLATE
+  # Tell Apache and Passenger where your app's 'public' directory is
+  DocumentRoot {{ passenger_deploy_dir }}/public
+
+  PassengerRuby {{ ruby_interpreter }}
+  PassengerAppEnv {{ passenger_app_environment }}
+  PassengerDefaultUser {{ passenger_app_user }}
+  PassengerDefaultGroup {{ passenger_app_user }}
+  # TODO: for the sake of stage, pin this on something else:
+  # if passenger_app_environment != 'production'
+  PassengerFriendlyErrorPages on
+  # endif
+
+  # Relax Apache security settings
+  <Directory {{ passenger_deploy_dir }}/public>
+    Allow from all
+    Options -MultiViews
+  {% if apache_version | version_compare('2.4', '>=') %}
+    # Uncomment this if you're on Apache >= 2.4:
+    Require all granted
+  {% endif %}
+  </Directory>
+
+  # no idea why this is needed, but apparently it is:
+  AddType text/javascript .js
+  AddType text/css .css

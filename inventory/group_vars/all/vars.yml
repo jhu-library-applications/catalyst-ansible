@@ -44,6 +44,15 @@ apache_config_file:           "/etc/{{ apache_service }}/conf.d/01_{{ hostname }
 # NOTE: use this to override the whole apache config template
 # apache_config_template:     "templates/apache.conf.j2"
 apache_http_redirect_marker:  "http redirect"
+# NOTE: uncomment to override apache defaults
+# apache_http_logging_marker:   "http logging"
+# apache_https_logging_marker:  "https logging"
+# apache_ssl_config_marker:     "ssl config"
+# # NOTE: if you use these vars in your logging (or other) local templates,
+# # as we do in our examples, you must define the values here,
+# # they won't take values defined only in the role
+# apache_log_level:             "debug"
+# apache_log_path:              "/var/log/{{ apache_service }}"
 
 # passenger vars
 # TODO: adopt and move up

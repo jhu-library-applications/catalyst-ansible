@@ -1,0 +1,11 @@
+{#
+  NOTE: example template to override default apache http logging
+
+  to use, rename to http_log.j2
+  and comment in the appropriate blockinfile section
+
+  a single level of indentation will fit nicely in the apache conf file
+#}
+  LogLevel {{ apache_log_level }}
+  ErrorLog "{{ apache_log_path }}/{{ hostname }}-error-example.log"
+  CustomLog "{{ apache_log_path }}/{{ hostname }}-access-example.log" combined
