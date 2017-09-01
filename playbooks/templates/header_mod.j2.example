@@ -1,0 +1,9 @@
+{#
+  NOTE: example template to override default apache header modification
+
+  to use, rename to header_mod.j2
+  and comment in the appropriate blockinfile section
+
+  a single level of indentation will fit nicely in the apache conf file
+#}
+  RequestHeader unset X-Forwarded-Host

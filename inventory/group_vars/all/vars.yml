@@ -45,6 +45,7 @@ apache_config_file:           "/etc/{{ apache_service }}/conf.d/01_{{ hostname }
 # apache_config_template:     "templates/apache.conf.j2"
 apache_http_redirect_marker:  "http redirect"
 # NOTE: uncomment to override apache defaults
+# apache_header_mod_marker:     "header modification"
 # apache_http_logging_marker:   "http logging"
 # apache_https_logging_marker:  "https logging"
 # apache_ssl_config_marker:     "ssl config"

@@ -128,6 +128,16 @@
   #   notify: restart apache
   #   become: true
 
+  # NOTE: example
+  # - name: override default header modification in virtualhost config
+  #   blockinfile:
+  #     block:  "{{ lookup('template', 'templates/header_mod.j2') }}"
+  #     dest: "{{ apache_config_file }}"
+  #     marker: "# {mark} {{ apache_header_mod_marker }}"
+  #     insertbefore: "</VirtualHost>"
+  #   notify: restart apache
+  #   become: true
+
   # TODO: update to rails command upon updating rails version
   - name: precompile assets
     command: bash -lc "bundle exec rake assets:precompile"
