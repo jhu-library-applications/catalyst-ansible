@@ -36,6 +36,10 @@ rails_version:                "4.2.4"
 secret_key_base:              "" # will be generated
 
 # apache vars
+apache_remove_welcome:        true
+apache_https:                 true
+# TODO: only works for CentOS. + needs refactoring
+apache_service:               "httpd"
 apache_config_file:           "/etc/{{ apache_service }}/conf.d/01_{{ hostname }}.conf"
 # NOTE: use this to override the whole apache config template
 # apache_config_template:     "templates/apache.conf.j2"
