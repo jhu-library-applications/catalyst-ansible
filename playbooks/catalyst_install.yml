@@ -140,7 +140,7 @@
 
   # TODO: update to rails command upon updating rails version
   - name: precompile assets
-    command: bash -lc "bundle exec rake assets:precompile"
+    command: bash -lc "RAILS_ENV={{ rails_env }} bundle exec rake assets:precompile"
     args:
       chdir: "{{ deploy_dir }}"
     when: rails_env == "production"
