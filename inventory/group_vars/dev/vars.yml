@@ -59,3 +59,16 @@ solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 jetty_base:             "/opt/jetty"
 jetty_user:             "jetty"
 jetty_group:            "{{ jetty_user }}"
+jetty_port:             8080
+
+# firewalld vars:
+findit_ip:              "127.0.0.1" # obvious test value
+firewalld_services:
+  - service: http
+  - service: https
+  - service: ssh
+firewalld_ports:
+  - port: "{{ jetty_port }}"
+    protocol: tcp
+firewalld_richrules:
+  - rule: 'rule family="ipv4" source address="{{ findit_ip }}" source-port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty" level="info" accept'
