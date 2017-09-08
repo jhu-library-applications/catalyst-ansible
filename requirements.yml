@@ -31,3 +31,6 @@
 
 - src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
   name: shib
+
+- src: https://github.com/dheles/firewalld-ansible-role
+  name: firewalld
