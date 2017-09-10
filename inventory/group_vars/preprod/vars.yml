@@ -72,3 +72,22 @@ solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 jetty_base:             "/opt/jetty"
 jetty_user:             "jetty"
 jetty_group:            "{{ jetty_user }}"
+jetty_port:             8080
+
+# firewalld vars:
+findit_ip:              "128.220.8.58" #findit.library.jhu.edu
+findit_test_ip:         "128.220.8.61" #findit-test.library.jhu.edu
+firewalld_ipsets:
+  - name: jetty_whitelist
+    ips:
+      - "{{ findit_ip }}"
+      - "{{ findit_test_ip }}"
+firewalld_richrules:
+  - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
+    state: enabled
+  - rule: 'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+    state: enabled
+firewalld_services:
+- service: http
+- service: https
+- service: ssh

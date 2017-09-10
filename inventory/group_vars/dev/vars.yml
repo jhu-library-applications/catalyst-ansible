@@ -62,13 +62,22 @@ jetty_group:            "{{ jetty_user }}"
 jetty_port:             8080
 
 # firewalld vars:
-findit_ip:              "127.0.0.1" # obvious test value
+findit_ip:               "10.11.12.102" # not really
+firewalld_ipsets:
+  - name: jetty_whitelist
+    ips:
+      - "{{ findit_ip }}"
+      - "10.11.12.1" # ansible host machine
+firewalld_richrules:
+  - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
+    state: enabled
+  - rule: 'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+    state: enabled
+    # NOTE: this won't work (in leiu of the NOT whitelist reject rule). regardles of the order of the rules, both would be applied to the whitelisted IP (according to the logs), and access would be denied
+    # TODO: write-up and remove
+  # - rule: 'rule family="ipv4" source address="0.0.0.0/0" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+  #   state: disabled
 firewalld_services:
   - service: http
   - service: https
   - service: ssh
-firewalld_ports:
-  - port: "{{ jetty_port }}"
-    protocol: tcp
-firewalld_richrules:
-  - rule: 'rule family="ipv4" source address="{{ findit_ip }}" source-port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty" level="info" accept'
