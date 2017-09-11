@@ -2,10 +2,10 @@
 # ------------------
 
 [traject]
-catsolr04.mse.jhu.edu
+catsolrmaster-test.library.jhu.edu
 
 [pull-reserves]
-catsolr04.mse.jhu.edu
+catsolrmaster-test.library.jhu.edu
 
 [horizon-ws]
 catalyst-test.library.jhu.edu
@@ -20,8 +20,8 @@ hip-staging.mse.jhu.edu
 catalyst
 horizon-ws
 pull-reserves
-traject
+#traject
 
 [services:children]
 pull-reserves
-traject
+#traject
