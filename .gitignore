@@ -9,3 +9,7 @@
 roles/*
 !roles/README.md
 !roles/local.*
+
+# ruby/rails/bundler
+.bundle/*
+vendor/
