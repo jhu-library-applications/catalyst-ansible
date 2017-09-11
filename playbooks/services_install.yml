@@ -21,6 +21,39 @@
       create: yes
     become: true
 
+  - name: put ruby on everyone's path
+    lineinfile:
+      dest:   "/etc/profile.d/ruby.sh"
+      regexp: "^export PATH="
+      line:   "export PATH=$PATH:{{ service_ruby_path }}/bin"
+      state:  present
+      create: yes
+    become: true
+
+  - name: symlink ruby for root
+    file:
+      src: "{{ service_ruby_path }}/bin/{{ item }}"
+      dest: "/usr/bin/{{ item }}"
+      state: link
+      force: yes
+    become: true
+    with_items:
+      - ruby
+      - gem
+      - irb
+      - rake
+      - rdoc
+      - bundle
+      - jruby
+
+    # TODO: remove this is we ever fix our jruby install process
+  - name: configure chruby to use the appropriate ruby version
+    template:
+      src: "chruby.sh.j2"
+      dest: "/etc/profile.d/chruby.sh"
+      mode: "u+x"
+    become: true
+
   - name: configure application user
     include: configure_app_user.yml
 
@@ -42,6 +75,13 @@
 
   - name: deploy pull reserves
     shell: "cp {{ download_dir }}/{{ app_name }}/* {{ deploy_dir }}"
+
+  - name: Install Bundler.
+    gem:
+      name: bundler
+      state: present
+      user_install: no
+    become: true
 
   - name: configure bundle install based on mode
     set_fact:
