@@ -1,0 +1,15 @@
+---
+- name: check servers with cucumber
+  hosts: all
+
+  tasks:
+  # - name: where are we
+  #   command: "pwd"
+  #   delegate_to: 127.0.0.1
+
+  - name: run cucumber
+    command: "bundle exec cucumber"
+    args:
+      # NOTE: the features are found one level above this playbook
+      chdir: "../"
+    delegate_to: 127.0.0.1
