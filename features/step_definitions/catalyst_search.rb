@@ -8,6 +8,23 @@ When(/^I click "([^"]*)"$/) do |button_text|
   @browser.button(:text => button_text ).click
 end
 
+When(/^I click on an item link which reads "([^"]*)"$/) do |partial_text|
+  @browser.link(:text => /#{partial_text}/).click
+end
+
+Then(/^I should be taken to a search results page$/) do
+  # TODO: figure out a way to check this that works for all the search possibilities
+  # OR break up the scenarios for each search type
+end
+
+Then(/^I should be taken to a detail page for the item with bib number "([^"]*)"$/) do |bib_number|
+  expect(@browser.url).to include(bib_number)
+end
+
+Then(/^I should see "([^"]*)" on the page$/) do |page_text|
+  expect(@browser.body.inner_html).to include(page_text)
+end
+
 Then(/^I should see "([^"]*)" in a link$/) do |link_text|
   expect(@browser.link(text: /#{link_text}/)).to exist
   # links = @browser.links
@@ -34,6 +51,6 @@ Then(/^I click on a link having partial text "([^\"]*)"$/) do |partial_text|
   # @title_link.click
 end
 
-Then(/^I should see "([^"]*)" header$/) do |partial_text|
+Then(/^I should see "([^"]*)" in the header$/) do |partial_text|
   expect(@browser.h1(:class => "show-marc-heading-title", :text => /#{partial_text}/)).to exist
 end
