@@ -13,3 +13,6 @@ roles/*
 # ruby/rails/bundler
 .bundle/*
 vendor/
+
+# ignore dynamic testing vars
+features/support/test_vars.rb
