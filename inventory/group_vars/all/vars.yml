@@ -60,3 +60,10 @@ apache_http_redirect_marker:  "http redirect"
 update_packages:        false
 # NOTE: use this to override the passenger virtualhost sub-template
 # passenger_virtualhost_template:     "templates/passenger_virtualhost.j2"
+
+#shib
+shib_sp_cert:           "{{ vault_shib_sp_cert }}"
+shib_sp_key:            "{{ vault_shib_sp_key }}"
+shib_idp_metadata_xml:  "{{ vault_shib_idp_metadata_xml}}"
+shib_entity_id:         "blacklight.mse.jhu.edu"
+shib_idps:              "{{ vault_shib_idps }}"

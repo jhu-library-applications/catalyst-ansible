@@ -52,13 +52,6 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 # borrow_direct vars
 borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
-#shib
-shib_sp_cert:           "{{ vault_shib_sp_cert }}"
-shib_sp_key:            "{{ vault_shib_sp_key }}"
-shib_idp_metadata_xml:  "{{ vault_shib_idp_metadata_xml}}"
-shib_entity_id:         "blacklight.mse.jhu.edu"
-shib_idps:              "{{ vault_shib_idps }}"
-
 # NOTE: we could test against prod by using catsolrslave instead of catsolr04
 # this would necessitate adding the IP of catalyst-preprod to catsolrslave's firewall
 # this may not be a worthwhile endeavor, however, as our understanding is that both
