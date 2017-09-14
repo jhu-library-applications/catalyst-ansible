@@ -12,7 +12,12 @@ Feature: Catalyst Home page
     # NOTE: works on prod, not on dev...
     #When I am not logged in
     #And I click on the "Articles" link
+    # NOTE: this alert only appears off-campus...
     #Then I should see the alert, "Article search is only available to Johns Hopkins users."
+
+    When I am not logged in
+    And I click on the "Articles" link
+    Then I should see "Other Article Search Options"
 
     When I click on the "Catalog+Articles" link
     Then I should see the "multi-search" form
@@ -22,5 +27,5 @@ Feature: Catalyst Home page
     #When I maximize my browser
     #Then I should see the text "Reserves"
 
-    #When I click on the "Reserves" link
-    #Then I should see the "reserves-search" form
+    When I click on the "Reserves" link
+    Then I should see the "reserves-search" form

@@ -9,4 +9,7 @@ group :test do
   gem 'rake'
   gem "watir"
   gem "chromedriver-helper"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "rspec"
 end

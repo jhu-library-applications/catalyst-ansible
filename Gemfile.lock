@@ -1,9 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     builder (3.2.3)
+    capybara (2.15.1)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (1.1.0)
@@ -24,6 +33,7 @@ GEM
     ffi (1.9.18)
     gherkin (4.1.3)
     io-like (0.3.0)
+    mini_mime (0.1.4)
     mini_portile2 (2.2.0)
     multi_json (1.12.2)
     multi_test (0.1.2)
@@ -33,6 +43,10 @@ GEM
     net-telnet (0.1.1)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    public_suffix (3.0.0)
+    rack (2.0.3)
+    rack-test (0.7.0)
+      rack (>= 1.0, < 3)
     rake (12.0.0)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
@@ -67,14 +81,19 @@ GEM
       sfl
     watir (6.8.4)
       selenium-webdriver (~> 3.4, >= 3.4.1)
+    xpath (2.1.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara
   chromedriver-helper
   cucumber
   rake
+  rspec
+  selenium-webdriver
   serverspec
   watir
 
