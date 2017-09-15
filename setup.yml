@@ -3,11 +3,11 @@
   hosts: all
 
   roles:
-  - { role: login-user }
+  - { role: login-user, tags: ['login-user'] }
 
 - name: secure SSH
   hosts: all
   become: true
 
   roles:
-  - { role: secure-ssh }
+  - { role: secure-ssh, tags: ['secure-ssh'] }
