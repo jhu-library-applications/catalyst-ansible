@@ -73,3 +73,24 @@ shib_idps:              "{{ vault_shib_idps }}"
 # because the official list ( https://mirrors.opensuse.org/ )
 # is mostly mirrors of the openSUSE project, and not the repos we need
 shib_repo_baseurl:      "http://ftp.gwdg.de/pub/opensuse/repositories/security:/shibboleth/CentOS_7/"
+
+# ssh vars
+login_group:              "{{ login_user }}"
+ssh_groups:               "{{ login_group }}"
+ssh_users:                "{{ login_user }}"
+ssh_settings:
+  - regexp: "^PermitRootLogin"
+    setting: "PermitRootLogin no"
+  # NOTE: because of the backrefs and the particular construction of the regexp,
+  # this rule will only modify the ssh settings if there is already an AllowGroups
+  # setting AND the contents of the var ssh_groups is not already in the list.
+  # if this is the case, it will add the ssh_groups to the existing list.
+  # if there's no such setting (everyone is allowed to ssh), it will have no effect.
+  # by mucking with ssh_groups and re-running, it is possible to wind up with redundant entries.
+  # i.e. the rule favors not clobbering existing settings over assertiveness or robustness
+  - regexp: '^(AllowGroups(?!.*\b{{ ssh_groups }}\b).*)$'
+    setting: '\1 {{ ssh_groups }}'
+    backrefs: true
+  - regexp: '^(AllowUsers(?!.*\b{{ ssh_users }}\b).*)$'
+    setting: '\1 {{ ssh_users }}'
+    backrefs: true
