@@ -8,7 +8,7 @@ Feature: Catalyst Search
     Then I should be taken to a search results page
     And I should see "<call_number>" on the page
     And I should see "<partial_title>" in a link
-    When I click on an item link which reads "<partial_title>"
+    When I click on a link for item "<bib_number>" which reads "<partial_title>"
     Then I should be taken to a detail page for the item with bib number "<bib_number>"
     And I should see "<partial_title>" in the header
 
