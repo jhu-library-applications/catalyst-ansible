@@ -26,6 +26,10 @@
   RewriteCond %{QUERY_STRING} index=BIB&term=(\d+)
   RewriteRule ^/ipac20/ipac\.jsp https://catalyst.library.jhu.edu/catalog/bib_%1? [R,L]
 
+  # Disable TRACE/TRACK
+  # TODO: automate test like: curl --insecure -v -X TRACE https://catalyst.test
+  TraceEnable off
+
   ### TODO: test
   # Cache Rails finger-printed assets, as per
   # http://guides.rubyonrails.org/asset_pipeline.html#precompiling-assets
