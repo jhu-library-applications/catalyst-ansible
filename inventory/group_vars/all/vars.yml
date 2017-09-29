@@ -94,3 +94,15 @@ ssh_settings:
   - regexp: '^(AllowUsers(?!.*\b{{ ssh_users }}\b).*)$'
     setting: '\1 {{ ssh_users }}'
     backrefs: true
+
+logrotate_configs:
+  - name: "catalyst"
+    path: "/opt/catalyst/log"
+    # setype: "var_log_t"
+    options:
+      - "su catalyst catalyst"
+      - "daily"
+      - "rotate 24"
+      - "compress"
+      - "delaycompress"
+      - "missingok"
