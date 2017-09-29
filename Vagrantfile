@@ -18,6 +18,7 @@ Vagrant.configure(2) do |config|
     package="_apt"
   elsif OS=="centos"
     config.vm.box = "centos/7"
+    config.vm.box_version = "1707.01" # 7.3.1611
     package="_yum"
   else
     puts "you must set the OS variable to a valid value before continuing"
