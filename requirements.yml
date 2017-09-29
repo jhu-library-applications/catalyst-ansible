@@ -34,3 +34,6 @@
 
 - src: https://github.com/dheles/firewalld-ansible-role
   name: firewalld
+
+- src: https://github.com/dheles/bantheman-ansible-role
+  name: bantheman

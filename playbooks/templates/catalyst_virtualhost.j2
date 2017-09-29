@@ -44,13 +44,6 @@
     ExpiresDefault "access plus 1 year"
   </Location>
 
-  # Block Acunetix scanner from scanning all bib records.  This has been approved by Etan Weintraub.
-  <LocationMatch "^/catalog/bib_.*$">
-    Order Allow,Deny
-    Deny from 10.173.36.44
-    Allow from all
-  </LocationMatch>
-
   ### TODO: research
   # Let apache serve the pre-compiled .gz version of static assets,
   # if available, and the user-agent can handle it. Set all headers

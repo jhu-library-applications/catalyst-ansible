@@ -94,3 +94,11 @@ ssh_settings:
   - regexp: '^(AllowUsers(?!.*\b{{ ssh_users }}\b).*)$'
     setting: '\1 {{ ssh_users }}'
     backrefs: true
+
+webscanner_ip: "{{ vault_webscanner_ip }}"
+bantheman_configs:
+  - ip: "{{ webscanner_ip }}"
+    paths:
+      - "^/catalog.*$"
+      # - "^/catalog/bib_.*$"
+      # - "^/catalog\\?.*$"
