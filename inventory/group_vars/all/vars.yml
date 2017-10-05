@@ -102,3 +102,15 @@ bantheman_configs:
       - "^/catalog.*$"
       # - "^/catalog/bib_.*$"
       # - "^/catalog\\?.*$"
+      
+logrotate_configs:
+  - name: "catalyst"
+    path: "/opt/catalyst/log"
+    # setype: "var_log_t"
+    options:
+      - "su catalyst catalyst"
+      - "daily"
+      - "rotate 24"
+      - "compress"
+      - "delaycompress"
+      - "missingok"

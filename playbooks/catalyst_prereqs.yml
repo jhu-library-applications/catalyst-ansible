@@ -9,3 +9,4 @@
   - { role: deploy-keys,  tags: ['deploy-keys'] }
   - { role: shib,         tags: ['shib'] }
   - { role: firewalld,    tags: ['firewalld'], become: true}
+  - { role: logrotate,    tags: ['logrotate'] }
