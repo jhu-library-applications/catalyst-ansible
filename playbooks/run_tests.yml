@@ -1,6 +1,11 @@
 ---
 - name: check servers with cucumber
-  hosts: all
+  # NOTE: using 'all' instead of '127.0.0.1' gives you access to group_vars,
+  # at cost of running the play multiple times.
+  # choosing a single host is confusing, as the playbook is actually run on localhost.
+  # it's also less portable, as it's based on this particular project's inventory.
+  # however, this currently seems the best compromise
+  hosts: catalyst
   connection: local
 
   tasks:
