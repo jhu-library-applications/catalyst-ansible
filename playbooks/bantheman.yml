@@ -1,0 +1,9 @@
+---
+- name: configure ip blocking with bantheman
+  hosts: catalyst
+
+  vars:
+    bantheman_blocking_enabled: true
+
+  roles:
+    - { role: bantheman, tags: ['bantheman'] }
