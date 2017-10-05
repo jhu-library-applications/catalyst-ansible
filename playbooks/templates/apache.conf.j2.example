@@ -74,3 +74,9 @@ SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
 # END {{ apache_ssl_config_marker }}
 
 {% endif %}
+
+# BEGIN {{ apache_trace_marker }}
+{% if not apache_trace_enabled %}
+  TraceEnable off
+{% endif %}
+# END {{ apache_trace_marker }}
