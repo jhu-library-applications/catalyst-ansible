@@ -1,0 +1,8 @@
+- name: set up tests
+  # FIXME: using 'all' instead of '127.0.0.1' gives you access to group_vars,
+  # at cost of running the play multiple times...
+  hosts: localhost
+  connection: local
+
+  roles:
+  - { role: testup, tags: ['testup'] }
