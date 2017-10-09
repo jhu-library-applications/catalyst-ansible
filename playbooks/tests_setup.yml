@@ -11,6 +11,7 @@
     add_host:
       name: localhost
       group: "{{ environ }}"
+    changed_when: false
 
 - name: set up tests
   hosts: localhost
