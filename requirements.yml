@@ -40,3 +40,6 @@
 
 - src: https://github.com/dheles/logrotate-ansible-role
   name: logrotate
+
+- src: https://github.com/dheles/testup-ansible-role
+  name: testup
