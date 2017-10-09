@@ -1,5 +1,7 @@
 # preprod:
 # ------------------
+[default]
+catalyst-preprod.library.jhu.edu
 
 [traject]
 catsolrmaster-test.library.jhu.edu

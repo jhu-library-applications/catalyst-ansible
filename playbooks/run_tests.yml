@@ -1,11 +1,19 @@
 ---
+# NOTE: assumes the existence of:
+# - an environment group that owns all of the variables we will need for our tests
+# - a "default" group containing a (preferably single) host that is a member of the environment group
+# - an "environ" variable set to the name of the environment group
+- hosts: default
+  connection: local
+
+  tasks:
+  - name: add localhost to the environment group to get the vars
+    add_host:
+      name: localhost
+      group: "{{ environ }}"
+
 - name: check servers with cucumber
-  # NOTE: using 'all' instead of '127.0.0.1' gives you access to group_vars,
-  # at cost of running the play multiple times.
-  # choosing a single host is confusing, as the playbook is actually run on localhost.
-  # it's also less portable, as it's based on this particular project's inventory.
-  # however, this currently seems the best compromise
-  hosts: catalyst
+  hosts: localhost
   connection: local
 
   tasks:

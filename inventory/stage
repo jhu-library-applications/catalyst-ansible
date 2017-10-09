@@ -1,5 +1,7 @@
 # stage:
 # ------------------
+[default]
+catalyst-test.library.jhu.edu
 
 [traject]
 catsolrmaster-test.library.jhu.edu

@@ -1,5 +1,7 @@
 # dev (vagrant):
 # ------------------
+[default]
+catalyst.test
 
 [traject]
 catalyst-services.test
