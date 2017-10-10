@@ -84,3 +84,6 @@ firewalld_services:
 - service: http
 - service: https
 - service: ssh
+
+# BanTheMan!
+bantheman_configs: []
