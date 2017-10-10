@@ -7,6 +7,6 @@
   # on the servers we actually care about right now
   # in order to avoid the performance issues we are getting from
   # installing it with chruby:
-  # - { role: java,         tags: ['java'],   become: true }
-  # - { role: chruby,       tags: ['chruby'], become: true }
+  - { role: java,         tags: ['java'],   become: true, when: services_needs_jruby | default(false) }
+  - { role: chruby,       tags: ['chruby'], become: true, when: services_needs_jruby | default(false) }
   - { role: deploy-keys,  tags: ['deploy-keys'] }
