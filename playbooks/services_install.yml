@@ -45,6 +45,7 @@
       - rdoc
       - bundle
       - jruby
+      - jgem
 
     # TODO: remove this is we ever fix our jruby install process
   - name: configure chruby to use the appropriate ruby version
