@@ -61,7 +61,7 @@ firewalld_ipsets:
   - name: jetty_whitelist
     ips:
       - "{{ findit_ip }}"
-      - "10.11.12.1" # ansible host machine
+      # - "10.11.12.1" # ansible host machine
 firewalld_richrules:
   - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
     state: enabled
