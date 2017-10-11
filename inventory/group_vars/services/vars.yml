@@ -3,7 +3,7 @@ mode:                         "deploy" # dev || deploy
 
 # ruby vars
 # chruby_ruby_version:          "jruby-9.1.12.0"
-service_ruby_version:         "jruby-1.7.4"
+service_ruby_version:         "jruby-1.7.4" # NOTE: at present, jruby-1.7.4 is unavailable from the official source
 service_ruby_path:            "/opt/rubies/{{ service_ruby_version }}"
 chruby_ruby_version:          "{{ service_ruby_version }}"
 

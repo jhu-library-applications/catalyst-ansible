@@ -2,4 +2,5 @@
 - include: playbooks/catalyst.yml
 - include: playbooks/horizonws.yml
 - include: playbooks/services.yml
+  when: environ != 'dev'
 - include: playbooks/run_tests.yml
