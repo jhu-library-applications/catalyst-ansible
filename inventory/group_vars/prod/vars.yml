@@ -16,7 +16,7 @@ hostname:               "{{ app_name }}"
 domainname:             "library.jhu.edu"
 
 ssl_self_sign_cert:               false
-ssl_provided_cert:                false
+ssl_provided_cert:                true
 ssl_certificate_file:             "star_library.jhu.edu.crt"
 ssl_certificate_content:          "{{ vault_ssl_certificate_content }}"
 ssl_certificate_key_file:         "star_library.jhu.edu.key"
@@ -53,9 +53,29 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
 # solr vars
-solr_url:               "http://catsolrslave.mse.jhu.edu:8080/solr/catalyst_dev1"
+solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"
 
 # jetty vars
 jetty_base:             "/opt/jetty"
 jetty_user:             "jetty"
 jetty_group:            "{{ jetty_user }}"
+jetty_port:             8080
+
+# firewalld vars:
+findit_ip:              "128.220.8.58" #findit.library.jhu.edu
+firewalld_ipsets:
+  - name: jetty_whitelist
+    ips:
+      - "{{ findit_ip }}"
+firewalld_richrules:
+  - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
+    state: enabled
+  - rule: 'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+    state: enabled
+firewalld_services:
+- service: http
+- service: https
+- service: ssh
+
+# BanTheMan!
+bantheman_configs: []
