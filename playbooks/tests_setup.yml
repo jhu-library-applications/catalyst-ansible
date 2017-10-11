@@ -1,0 +1,21 @@
+---
+# NOTE: assumes the existence of:
+# - an environment group that owns all of the variables we will need for our tests
+# - a "default" group containing a (preferably single) host that is a member of the environment group
+# - an "environ" variable set to the name of the environment group
+- hosts: default
+  connection: local
+
+  tasks:
+  - name: add localhost to the environment group to get the vars
+    add_host:
+      name: localhost
+      group: "{{ environ }}"
+    changed_when: false
+
+- name: set up tests
+  hosts: localhost
+  connection: local
+
+  roles:
+  - { role: testup, tags: ['testup'] }

@@ -1,5 +1,7 @@
 # prod:
 # ------------------
+[default]
+catalyst.library.jhu.edu
 
 [traject]
 catsolrmaster.library.jhu.edu
