@@ -62,11 +62,13 @@ jetty_group:            "{{ jetty_user }}"
 jetty_port:             8080
 
 # firewalld vars:
-findit_ip:              "128.220.8.58" #findit.library.jhu.edu
+findit_ip:              "{{ vault_findit_ip }}"
+nagios_ip:              "{{ vault_nagios_ip }}"
 firewalld_ipsets:
   - name: jetty_whitelist
     ips:
       - "{{ findit_ip }}"
+      - "{{ nagios_ip }}"
 firewalld_richrules:
   - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
     state: enabled
