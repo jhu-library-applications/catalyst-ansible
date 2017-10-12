@@ -4,10 +4,10 @@
 catalyst.library.jhu.edu
 
 [traject]
-catsolrmaster.library.jhu.edu
+catsolrmaster.library.jhu.edu  legacy_server=true
 
 [pull-reserves]
-catsolrmaster.library.jhu.edu
+catsolrmaster.library.jhu.edu  legacy_server=true
 
 [horizon-ws]
 catalyst.library.jhu.edu

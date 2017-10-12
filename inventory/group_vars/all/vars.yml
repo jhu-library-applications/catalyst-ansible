@@ -116,3 +116,6 @@ logrotate_configs:
       - "missingok"
 
 testup_cucumber_vars_template: "templates/test_vars.rb"
+
+# NOTE: set within inventory files for particular hosts
+legacy_server:                  false
