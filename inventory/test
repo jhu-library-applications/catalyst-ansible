@@ -1,0 +1,29 @@
+# test:
+# ------------------
+[default]
+catalyst-test.library.jhu.edu
+
+[traject]
+catsolrmaster-test.library.jhu.edu  legacy_server=true
+
+[pull-reserves]
+catsolrmaster-test.library.jhu.edu  legacy_server=true
+
+[horizon-ws]
+catalyst-test.library.jhu.edu
+
+[catalyst]
+catalyst-test.library.jhu.edu
+
+[hip-server]
+hip-staging.mse.jhu.edu
+
+[stage:children]
+catalyst
+horizon-ws
+pull-reserves
+#traject
+
+[services:children]
+pull-reserves
+#traject
