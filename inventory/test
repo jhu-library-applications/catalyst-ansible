@@ -16,7 +16,7 @@ catalyst-test.library.jhu.edu
 catalyst-test.library.jhu.edu
 
 [hip-server]
-hip-staging.mse.jhu.edu
+hip-test.mse.jhu.edu
 
 [stage:children]
 catalyst
