@@ -95,7 +95,13 @@ ssh_settings:
     setting: '\1 {{ ssh_users }}'
     backrefs: true
 
-webscanner_ip: "{{ vault_webscanner_ip }}"
+# NOTE: we don't always have a 1:1 mapping of environments to groups
+# when it comes to external resources, so centralizing ip vars here
+webscanner_ip:          "{{ vault_webscanner_ip }}"
+nagios_ip:              "{{ vault_nagios_ip }}"
+findit_ip_prod:         "{{ vault_findit_ip_prod }}"
+findit_ip_test:         "{{ vault_findit_ip_test }}"
+
 bantheman_configs:
   - ip: "{{ webscanner_ip }}"
     paths:
@@ -119,3 +125,31 @@ testup_cucumber_vars_template: "templates/test_vars.rb"
 
 # NOTE: set within inventory files for particular hosts
 legacy_server:                  false
+
+# jetty vars
+jetty_base:             "/opt/jetty"
+jetty_user:             "jetty"
+jetty_group:            "{{ jetty_user }}"
+jetty_port:             8080
+
+# firewalld vars:
+firewalld_ipsets:
+  - name: jetty_whitelist
+    ips:
+      - "{{ findit_ip_test }}"
+jetty_accept_rule_nolog:  'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
+jetty_accept_rule:        'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
+jetty_reject_rule:        'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+firewalld_richrules:
+  - rule: "{{ jetty_accept_rule }}"
+    state: enabled
+  - rule: "{{ jetty_reject_rule }}"
+    state: enabled
+  # NOTE: this won't work (in leiu of the NOT whitelist reject rule). regardles of the order of the rules, both would be applied to the whitelisted IP (according to the logs), and access would be denied
+  # TODO: write-up and remove
+# - rule: 'rule family="ipv4" source address="0.0.0.0/0" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+#   state: disabled
+firewalld_services:
+- service: http
+- service: https
+- service: ssh
