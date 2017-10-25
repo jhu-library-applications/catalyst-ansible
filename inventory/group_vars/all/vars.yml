@@ -140,9 +140,13 @@ firewalld_ipsets:
   - name: jetty_whitelist
     ips:
       - "{{ findit_ip_test }}"
-jetty_accept_rule_nolog:  'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
-jetty_accept_rule:        'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
-jetty_reject_rule:        'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+jetty_accept_rule_nolog:    'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" accept'
+jetty_accept_rule:          'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
+jetty_reject_rule:          'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+catalyst_http_accept_rule:  'rule family="ipv4" source ipset="catalyst_whitelist" service name="http" log prefix="catalyst-http-access-allowed" level="info" limit value="1/m" accept'
+catalyst_http_reject_rule:  'rule family="ipv4" source NOT ipset="catalyst_whitelist" service name="http" log prefix="catalyst-http-access-denied" level="info" limit value="1/m" reject'
+catalyst_https_accept_rule: 'rule family="ipv4" source ipset="catalyst_whitelist" service name="https" log prefix="catalyst-https-access-allowed" level="info" limit value="1/m" accept'
+catalyst_https_reject_rule: 'rule family="ipv4" source NOT ipset="catalyst_whitelist" service name="https" log prefix="catalyst-https-access-denied" level="info" limit value="1/m" reject'
 firewalld_richrules:
   - rule: "{{ jetty_accept_rule }}"
     state: enabled
