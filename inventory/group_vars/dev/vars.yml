@@ -51,8 +51,31 @@ solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
 # firewalld vars:
 findit_ip:               "10.11.12.102" # not really
+# NOTE: this is important to do at least once, as we are using some of
+# firewall-cmd's recently added capabilities
+firewalld_update_packages:  true
 firewalld_ipsets:
   - name: jetty_whitelist
     ips:
       - "{{ findit_ip }}"
-      # - "10.11.12.1" # ansible host machine
+  - name: catalyst_whitelist
+    ips: "{{ refworks_ips + [findit_ip_test] + [hopkins_ip_range] }}"
+    # - "10.11.12.1" # ansible host machine
+    # - "10.11.12.100-10.11.12.110" # range including catalyst-services
+catalyst_http_accept_rule:  'rule family="ipv4" source ipset="catalyst_whitelist" service name="http" log prefix="catalyst-http-access-allowed" level="info" limit value="1/m" accept'
+catalyst_http_reject_rule:  'rule family="ipv4" source NOT ipset="catalyst_whitelist" service name="http" log prefix="catalyst-http-access-denied" level="info" limit value="1/m" reject'
+catalyst_https_accept_rule: 'rule family="ipv4" source ipset="catalyst_whitelist" service name="https" log prefix="catalyst-https-access-allowed" level="info" limit value="1/m" accept'
+catalyst_https_reject_rule: 'rule family="ipv4" source NOT ipset="catalyst_whitelist" service name="https" log prefix="catalyst-https-access-denied" level="info" limit value="1/m" reject'
+firewalld_richrules:
+  - rule: "{{ jetty_accept_rule }}"
+    state: enabled
+  - rule: "{{ jetty_reject_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_http_accept_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_http_reject_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_https_accept_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_https_reject_rule }}"
+    state: enabled

@@ -101,6 +101,8 @@ webscanner_ip:          "{{ vault_webscanner_ip }}"
 nagios_ip:              "{{ vault_nagios_ip }}"
 findit_ip_prod:         "{{ vault_findit_ip_prod }}"
 findit_ip_test:         "{{ vault_findit_ip_test }}"
+refworks_ips:           "{{ vault_refworks_ips }}"
+hopkins_ip_range:       "{{ vault_hopkins_ip_range }}"
 
 bantheman_configs:
   - ip: "{{ webscanner_ip }}"
@@ -108,7 +110,7 @@ bantheman_configs:
       - "^/catalog.*$"
       # - "^/catalog/bib_.*$"
       # - "^/catalog\\?.*$"
-      
+
 logrotate_configs:
   - name: "catalyst"
     path: "/opt/catalyst/log"
@@ -133,6 +135,7 @@ jetty_group:            "{{ jetty_user }}"
 jetty_port:             8080
 
 # firewalld vars:
+firewalld_update_packages:  false
 firewalld_ipsets:
   - name: jetty_whitelist
     ips:
