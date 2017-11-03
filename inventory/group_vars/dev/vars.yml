@@ -5,6 +5,9 @@ debugging:              true
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
+# deployment vars
+app_branch:                   "v1.0.2"
+
 # ruby vars
 chruby_ruby_version:     "ruby-2.2.2"
 services_needs_jruby:    true
