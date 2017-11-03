@@ -14,7 +14,7 @@ ssh_port: 22
 mode:                         "deploy" # dev || deploy
 
 app_repo:                     "git@github.com:jhu-sheridan-libraries/blacklight-rails.git" #"https://github.com/jhu-sheridan-libraries/blacklight-rails"
-app_branch:                   "v1.0.1"
+app_branch:                   "v1.0.2"
 app_name:                     "catalyst"
 app_user:                     "{{ app_name }}"
 app_group:                    "{{ app_user }}"
