@@ -52,8 +52,10 @@ borrow_direct_host:     "bdtest.relaisd2d.com"
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
-# firewalld vars:
+# ip vars
 findit_ip:               "10.11.12.102" # not really
+
+# firewalld vars:
 # NOTE: this is important to do at least once, as we are using some of
 # firewall-cmd's recently added capabilities
 firewalld_update_packages:  true

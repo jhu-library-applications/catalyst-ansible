@@ -95,6 +95,7 @@ ssh_settings:
     setting: '\1 {{ ssh_users }}'
     backrefs: true
 
+# ip vars
 # NOTE: we don't always have a 1:1 mapping of environments to groups
 # when it comes to external resources, so centralizing ip vars here
 webscanner_ip:          "{{ vault_webscanner_ip }}"
@@ -103,6 +104,8 @@ findit_ip_prod:         "{{ vault_findit_ip_prod }}"
 findit_ip_test:         "{{ vault_findit_ip_test }}"
 refworks_ips:           "{{ vault_refworks_ips }}"
 hopkins_ip_range:       "{{ vault_hopkins_ip_range }}"
+# by default use test findit (for running tests, etc)
+findit_ip:              "{{ findit_ip_test }}"
 
 bantheman_configs:
   - ip: "{{ webscanner_ip }}"

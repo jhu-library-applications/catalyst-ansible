@@ -58,6 +58,9 @@ borrow_direct_host:     "borrow-direct.relaisd2d.com"
 # solr vars
 solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"
 
+# ip vars
+findit_ip:              "{{ findit_ip_prod }}"
+
 # firewalld vars:
 firewalld_ipsets:
   - name: jetty_whitelist
