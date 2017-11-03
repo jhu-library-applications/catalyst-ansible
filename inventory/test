@@ -18,7 +18,7 @@ catalyst-test.library.jhu.edu
 [hip-server]
 hip-test.mse.jhu.edu
 
-[stage:children]
+[test:children]
 catalyst
 horizon-ws
 pull-reserves
