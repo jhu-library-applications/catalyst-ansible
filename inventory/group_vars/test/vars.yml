@@ -1,5 +1,5 @@
 # setup vars
-environ:                "stage" # dev || stage || prod
+environ:                "test" # dev || test || stage || prod
 debugging:              true
 
 # private vars
@@ -12,8 +12,8 @@ chruby_ruby_version:    "ruby-2.2.2"
 rails_env:              "production"
 
 # apache vars:
-hostname:               "{{ app_name }}"
-domainname:             "mse.jhu.edu"
+hostname:               "{{ app_name }}-{{ environ }}"
+domainname:             "library.jhu.edu"
 
 ssl_self_sign_cert:               false
 ssl_provided_cert:                true
@@ -43,7 +43,7 @@ horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
 # hip server vars
-hip_host:               "hip-staging.library.jhu.edu"
+hip_host:               "hip-test.library.jhu.edu"
 horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
@@ -54,27 +54,3 @@ borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
-
-# firewalld vars:
-# NOTE: this is important to do at least once, as we are using some of
-# firewall-cmd's recently added capabilities:
-firewalld_update_packages:  true
-firewalld_ipsets:
-  - name: jetty_whitelist
-    ips:
-      - "{{ findit_ip_test }}"
-  - name: catalyst_whitelist
-    ips: "{{ refworks_ips + [findit_ip_test] + [hopkins_ip_range] }}"
-firewalld_richrules:
-  - rule: "{{ jetty_accept_rule }}"
-    state: enabled
-  - rule: "{{ jetty_reject_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_http_accept_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_http_reject_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_https_accept_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_https_reject_rule }}"
-    state: enabled

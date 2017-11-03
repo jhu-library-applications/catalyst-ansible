@@ -49,29 +49,29 @@ borrow_direct_host:     "bdtest.relaisd2d.com"
 # solr vars
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
-# jetty vars
-jetty_base:             "/opt/jetty"
-jetty_user:             "jetty"
-jetty_group:            "{{ jetty_user }}"
-jetty_port:             8080
-
 # firewalld vars:
 findit_ip:               "10.11.12.102" # not really
+# NOTE: this is important to do at least once, as we are using some of
+# firewall-cmd's recently added capabilities
+firewalld_update_packages:  true
 firewalld_ipsets:
   - name: jetty_whitelist
     ips:
       - "{{ findit_ip }}"
-      # - "10.11.12.1" # ansible host machine
+  - name: catalyst_whitelist
+    ips: "{{ refworks_ips + [findit_ip_test] + [hopkins_ip_range] }}"
+    # - "10.11.12.1" # ansible host machine
+    # - "10.11.12.100-10.11.12.110" # range including catalyst-services
 firewalld_richrules:
-  - rule: 'rule family="ipv4" source ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-allowed" level="info" limit value="1/m" accept'
+  - rule: "{{ jetty_accept_rule }}"
     state: enabled
-  - rule: 'rule family="ipv4" source NOT ipset="jetty_whitelist" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
+  - rule: "{{ jetty_reject_rule }}"
     state: enabled
-    # NOTE: this won't work (in leiu of the NOT whitelist reject rule). regardles of the order of the rules, both would be applied to the whitelisted IP (according to the logs), and access would be denied
-    # TODO: write-up and remove
-  # - rule: 'rule family="ipv4" source address="0.0.0.0/0" port port="{{ jetty_port }}" protocol="tcp" log prefix="jetty-access-denied" level="info" limit value="1/m" reject'
-  #   state: disabled
-firewalld_services:
-  - service: http
-  - service: https
-  - service: ssh
+  - rule: "{{ catalyst_http_accept_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_http_reject_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_https_accept_rule }}"
+    state: enabled
+  - rule: "{{ catalyst_https_reject_rule }}"
+    state: enabled
