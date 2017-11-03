@@ -1,7 +1,7 @@
 # stage:
 # ------------------
 [default]
-catalyst-test.library.jhu.edu
+catalyst-stage.library.jhu.edu
 
 [traject]
 catsolrmaster-test.library.jhu.edu  legacy_server=true
@@ -10,10 +10,10 @@ catsolrmaster-test.library.jhu.edu  legacy_server=true
 catsolrmaster-test.library.jhu.edu  legacy_server=true
 
 [horizon-ws]
-catalyst-test.library.jhu.edu
+catalyst-stage.library.jhu.edu
 
 [catalyst]
-catalyst-test.library.jhu.edu
+catalyst-stage.library.jhu.edu
 
 [hip-server]
 hip-staging.mse.jhu.edu
