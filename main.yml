@@ -1,9 +1,12 @@
 ---
 - include: playbooks/tests_setup.yml
-  tags: ['tests']
+  tags: ['tests', redeploy]
 - include: playbooks/catalyst.yml
+  tags: ['catalyst', redeploy]
 - include: playbooks/horizonws.yml
+  tags: ['horizonws']
 - include: playbooks/services.yml
+  tags: ['services']
   when: environ != 'dev'
 - include: playbooks/run_tests.yml
-  tags: ['tests']
+  tags: ['tests', redeploy]

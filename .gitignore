@@ -16,3 +16,8 @@ vendor/
 
 # ignore dynamic testing vars
 features/support/test_vars.rb
+# BEGIN testup
+features/
+Gemfile
+Gemfile.lock
+# END testup

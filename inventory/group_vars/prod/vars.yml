@@ -5,6 +5,9 @@ debugging:              false
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
+# deployment vars
+app_branch:                   "v1.0.2"
+
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
 
@@ -54,6 +57,9 @@ borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
 # solr vars
 solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"
+
+# ip vars
+findit_ip:              "{{ findit_ip_prod }}"
 
 # firewalld vars:
 firewalld_ipsets:

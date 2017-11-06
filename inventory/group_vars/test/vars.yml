@@ -5,6 +5,9 @@ debugging:              true
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
+# deployment vars
+app_branch:                   "development"
+
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
 
@@ -16,7 +19,7 @@ hostname:               "{{ app_name }}-{{ environ }}"
 domainname:             "library.jhu.edu"
 
 ssl_self_sign_cert:               false
-ssl_provided_cert:                true
+ssl_provided_cert:                false
 ssl_certificate_file:             "star_library.jhu.edu.crt"
 ssl_certificate_content:          "{{ vault_ssl_certificate_content }}"
 ssl_certificate_key_file:         "star_library.jhu.edu.key"
