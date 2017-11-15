@@ -43,3 +43,6 @@
 
 - src: https://github.com/dheles/testup-ansible-role
   name: testup
+
+- src: https://github.com/dheles/solr-ansible-role
+  name: solr
