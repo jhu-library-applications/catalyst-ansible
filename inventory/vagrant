@@ -3,11 +3,14 @@
 [default]
 catalyst.test
 
+[solr]
+catalyst-solr.test
+
 [traject]
-catalyst-services.test
+catalyst-solr.test
 
 [pull-reserves]
-catalyst-services.test
+catalyst-solr.test
 
 [horizon-ws]
 catalyst.test
