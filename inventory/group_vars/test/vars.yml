@@ -6,13 +6,13 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "development"
+app_branch:             "v1.0.2"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
 
 # rails vars
-rails_env:              "production"
+rails_env:              "test"
 
 # apache vars:
 hostname:               "{{ app_name }}-{{ environ }}"
@@ -33,13 +33,13 @@ update_packages:        false
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_dev"
+catalyst_db_name:       "catalyst_test"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
-horizon_db_name:        "horizonstage"
+horizon_db_name:        "horizontest"
 horizon_db_host:        "horizontest.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
@@ -53,7 +53,7 @@ borrower_ws_password:   "{{ vault_borrower_ws_password }}"
 force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
-borrow_direct_host:     "borrow-direct.relaisd2d.com"
+borrow_direct_host:     "bdtest.relaisd2d.com"
 
 # solr vars
-solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
+solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst_dev1"

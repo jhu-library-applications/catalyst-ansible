@@ -6,7 +6,7 @@ debugging:              false
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "v1.0.2"
+app_branch:                   "v1.1.0"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
@@ -68,12 +68,12 @@ firewalld_ipsets:
       - "{{ findit_ip_prod }}"
       - "{{ nagios_ip }}"
 firewalld_richrules:
-# NOTE: differs from default in that whitelisted requests are not logged
-- rule: "{{ jetty_accept_rule_nolog }}"
-state: enabled
-# NOTE: this does not differ from default, but since we are overriding the accept rule, we must also specify the reject rule
-- rule: "{{ jetty_reject_rule }}"
-state: enabled
+  # NOTE: differs from default in that whitelisted requests are not logged
+  - rule: "{{ jetty_accept_rule_nolog }}"
+    state: enabled
+  # NOTE: this does not differ from default, but since we are overriding the accept rule, we must also specify the reject rule
+  - rule: "{{ jetty_reject_rule }}"
+    state: enabled
 
 # BanTheMan!
 bantheman_configs: []
