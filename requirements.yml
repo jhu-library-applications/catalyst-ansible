@@ -46,3 +46,6 @@
 
 - src: https://github.com/dheles/solr-ansible-role
   name: solr
+
+- src: https://github.com/dheles/fail2ban-ansible-role
+  name: fail2ban
