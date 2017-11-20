@@ -1,0 +1,7 @@
+---
+- name: install and configure solr
+  hosts: solr
+
+  roles:
+  - { role: java, tags: ['java'], become: true }
+  - { role: solr, tags: ['solr'] }

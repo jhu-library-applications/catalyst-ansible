@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
 
   {
     'catalyst'          => '10.11.12.101',
-    'catalyst-services' => '10.11.12.102'
+    'catalyst-solr'     => '10.11.12.102'
   }.each do |short_name, ip|
     config.vm.define short_name do |host|
       host.vm.network 'private_network', ip: ip
@@ -44,12 +44,12 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
         vb.linked_clone = true
 
-        if short_name == "catalyst-services"
+        if short_name == "catalyst-solr"
           vb.cpus = 2
         end
       end
 
-      if short_name == "catalyst-services" # last in the list
+      if short_name == "catalyst-solr" # last in the list
         setup_complete = true
       end
 
