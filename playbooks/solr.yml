@@ -5,3 +5,4 @@
   roles:
   - { role: java, tags: ['java'], become: true }
   - { role: solr, tags: ['solr'] }
+  - { role: firewalld,    tags: ['firewalld'], become: true}

@@ -1,0 +1,18 @@
+# solr vars
+solr_port:                    "8983"
+solr_upgrade:                 true
+
+# firewalld vars:
+firewalld_update_packages:    true
+firewalld_ipsets:
+  - name: solr_whitelist
+    ips:
+      - "{{ hopkins_ip_range }}"
+solr_accept_rule_nolog:       'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" accept'
+solr_accept_rule:             'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-allowed" level="info" limit value="1/m" accept'
+solr_reject_rule:             'rule family="ipv4" source NOT ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-denied" level="info" limit value="1/m" reject'
+firewalld_richrules:
+  - rule: "{{ solr_accept_rule }}"
+    state: enabled
+  - rule: "{{ solr_reject_rule }}"
+    state: enabled
