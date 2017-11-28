@@ -22,11 +22,18 @@ base_deploy_dir:              "/opt"
 deploy_dir:                   "{{ base_deploy_dir }}/{{ app_name }}"
 
 # deploy keys vars
-deploy_private_key:           "{{ vault_deploy_private_key }}"
-deploy_public_key:            "{{ vault_deploy_public_key }}"
 deploy_user:                  "{{ login_user }}"
-deploy_key_name:              "catalyst_deploy_key"
-deploy_key_full_path:         "/home/{{ deploy_user }}/.ssh/{{ deploy_key_name }}"
+deploy_key_path:              "/home/{{ deploy_user }}/.ssh"
+catalyst_deploy_keys:
+- name:                       "catalyst_deploy_key"
+  private_key:                "{{ vault_deploy_private_key }}"
+  public_key:                 "{{ vault_deploy_public_key }}"
+catalyst_deploy_key_full_path:  "{{ deploy_key_path }}/{{ catalyst_deploy_keys[0]['name'] }}"
+solr_deploy_keys:
+- name:                       "catalyst_solr_deploy_key"
+  private_key:                "{{ vault_solr_private_key }}"
+  public_key:                 "{{ vault_solr_public_key }}"
+solr_deploy_key_full_path:    "{{ deploy_key_path }}/{{ solr_deploy_keys[0]['name'] }}"
 
 # rails vars
 rails_env:                    "development"

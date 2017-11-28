@@ -38,7 +38,7 @@
       repo: "{{ app_repo }}"
       dest: "{{ deploy_dir }}"
       version: "{{ app_branch | default('HEAD') }}"
-      key_file: "{{ deploy_key_full_path }}"
+      key_file: "{{ catalyst_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
 
   - name: configure bundle install based on mode
