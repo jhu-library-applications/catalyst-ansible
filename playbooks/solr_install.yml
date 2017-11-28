@@ -1,0 +1,9 @@
+---
+- name: install and configure solr
+  hosts: solr
+
+  roles:
+  - { role: java,         tags: ['java'],         become: true }
+  - { role: deploy-keys,  tags: ['deploy-keys'],  deploy_keys: "{{ solr_deploy_keys }}" }
+  - { role: solr,         tags: ['solr'] }
+  - { role: firewalld,    tags: ['firewalld'],    become: true}

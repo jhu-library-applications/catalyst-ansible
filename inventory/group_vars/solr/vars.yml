@@ -1,6 +1,24 @@
 # solr vars
+solr_major_version:           5
+solr_minor_version:           5
+solr_patch_version:           5
 solr_port:                    "8983"
 solr_upgrade:                 true
+solr_cores:
+- "catalyst"
+# solr_env_template:          "solr.in.sh.j2"
+solr_env_vars:
+- var:    "SOLR_HEAP"
+  value:  "4g"
+# NOTE: this must be the SSH URL. the HTTPS URL will not work
+solr_config_repo:             "git@github.com:jhu-sheridan-libraries/blacklight-solr"
+solr_config_branch:           "upgrade"
+solr_config_download_dir:     "/home/{{ login_user }}/solr_config"
+solr_config_inventory:        "solr_config_inventory"
+solr_home:                    "/var/solr/data"
+solr_instance_dir:            "{{ solr_home }}/{{ solr_cores[0] }}"
+solr_user:                    "solr"
+solr_group:                   "{{ solr_user }}"
 
 # firewalld vars:
 firewalld_update_packages:    true

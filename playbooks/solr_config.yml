@@ -1,0 +1,67 @@
+---
+- name: configure solr from repo
+  hosts: solr
+
+  tasks:
+
+  - name: include solr role to get its handlers
+    include_role:
+      name: solr
+      tasks_from: dolittle
+
+  - name: get solr configs from repo
+    git:
+      repo:     "{{ solr_config_repo }}"
+      dest:     "{{ solr_config_download_dir }}"
+      version:  "{{ solr_config_branch | default('HEAD') }}"
+      key_file: "{{ solr_deploy_key_full_path }}"
+      ssh_opts: "-o StrictHostKeyChecking=no"
+      accept_hostkey: true
+    register: configs
+
+  - name: deploy the configs inventory
+    template:
+      src: "{{ solr_config_inventory }}.j2"
+      dest: "~/{{ solr_config_inventory }}"
+    register: inventory
+
+  - name: check for existing backup
+    stat:
+      path: "{{ solr_instance_dir }}_bak"
+    become: true
+    register: backup
+
+  - name: back up the original instance
+    synchronize:
+      src: "{{ solr_instance_dir }}/"
+      dest: "{{ solr_instance_dir }}_bak"
+    delegate_to: "{{ inventory_hostname }}"
+    become: true
+    when: not backup.stat.exists
+
+  - name: deploy solr configs
+    synchronize:
+      src:  "{{ solr_config_download_dir }}/"
+      dest: "{{ solr_instance_dir }}"
+      rsync_opts:
+      - "--include-from={{ solr_config_inventory }}"
+    delegate_to: "{{ inventory_hostname }}"
+    become: true
+    notify: restart solr
+    when: configs.changed or inventory.changed
+
+  - name: set ownership of solr configs
+    file:
+      path: "{{ solr_instance_dir }}"
+      owner: "{{ solr_user }}"
+      group: "{{ solr_group }}"
+      recurse: yes
+      state: directory
+    become: true
+
+  - name: set permissions of solr modules
+    file:
+      path: "{{ solr_instance_dir }}/lib/"
+      mode: 0755
+      recurse: yes
+    become: true

@@ -1,8 +1,3 @@
 ---
-- name: install and configure solr
-  hosts: solr
-
-  roles:
-  - { role: java, tags: ['java'], become: true }
-  - { role: solr, tags: ['solr'] }
-  - { role: firewalld,    tags: ['firewalld'], become: true}
+- include: solr_install.yml
+- include: solr_config.yml
