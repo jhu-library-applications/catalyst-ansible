@@ -114,6 +114,7 @@
   - name: Install Bundler.
     gem:
       name: bundler
+      version: "{{ service_bundler_version }}"
       state: present
       user_install: no
     become: true

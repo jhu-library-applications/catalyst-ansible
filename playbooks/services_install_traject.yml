@@ -1,0 +1,25 @@
+---
+- name: install catalyst service - traject
+  hosts: services
+
+  tasks:
+  # FIXME: refactor
+  - name: Install Bundler.
+    gem:
+      name: bundler
+      version: "{{ service_bundler_version }}"
+      state: present
+      user_install: no
+    become: true
+
+  # Creates a cron file under /etc/cron.d
+  # runs every night at 11:30PM
+  - cron:
+      name: "traject"
+      minute: "30"
+      hour: "23"
+      user: "{{ app_user }}"
+      job: "/bin/bash -lc 'cd /opt/catalyst/app/current/traject && rake horizon:mass_index >> log/traject.log 2>&1'"
+      cron_file: "traject"
+      state: present
+    become: true
