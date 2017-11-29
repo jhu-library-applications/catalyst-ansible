@@ -17,6 +17,7 @@ solr_config_download_dir:     "/home/{{ login_user }}/solr_config"
 solr_config_inventory:        "solr_config_inventory"
 solr_home:                    "/var/solr/data"
 solr_instance_dir:            "{{ solr_home }}/{{ solr_cores[0] }}"
+solr_backup_dir:              "/home/{{ solr_user }}/{{ solr_cores[0] }}_backup"
 solr_user:                    "solr"
 solr_group:                   "{{ solr_user }}"
 

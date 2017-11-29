@@ -27,14 +27,14 @@
 
   - name: check for existing backup
     stat:
-      path: "{{ solr_instance_dir }}_bak"
+      path: "{{ solr_backup_dir }}"
     become: true
     register: backup
 
   - name: back up the original instance
     synchronize:
       src: "{{ solr_instance_dir }}/"
-      dest: "{{ solr_instance_dir }}_bak"
+      dest: "{{ solr_backup_dir }}"
     delegate_to: "{{ inventory_hostname }}"
     become: true
     when: not backup.stat.exists
