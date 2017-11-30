@@ -9,4 +9,4 @@
   # installing it with chruby:
   - { role: java,         tags: ['java'],   become: true, when: services_needs_jruby | default(false) }
   - { role: chruby,       tags: ['chruby'], become: true, when: services_needs_jruby | default(false) }
-  - { role: deploy-keys,  tags: ['deploy-keys'] }
+  # - { role: deploy-keys,  tags: ['deploy-keys'] }
