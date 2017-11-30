@@ -1,0 +1,5 @@
+# setup vars
+
+app_name:                     "traject"
+app_repo:                     "https://github.com/jhu-sheridan-libraries/catalyst-traject.git"
+app_branch:                   "HEAD"
