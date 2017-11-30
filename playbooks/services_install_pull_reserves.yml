@@ -1,5 +1,6 @@
 ---
-- name: install catalyst services (pull reserves, traject)
+# TODO: revamp & retest... this may well be broken at the moment
+- name: install catalyst service - pull reserves
   hosts: services
 
   tasks:

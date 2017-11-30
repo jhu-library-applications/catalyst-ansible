@@ -1,0 +1,107 @@
+---
+- name: install catalyst service - traject
+  hosts: traject
+
+  tasks:
+  - name: get application from repo
+    git:
+      repo: "{{ app_repo }}"
+      dest: "{{ download_dir }}"
+      version: "{{ app_branch | default('HEAD') }}"
+      ssh_opts: "-o StrictHostKeyChecking=no"
+
+  - name: make sure deploy dir exists
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: deploy traject
+    shell: "cp -r {{ download_dir }}/* {{ deploy_dir }}"
+    # become: true
+
+  - name: configure bundle install based on mode
+    set_fact:
+      deployment_mode: false
+  - set_fact:
+      deployment_mode: true
+    when: mode == "deploy"
+
+  # NOTE: exclude_groups is problematic in the current bundler module
+  # & we don't actually need it for our only service - pull-reserves
+  # NOTE: jruby is problematic on dev
+  # # NOTE: don't install spring in production environments:
+  # # https://github.com/projecthydra/hydra-head/issues/201
+  # - name: adjust for the rails environment
+  #   set_fact:
+  #     exclude: ""
+  #   set_fact:
+  #     exclude: "--without development test"
+  #   when: rails_env == 'production'
+
+  # - debug:
+  #     msg: "exclude = {{ exclude }}"
+
+  - name: install the project's gems for deployment
+    bundler:
+      chdir: "{{ deploy_dir }}"
+      gem_path: "vendor/bundle"
+      deployment_mode: "{{ deployment_mode }}"
+      # exclude_groups: "{{ exclude | default(omit) }}"
+
+  - name: make sure config dir exists
+    file:
+      path: "{{ deploy_dir }}/config"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+
+  - name: configure catalyst database connection
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/database.yml.j2"
+      dest:  "{{ deploy_dir }}/config/database.yml"
+
+  - name: configure horizon database connection
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/horizon.yml.j2"
+      dest:  "{{ deploy_dir }}/config/horizon.yml"
+
+  - name: make sure log dir exists
+    file:
+      path: "{{ deploy_dir }}/log"
+      owner: "{{ login_user }}"
+      state: directory
+      recurse: true
+    become: true
+
+  - name: Configure environment variables
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/traject_dotenv.j2"
+      dest:  "{{ deploy_dir }}/.env"
+
+  - name: set ownership of deploy dir and contents
+    file:
+      path: "{{ deploy_dir }}"
+      owner: "{{ app_user }}"
+      group: "{{ app_group }}"
+      state: directory
+      recurse: true
+    become: true
+
+  # Creates a cron file under /etc/cron.d
+  # runs every night at 11:30PM
+  # nope... moving target for the mo...
+  - cron:
+      name: "traject"
+      minute: "25"
+      hour: "19" # UTC
+      user: "{{ app_user }}"
+      job: "/bin/bash -lc 'cd /opt/traject && bundle exec rake horizon:mass_index -s horizon.first_bib=10000 -s horizon.last_bib=10100 >> log/traject.log 2>&1'"
+      cron_file: "traject"
+      state: present
+    become: true
