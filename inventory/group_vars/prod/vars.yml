@@ -55,6 +55,10 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 # borrow_direct vars
 borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
+# catalyst/findit vars
+catalyst_base_url:      "https://catalyst.library.jhu.edu"
+findit_base_url:        "https://findit.library.jhu.edu"
+
 # solr vars
 solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"
 
