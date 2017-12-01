@@ -53,7 +53,7 @@
 
   - name: make sure log dir exists
     file:
-      path: "{{ deploy_dir }}/log"
+      path: "{{ log_dir }}"
       owner: "{{ login_user }}"
       state: directory
       recurse: true
