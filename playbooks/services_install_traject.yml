@@ -51,25 +51,6 @@
       deployment_mode: "{{ deployment_mode }}"
       # exclude_groups: "{{ exclude | default(omit) }}"
 
-  - name: make sure config dir exists
-    file:
-      path: "{{ deploy_dir }}/config"
-      owner: "{{ login_user }}"
-      state: directory
-      recurse: true
-
-  - name: configure catalyst database connection
-    no_log: "{{ not debugging }}"
-    template:
-      src:  "templates/database.yml.j2"
-      dest:  "{{ deploy_dir }}/config/database.yml"
-
-  - name: configure horizon database connection
-    no_log: "{{ not debugging }}"
-    template:
-      src:  "templates/horizon.yml.j2"
-      dest:  "{{ deploy_dir }}/config/horizon.yml"
-
   - name: make sure log dir exists
     file:
       path: "{{ deploy_dir }}/log"
