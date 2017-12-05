@@ -1,0 +1,11 @@
+---
+service_app_branch:               "HEAD"
+service_mode:                     "{{ mode }} | default('deploy')"
+service_debugging:                "{{ debugging | default('false') }}"
+service_login_user:               "{{ login_user | default(ansible_env.USER) }}"
+service_app_group:                "{{ service_app_user }}"
+service_download_dir:             "/home/{{ service_login_user  }}/{{ service_app_name }}"
+service_base_deploy_dir:          "{{ base_deploy_dir | default('/opt') }}"
+service_deploy_dir:               "{{ service_base_deploy_dir }}/{{ service_app_name }}"
+service_log_dir:                  "{{ service_deploy_dir }}/log"
+service_log_file:                 "{{ service_log_dir }}/{{ service_app_name }}.log"

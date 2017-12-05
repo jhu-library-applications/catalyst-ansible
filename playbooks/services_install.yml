@@ -1,0 +1,9 @@
+---
+- name: install catalyst services commonalities
+  include: services_install_common.yml
+
+- name: install traject
+  include: services_install_traject.yml
+
+- name: install pull-reserves
+  include: services_install_pull_reserves.yml

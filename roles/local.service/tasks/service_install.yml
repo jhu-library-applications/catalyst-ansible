@@ -1,0 +1,83 @@
+---
+- name: get application from repo
+  git:
+    repo: "{{ service_app_repo }}"
+    dest: "{{ service_download_dir }}"
+    version: "{{ service_app_branch | default('HEAD') }}"
+    ssh_opts: "-o StrictHostKeyChecking=no"
+
+- name: make sure deploy dir exists
+  file:
+    path: "{{ service_deploy_dir }}"
+    owner: "{{ service_login_user }}"
+    state: directory
+    recurse: true
+  become: true
+
+- name: "deploy {{ service_app_name }}"
+  shell: "cp -r {{ service_download_dir }}/* {{ service_deploy_dir }}"
+  # become: true
+
+- name: configure bundle install based on mode
+  set_fact:
+    deployment_mode: false
+- set_fact:
+    deployment_mode: true
+  when: service_mode == "deploy"
+
+# NOTE: exclude_groups is problematic in the current bundler module
+# & we don't actually need it for our only service - pull-reserves
+# NOTE: jruby is problematic on dev
+# # NOTE: don't install spring in production environments:
+# # https://github.com/projecthydra/hydra-head/issues/201
+# - name: adjust for the rails environment
+#   set_fact:
+#     exclude: ""
+#   set_fact:
+#     exclude: "--without development test"
+#   when: rails_env == 'production'
+
+# - debug:
+#     msg: "exclude = {{ exclude }}"
+
+- name: create or update service's ruby version file
+  lineinfile:
+    dest:   "{{ service_deploy_dir }}/.ruby-version"
+    regexp: "^(.*)$"
+    line:   "{{ service_ruby_version }}"
+    owner: "{{ service_app_user }}"
+    group: "{{ service_app_group }}"
+    state:  present
+    create: yes
+  become: true
+
+- name: install the project's gems for deployment
+  bundler:
+    chdir: "{{ service_deploy_dir }}"
+    gem_path: "vendor/bundle"
+    deployment_mode: "{{ deployment_mode }}"
+    # exclude_groups: "{{ exclude | default(omit) }}"
+
+- name: make sure log dir exists
+  file:
+    path: "{{ service_log_dir }}"
+    owner: "{{ service_login_user }}"
+    state: directory
+    recurse: true
+  become: true
+
+- name: template config files
+  no_log: "{{ not service_debugging }}"
+  template:
+    src:  "{{ item.template }}"
+    dest:  "{{ item.dest }}"
+  with_items: "{{ service_config_files }}"
+
+- name: set ownership of deploy dir and contents
+  file:
+    path: "{{ service_deploy_dir }}"
+    owner: "{{ service_app_user }}"
+    group: "{{ service_app_group }}"
+    state: directory
+    recurse: true
+  become: true
