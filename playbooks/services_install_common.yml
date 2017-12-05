@@ -1,6 +1,7 @@
 ---
 - name: install and configure the common elements for catalyst services
   hosts: services
+  tags:   services
 
   tasks:
   - name: set rails environment var
