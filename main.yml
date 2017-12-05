@@ -5,6 +5,8 @@
   tags: ['catalyst', redeploy]
 - include: playbooks/horizonws.yml
   tags: ['horizonws']
+- include: playbooks/solr.yml
+  tags: ['solr']
 - include: playbooks/services.yml
   tags: ['services']
   when: environ != 'dev'
