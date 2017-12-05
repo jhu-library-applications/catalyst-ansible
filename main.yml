@@ -9,6 +9,5 @@
   tags: ['solr']
 - include: playbooks/services.yml
   tags: ['services']
-  when: environ != 'dev'
 - include: playbooks/run_tests.yml
   tags: ['tests', redeploy]
