@@ -28,3 +28,13 @@ MYSQL_USER={{ catalyst_db_user }}
 MYSQL_PASSWORD={{ catalyst_db_pass }}
 MYSQL_PORT={{ catalyst_db_port }}
 
+# used by horizon rake jobs
+{% if only_bib is defined and only_bib != "" %}
+ONLY={{ only_bib }}
+{% endif %}
+{% if first_bib is defined and first_bib != "" %}
+FIRST={{ first_bib }}
+{% endif %}
+{% if last_bib is defined and last_bib != "" %}
+LAST={{ last_bib }}
+{% endif %}
