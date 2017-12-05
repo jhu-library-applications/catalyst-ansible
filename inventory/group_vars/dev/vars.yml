@@ -69,8 +69,9 @@ traject_cron_minute:    30
 traject_cron_hour:      23
 # NOTE: optional and mutually exclusive (only or (first &/or last))
 # only_bib:               391566
-# first_bib:              10000
-# last_bib:               10100
+# first_bib:              6270400
+# last_bib:               6331099
+# traject_cron_action:    "create" # create | remove | none (if absent, create is default)
 
 # pull-reserves vars
 pull_reserves_cron_minute:  25
