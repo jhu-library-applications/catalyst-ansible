@@ -68,7 +68,7 @@ solr_url_to_index:      "http://localhost:{{ solr_port }}/solr/{{ solr_cores[0] 
 traject_cron_minute:    30
 traject_cron_hour:      23
 # NOTE: optional and mutually exclusive (only or (first &/or last))
-only_bib:               391566
+# only_bib:               391566
 # first_bib:              10000
 # last_bib:               10100
 
