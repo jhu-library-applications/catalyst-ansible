@@ -49,7 +49,8 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 # borrow_direct vars
 borrow_direct_host:     "bdtest.relaisd2d.com"
 
-# catalyst/findit vars
+# catalyst/findit vars.
+# catalyst_base_url is a callback used by findit. It has to be a server that findit can access
 catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu"
 
