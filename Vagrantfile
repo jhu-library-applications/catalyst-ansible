@@ -46,6 +46,7 @@ Vagrant.configure(2) do |config|
 
         if short_name == "catalyst-solr"
           vb.cpus = 2
+          vb.memory = 5120
         end
       end
 

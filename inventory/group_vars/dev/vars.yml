@@ -50,10 +50,7 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 borrow_direct_host:     "bdtest.relaisd2d.com"
 
 # solr vars
-solr_major_version:     5
-solr_minor_version:     5
-solr_patch_version:     5
-solr_cores:             "catalyst_dev1"
+# NOTE: this is the existing url we are still using until our ansibilization is complete
 solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 
 # ip vars
