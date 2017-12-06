@@ -6,7 +6,7 @@ debugging:              false
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "v1.1.0"
+app_branch:                   "v1.1.1"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
@@ -54,6 +54,11 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
 borrow_direct_host:     "borrow-direct.relaisd2d.com"
+
+# catalyst/findit vars
+# catalyst_base_url is a callback used by findit. It has to be a server that findit can access
+catalyst_base_url:      "https://catalyst.library.jhu.edu"
+findit_base_url:        "https://findit.library.jhu.edu"
 
 # solr vars
 solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"

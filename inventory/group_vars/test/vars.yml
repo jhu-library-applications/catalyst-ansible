@@ -12,7 +12,7 @@ app_branch:             "v1.0.2"
 chruby_ruby_version:    "ruby-2.2.2"
 
 # rails vars
-rails_env:              "test"
+rails_env:              "production"
 
 # apache vars:
 hostname:               "{{ app_name }}-{{ environ }}"
@@ -54,6 +54,11 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
 borrow_direct_host:     "bdtest.relaisd2d.com"
+
+# catalyst/findit vars
+# catalyst_base_url is a callback used by findit. It has to be a server that findit can access
+catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
+findit_base_url:        "https://findit-test.library.jhu.edu"
 
 # solr vars
 solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst_dev1"
