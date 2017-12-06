@@ -1,0 +1,40 @@
+# ENV names may differ from catalyst
+
+# used in config/horizon.yml
+HORIZON_DB_HOST={{ horizon_db_host }}
+HORIZON_DB_NAME={{ horizon_db_name }}
+HORIZON_LOGIN={{ horizon_db_user }}
+HORIZON_PASSWORD={{ horizon_db_pass }}
+
+# used in config/blacklight.yml
+# NOTE: SOLR_REPLICATE_MASTER_URL and SOLR_URL are an either/or
+# if both are provided, the replicate url will be used.
+# in order to index to a single solr using SOLR_URL,
+# MASS_INDEX_SINGLE_SOLR must be set to 1
+{% if solr_replicate_master %}
+SOLR_REPLICATE_MASTER_URL={{ solr_url_to_index }}
+SOLR_URL=
+MASS_INDEX_SINGLE_SOLR=0
+{% else %}
+SOLR_REPLICATE_MASTER_URL=
+SOLR_URL={{ solr_url_to_index }}
+MASS_INDEX_SINGLE_SOLR=1
+{% endif %}
+
+# used in config/database.yml
+MYSQL_DATABASE={{ catalyst_db_name }}
+MYSQL_SERVER={{ catalyst_db_host }}
+MYSQL_USER={{ catalyst_db_user }}
+MYSQL_PASSWORD={{ catalyst_db_pass }}
+MYSQL_PORT={{ catalyst_db_port }}
+
+# used by horizon rake jobs
+{% if only_bib is defined and only_bib != "" %}
+ONLY={{ only_bib }}
+{% endif %}
+{% if first_bib is defined and first_bib != "" %}
+FIRST={{ first_bib }}
+{% endif %}
+{% if last_bib is defined and last_bib != "" %}
+LAST={{ last_bib }}
+{% endif %}

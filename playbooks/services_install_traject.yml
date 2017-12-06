@@ -1,0 +1,19 @@
+---
+- name: install catalyst services - traject
+  hosts: traject
+  tags:
+    - services
+    - traject
+
+  tasks:
+  - include_role:
+      name: local.service
+    vars:
+      service_app_name:         "{{ traject_app_name }}"
+      service_app_user:         "{{ app_user }}"
+      service_app_repo:         "{{ traject_app_repo }}"
+      service_cron_minute:      "{{ traject_cron_minute }}"
+      service_cron_hour:        "{{ traject_cron_hour }}"
+      service_cron_command:     "{{ traject_cron_command }}"
+      service_cron_action:      "{{ traject_cron_action | default('create') }}"
+      service_config_files:     "{{ traject_config_files }}"

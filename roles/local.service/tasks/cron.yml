@@ -1,0 +1,19 @@
+---
+
+- name: set cron state based on
+  set_fact:
+    cron_state: present
+- set_fact:
+    cron_state: absent
+  when: service_cron_action == "remove"
+
+# Creates a cron file under /etc/cron.d
+- cron:
+    name:       "{{ service_app_name }}"
+    minute:     "{{ service_cron_minute }}"
+    hour:       "{{ service_cron_hour }}"
+    user:       "{{ service_app_user }}"
+    job:        "{{ service_cron_command }}"
+    cron_file:  "{{ service_app_name }}"
+    state:      "{{ cron_state }}"
+  become: true

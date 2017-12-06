@@ -1,0 +1,7 @@
+---
+- name: "install service - {{ service_app_name }}"
+  include: service_install.yml
+
+- name: "configure cron for service - {{ service_app_name }}"
+  include: cron.yml
+  when: service_cron_action != "none"
