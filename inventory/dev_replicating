@@ -1,0 +1,37 @@
+# dev - replicating solr:
+# ------------------
+[default]
+catalyst.test
+
+[solr-master]
+catalyst-solr.test
+
+[solr-slave]
+catalyst-solr-slave.test
+
+[traject]
+catalyst-solr.test
+
+[pull-reserves]
+catalyst-solr.test
+
+[horizon-ws]
+catalyst.test
+
+[catalyst]
+catalyst.test
+
+[dev:children]
+catalyst
+horizon-ws
+pull-reserves
+traject
+solr-slave
+
+[services:children]
+pull-reserves
+traject
+
+[solr:children]
+solr-master
+solr-slave
