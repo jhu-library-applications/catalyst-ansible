@@ -60,5 +60,27 @@ borrow_direct_host:     "bdtest.relaisd2d.com"
 catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu"
 
-# solr vars
+# solr vars for catalyst
+# NOTE: this solr url is ued by catalyst to determine the solr used for searching
 solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst_dev1"
+
+# traject vars
+# NOTE: the value of solr_replicate_master will determine whether the value of
+# solr_url_to_index will be used for SOLR_REPLICATE_MASTER_URL (true) or SOLR_URL (false)
+solr_replicate_master:  true
+solr_url_to_index:      "http://localhost:8984/solr/master_prod"
+# NOTE: only used if solr_replicate_master is true
+solr_url_slave:         "{{ solr_url }}"
+# 23 30 : every night at 11:30PM
+traject_cron_minute:    30
+traject_cron_hour:      23
+# NOTE: optional and mutually exclusive (only or (first &/or last))
+# only_bib:               391566
+# first_bib:              6270400
+# last_bib:               6331099
+# sanity_check_count:       10000
+# traject_cron_action:    "create" # create | remove | none (if absent, create is default)
+
+# pull-reserves vars
+pull_reserves_cron_minute:  30
+pull_reserves_cron_hour:    15
