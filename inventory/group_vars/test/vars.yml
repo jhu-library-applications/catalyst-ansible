@@ -33,7 +33,7 @@ update_packages:        false
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_test"
+catalyst_db_name:       "catalyst_stage"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
@@ -57,12 +57,12 @@ borrow_direct_host:     "bdtest.relaisd2d.com"
 
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
-catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
+catalyst_base_url:      "https://catalyst-test.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu"
 
 # solr vars for catalyst
 # NOTE: this solr url is ued by catalyst to determine the solr used for searching
-solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst_dev1"
+solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst"
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of
