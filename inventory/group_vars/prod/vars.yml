@@ -6,7 +6,7 @@ debugging:              false
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "feature/LAG-1355"
+app_branch:                   "v1.1.2"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.2.2"
@@ -39,14 +39,14 @@ catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
-horizon_db_name:        "horizonstage"
-horizon_db_host:        "horizontest.mse.jhu.edu"
+horizon_db_name:        "horizon"
+horizon_db_host:        "horizon.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
 # hip server vars
-hip_host:               "hip-staging.library.jhu.edu"
+hip_host:               "hip.library.jhu.edu"
 horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
