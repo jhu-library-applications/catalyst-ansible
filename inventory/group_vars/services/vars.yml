@@ -18,7 +18,7 @@ download_dir:                 "/home/{{ login_user }}/{{ app_name }}"
 rails_env:                    "production"
 
 # traject vars
-traject_app_name:             "traject"
+traject_app_name:             "catalyst-traject"
 traject_app_repo:             "https://github.com/jhu-sheridan-libraries/catalyst-traject.git"
 traject_cron_command:         "/bin/bash -lc 'cd {{ service_deploy_dir }} && bundle exec rake horizon:mass_index >> {{ service_log_file }} 2>&1'"
 traject_config_files:
@@ -39,14 +39,12 @@ traject_config_files:
 
 
 # pull-reserves vars
-pull_reserves_app_name:       "pull_reserves"
+pull_reserves_app_name:       "catalyst-pull-reserves"
 pull_reserves_app_repo:       "https://github.com/jhu-sheridan-libraries/catalyst-pull-reserves.git"
 # every 5 minutes between the hours of 6am and 11pm; UTC?
 # pull_reserves_cron_minute:    "*/5"
 # pull_reserves_cron_hour:      "6-23"
 pull_reserves_cron_command: "/bin/bash -lc 'cd {{ service_deploy_dir }} && bundle exec ruby ./pull_reserves.rb >> {{ service_log_file }} 2>&1'"
 pull_reserves_config_files:
-- template:                 "templates/database.yml.j2"
-  dest:                     "{{ service_deploy_dir }}/config/database.yml"
-- template:                 "templates/horizon.yml.j2"
-  dest:                     "{{ service_deploy_dir }}/config/horizon.yml"
+- template:                 "templates/pull_reserves_dotenv.j2"
+  dest:                     "{{ service_deploy_dir }}/.env"
