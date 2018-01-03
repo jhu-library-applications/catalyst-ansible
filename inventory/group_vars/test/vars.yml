@@ -33,7 +33,7 @@ update_packages:        false
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_stage"
+catalyst_db_name:       "catalyst_test"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
