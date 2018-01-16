@@ -3,11 +3,12 @@
 [default]
 catalyst-test.library.jhu.edu
 
+# NOTE: after testing is complete, we probably want to 86 these legacy_server vars...
 [traject]
-catsolrmaster-test.library.jhu.edu  legacy_server=true
+catsolrmaster-test.library.jhu.edu  legacy_server=false
 
 [pull-reserves]
-catsolrmaster-test.library.jhu.edu  legacy_server=true
+catsolrmaster-test.library.jhu.edu  legacy_server=false
 
 [horizon-ws]
 catalyst-test.library.jhu.edu
@@ -22,8 +23,8 @@ hip-test.mse.jhu.edu
 catalyst
 horizon-ws
 pull-reserves
-#traject
+traject
 
 [services:children]
 pull-reserves
-#traject
+traject

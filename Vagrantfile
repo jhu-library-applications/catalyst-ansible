@@ -26,8 +26,10 @@ Vagrant.configure(2) do |config|
   end
 
   {
-    'catalyst'          => '10.11.12.101',
-    'catalyst-solr'     => '10.11.12.102'
+    # comment in if testing replication:
+    # 'catalyst-solr-slave' => '10.11.12.103',
+    'catalyst'            => '10.11.12.101',
+    'catalyst-solr'       => '10.11.12.102'
   }.each do |short_name, ip|
     config.vm.define short_name do |host|
       host.vm.network 'private_network', ip: ip
@@ -44,8 +46,11 @@ Vagrant.configure(2) do |config|
         vb.cpus = 1
         vb.linked_clone = true
 
-        if short_name == "catalyst-solr"
-          vb.cpus = 2
+        if short_name == "catalyst-solr" || short_name == "catalyst-solr-slave"
+          # 2 would be better for testing performance, but then the full
+          # environment would exceed available resources on most dev machines
+          vb.cpus = 1
+          vb.memory = 5120
         end
       end
 
@@ -61,6 +66,8 @@ Vagrant.configure(2) do |config|
         host.vm.provision "ansible" do |ansible|
           ansible.galaxy_role_file = "requirements.yml"
           ansible.inventory_path = "inventory/vagrant"
+          # NOTE: comment in if replicating:
+          # ansible.inventory_path = "inventory/dev_replicating"
           ansible.playbook = "setup.yml"
           ansible.limit = "all"
           ansible.verbose = "v"

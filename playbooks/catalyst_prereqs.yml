@@ -6,7 +6,7 @@
   - { role: chruby,       tags: ['chruby'], become: true  }
   - { role: apache,       tags: ['apache'] }
   - { role: passenger,    tags: ['passenger'] }
-  - { role: deploy-keys,  tags: ['deploy-keys'] }
+  - { role: deploy-keys,  tags: ['deploy-keys'], deploy_keys: "{{ catalyst_deploy_keys }}" }
   - { role: shib,         tags: ['shib'] }
   - { role: firewalld,    tags: ['firewalld'], become: true}
   - { role: logrotate,    tags: ['logrotate'] }

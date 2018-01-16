@@ -1,0 +1,24 @@
+---
+- debug:
+    msg: "service_app_name: {{ service_app_name }}"
+
+- debug:
+    msg: "service_app_user: {{ service_app_user }}"
+
+- debug:
+    msg: "service_cron_hour: {{ service_cron_hour }}"
+
+- debug:
+    msg: "service_cron_minute: {{ service_cron_minute }}"
+
+- debug:
+    msg: "service_cron_command: {{ service_cron_command }}"
+
+- debug:
+    msg: "service_ruby_version: {{ service_ruby_version }}"
+
+- debug:
+    msg: "service_log_dir: {{ service_log_dir }}"
+
+- debug:
+    msg: "service_deploy_dir: {{ service_deploy_dir }}"

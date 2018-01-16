@@ -1,0 +1,12 @@
+---
+service_app_name:                 "default"
+service_app_user:                 "{{ service_app_name }}"
+service_app_repo:                 ""
+service_ruby_version:             "jruby-9.1.14.0"
+service_cron_minute:              0
+service_cron_hour:                0
+service_cron_command:             "cat /proc/meminfo >> {{ log_file }}"
+service_cron_action:              "create" # create | remove | none
+service_config_files:
+  - template:                     "templates/default_dotenv.j2"
+    dest:                         "{{ deploy_dir }}/.env"
