@@ -46,7 +46,7 @@ horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
 # hip server vars
-hip_host:               "hip-staging.library.jhu.edu"
+hip_host:               "hip-stage.library.jhu.edu"
 horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
