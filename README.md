@@ -48,7 +48,16 @@ ansible-playbook playbooks/catalyst_install.yml -i inventory/stage --extra-vars 
 ```
 * To catalyst-prod.library.jhu.edu
 
-    Update the `app_branch` variable in `inventory/prod/vars.yml`, and commit it and push.
+Update the `app_branch` variable in `inventory/prod/vars.yml`, and commit it and push.
+
 ```
 ansible-playbook playbooks/catalyst_install.yml -i inventory/prod -v
+```
+
+### Deploy the web service 
+
+* To catalyst-prod.library.jhu.edu
+
+```
+ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
 ```
