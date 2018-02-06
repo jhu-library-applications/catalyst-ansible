@@ -6,10 +6,10 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-# app_branch:                   "v1.1.2"
+app_branch:                   "feature/LAG-1231"
 
 # ruby vars
-chruby_ruby_version:     "ruby-2.2.2"
+chruby_ruby_version:     "ruby-2.3.6"
 services_needs_jruby:    true
 
 # apache vars:
