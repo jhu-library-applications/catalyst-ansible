@@ -31,24 +31,25 @@ Then you can run the deployment commands below.
 
 ## deployment
 
-### Deploy catalyst
+### Server Component Upgrades
 
-* To local dev vms
-```
-vagrant up
-ansible-playbook playbooks/catalyst_install.yml -i inventory/vagrant --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash> force_default_jhed=<username>" -v
-```
-* To catalyst-test.library.jhu.edu
-```
-ansible-playbook playbooks/catalyst_install.yml -i inventory/test --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash>" -v
-```
-* To catalyst-stage.library.jhu.edu
-```
-ansible-playbook playbooks/catalyst_install.yml -i inventory/stage --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash>" -v
-```
-* To catalyst-prod.library.jhu.edu
+#### Upgrade Ruby
+We assume that the application has been tested on dev, and either  test/stage.
 
-    Update the `app_branch` variable in `inventory/prod/vars.yml`, and commit it and push.
+Follow the following checklist 
+* Update the production inventory, choose ruby version, and app_branch
+* Check you have ssh deploy@catalyst.library.jhu.edu works
+* Check free space on server (df -h ) | require at least 2G
+* Run the catalyst.yml playbook on production
 ```
-ansible-playbook playbooks/catalyst_install.yml -i inventory/prod -v
+time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod playbooks/catalyst.yml  --limit=catalyst -v
+```
+* This takes 13m to run, 4m of downtime
+* Keep an eye on the logs for errors
+* Run the cucumber test locally
+
+Note: Fallback plan you can pass in the ruby, and app version to revert.
+```
+#Role Back
+time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod playbooks/catalyst.yml   --extra-vars="app_branch=v1.1.4"  --extra-vars="chruby_ruby_version=ruby-2.2.2" --limit=catalyst -v  # 2m23s
 ```
