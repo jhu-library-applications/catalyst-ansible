@@ -1,25 +1,25 @@
 # dev - replicating solr:
 # ------------------
 [default]
-catalyst.test
+catalyst-dev.test
 
 [solr-master]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [solr-slave]
-catalyst-solr-slave.test
+catalyst-solr-slave-dev.test
 
 [traject]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [pull-reserves]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [horizon-ws]
-catalyst.test
+catalyst-dev.test
 
 [catalyst]
-catalyst.test
+catalyst-dev.test
 
 [dev:children]
 catalyst

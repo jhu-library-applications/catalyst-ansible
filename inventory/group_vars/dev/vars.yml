@@ -13,7 +13,7 @@ chruby_ruby_version:     "ruby-2.3.6"
 services_needs_jruby:    true
 
 # apache vars:
-hostname:               "{{ app_name }}"
+hostname:               "{{ app_name }}-{{environ}}"
 domainname:             "test"
 
 ssl_self_sign_cert:               false
