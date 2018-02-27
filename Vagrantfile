@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 domain          = "test"
-setup_complete  = false
 
 # NOTE: currently using the same OS for all boxen
 OS="centos" # "debian" || "centos"
@@ -33,7 +32,7 @@ Vagrant.configure(2) do |config|
     #   cpus: 1, name: 'catsolrmaster-dev',
     #   ansible_group: 'solr',
     # },
-    { name:'catalyst-dev',
+    { name: 'catalyst-dev',
       ip: '10.11.12.101',
       memory: 2048,
       cpus: 1,
