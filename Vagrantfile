@@ -71,6 +71,8 @@ Vagrant.configure(2) do |config|
         host.vm.provision "ansible" do |ansible|
           # NOTE: not reading from ansible.cfg
           ansible.inventory_path = "inventory/vagrant"
+          # NOTE: comment in if replicating:
+          # ansible.inventory_path = "inventory/dev_replicating"
           ansible.galaxy_role_file = "requirements.yml"
           ansible.verbose = "v"
           # NOTE: can't just leave this out and expect it to default to "all"
