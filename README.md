@@ -53,3 +53,11 @@ Note: Fallback plan you can pass in the ruby, and app version to revert.
 #Role Back
 time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod playbooks/catalyst.yml   --extra-vars="app_branch=v1.1.4"  --extra-vars="chruby_ruby_version=ruby-2.2.2" --limit=catalyst -v  # 2m23s
 ```
+
+### Deploy the web service 
+
+* To catalyst-prod.library.jhu.edu
+
+```
+ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
+```
