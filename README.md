@@ -42,7 +42,7 @@ Follow the following checklist
 * Check free space on server (df -h ) | require at least 2G
 * Run the catalyst.yml playbook on production
 ```
-time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod playbooks/catalyst.yml  --limit=catalyst -v
+time ansible-playbook -i inventory/prod playbooks/catalyst.yml  --limit=catalyst -v
 ```
 * This takes 13m to run, 4m of downtime
 * Keep an eye on the logs for errors
@@ -51,15 +51,22 @@ time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod 
 Note: Fallback plan you can pass in the ruby, and app version to revert.
 ```
 #Role Back
-time OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES ansible-playbook -i inventory/prod playbooks/catalyst.yml   --extra-vars="app_branch=v1.1.4"  --extra-vars="chruby_ruby_version=ruby-2.2.2" --limit=catalyst -v  # 2m23s
+time ansible-playbook -i inventory/prod playbooks/catalyst.yml   --extra-vars="app_branch=v1.1.4"  --extra-vars="chruby_ruby_version=ruby-2.2.2" --limit=catalyst -v  # 2m23s
 ```
 
-MacOSX 10.13.3 updated the default python which has introduced an issue with python.
+For MacOSX 10.13.3 updated the default python which has introduced an issue with python affecting [ansible #32499](https://github.com/ansible/ansible/issues/32499)
 ```
 TASK [jetty : get jetty checksum] *******************************************************************
 objc[86359]: +[__NSPlaceholderDate initialize] may have been in progress in another thread when fork() was called.
 objc[86359]: +[__NSPlaceholderDate initialize] may have been in progress in another thread when fork() was called. We cannot safely call it or ignore it in the fork() child process. Crashing instead. Set a breakpoint on objc_initializeAfterForkError to debug.
 ```
+As a workaround, adding the 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' to your ~/.profile. 
+A fix mas been merged into the unreleased ansible-2.5 branch.
 
-Adding the export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES to your ~/.profile resolved the issue.
+### Deploy the web service 
 
+* To catalyst-prod.library.jhu.edu
+
+```
+ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
+```
