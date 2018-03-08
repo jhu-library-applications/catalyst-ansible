@@ -1,22 +1,22 @@
 # dev (vagrant):
 # ------------------
 [default]
-catalyst.test
+catalyst-dev.test
 
 [solr]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [traject]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [pull-reserves]
-catalyst-solr.test
+catalyst-solr-dev.test
 
 [horizon-ws]
-catalyst.test
+catalyst-dev.test
 
 [catalyst]
-catalyst.test
+catalyst-dev.test
 
 [dev:children]
 catalyst

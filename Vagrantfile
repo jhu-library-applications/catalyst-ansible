@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 domain          = "test"
-setup_complete  = false
 
 # NOTE: currently using the same OS for all boxen
 OS="centos" # "debian" || "centos"
@@ -18,61 +17,72 @@ Vagrant.configure(2) do |config|
     package="_apt"
   elsif OS=="centos"
     config.vm.box = "centos/7"
-    config.vm.box_version = "1707.01" # 7.3.1611
+    config.vm.box_version = "1801.02" # 7.4.1708
     package="_yum"
   else
     puts "you must set the OS variable to a valid value before continuing"
     exit
   end
 
-  {
+  @machines = [
     # comment in if testing replication:
-    # 'catalyst-solr-slave' => '10.11.12.103',
-    'catalyst'            => '10.11.12.101',
-    'catalyst-solr'       => '10.11.12.102'
-  }.each do |short_name, ip|
-    config.vm.define short_name do |host|
-      host.vm.network 'private_network', ip: ip
-      host.vm.hostname = "#{short_name}.#{domain}"
+    # { name: 'catalyst-solr-slave',
+    #   ip: '10.11.12.103',
+    #   memory: 2048,
+    #   cpus: 1, name: 'catsolrmaster-dev',
+    #   ansible_group: 'solr',
+    # },
+    { name: 'catalyst-dev',
+      ip: '10.11.12.101',
+      memory: 2048,
+      cpus: 1,
+    },
+    { name: 'catalyst-solr-dev',
+      ip: '10.11.12.102',
+      memory: 2048,
+      cpus: 1,
+      ansible_group: 'solr'
+    }
+  ]
+
+  # limit ansible provisioning to machines
+  @ansible_limit = @machines.map{ |machine| "#{machine[:name]}.#{domain}" }.join(",") || "all"
+
+  @machines.each_with_index do |machine, index|
+    config.vm.define machine[:name] do |host|
+      host.vm.network 'private_network', ip: machine[:ip]
+      host.vm.hostname = "#{machine[:name]}.#{domain}"
       # presumes installation of https://github.com/cogitatio/vagrant-hostsupdater on host
-      host.hostsupdater.aliases = ["#{short_name}"]
+      host.hostsupdater.aliases = [machine[:name]]
       # avoiding "Authentication failure" issue
       host.ssh.insert_key = false
       host.vm.synced_folder ".", "/vagrant", disabled: true
 
       host.vm.provider "virtualbox" do |vb|
-        vb.name = "#{short_name}.#{domain}"
-        vb.memory = 2048
-        vb.cpus = 1
+        vb.name = "#{machine[:name]}.#{domain}"
+        vb.memory = machine[:memory]
+        vb.cpus = machine[:cpus]
         vb.linked_clone = true
-
-        if short_name == "catalyst-solr" || short_name == "catalyst-solr-slave"
-          # 2 would be better for testing performance, but then the full
-          # environment would exceed available resources on most dev machines
-          vb.cpus = 1
-          vb.memory = 5120
-        end
       end
 
-      if short_name == "catalyst-solr" # last in the list
-        setup_complete = true
-      end
-
-      if setup_complete
-        # workaround for https://github.com/mitchellh/vagrant/issues/8142
-        host.vm.provision "shell",
-          inline: "sudo service network restart"
-
+      # Note: have tried to move outside the machine.each loop but still triggers
+      #       on first machine creation
+      if index == (@machines.size-1)
         host.vm.provision "ansible" do |ansible|
-          ansible.galaxy_role_file = "requirements.yml"
+          # NOTE: not reading from ansible.cfg
           ansible.inventory_path = "inventory/vagrant"
           # NOTE: comment in if replicating:
           # ansible.inventory_path = "inventory/dev_replicating"
-          ansible.playbook = "setup.yml"
-          ansible.limit = "all"
+          ansible.galaxy_role_file = "requirements.yml"
           ansible.verbose = "v"
+          # NOTE: can't just leave this out and expect it to default to "all"
+          #ansible.limit = machine[:name]
+          ansible.limit = @ansible_limit
+          ansible.playbook = "setup.yml"
         end
       end
     end
+
   end
+
 end
