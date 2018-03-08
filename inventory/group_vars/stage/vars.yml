@@ -16,16 +16,13 @@ rails_env:              "production"
 
 # apache vars:
 hostname:               "{{ app_name }}"
-domainname:             "mse.jhu.edu"
+domainname:             "library.jhu.edu"
 
 ssl_self_sign_cert:               false
 ssl_provided_cert:                false
-ssl_certificate_file:             "star_library.jhu.edu.crt"
-ssl_certificate_content:          "{{ vault_ssl_certificate_content }}"
-ssl_certificate_key_file:         "star_library.jhu.edu.key"
-ssl_certificate_key_content:      "{{ vault_ssl_certificate_key_content }}"
-ssl_certificate_chain_file:       "star_library.jhu.edu_interm.crt"
-ssl_certificate_chain_content:    "{{ vault_ssl_certificate_chain_content }}"
+ssl_certificate_file:             "{{ vault_ssl_certificate_file }}"
+ssl_certificate_key_file:         "{{ vault_ssl_certificate_key_file }}"
+ssl_certificate_chain_file:       "{{ vault_ssl_certificate_chain_file }}"
 
 # passenger vars
  # TODO: adopt and move up
