@@ -6,7 +6,7 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:             "release/1.2.0"
+app_branch:             "development"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"
@@ -59,7 +59,7 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 
 # solr vars for catalyst
 # NOTE: this solr url is ued by catalyst to determine the solr used for searching
-solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst"
+solr_url:               "http://catsolrslave-test.library.jhu.edu:8983/solr/catalyst"
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of

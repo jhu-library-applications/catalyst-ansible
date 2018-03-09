@@ -6,7 +6,7 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:             "v1.2.0"
+app_branch:             "v1.2.1"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"
@@ -58,7 +58,7 @@ catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu" # we do not have a findit-stage server
 
 # solr vars
-solr_url:               "http://catsolrslave-test.library.jhu.edu:8080/solr/catalyst_dev1"
+solr_url:               "http://catsolrslave-test.library.jhu.edu:8983/solr/catalyst"
 
 # firewalld vars:
 # NOTE: this is important to do at least once, as we are using some of
