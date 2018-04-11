@@ -6,7 +6,7 @@ mode:                         "deploy" # dev || deploy
 # ruby vars
 # chruby_ruby_version:          "jruby-9.1.12.0"
 # service_ruby_version:         "jruby-1.7.4" # NOTE: at present, jruby-1.7.4 is unavailable from the official source
-service_ruby_version:         "jruby-9.1.14.0"
+service_ruby_version:         "jruby-9.1.16.0"
 service_ruby_path:            "/opt/rubies/{{ service_ruby_version }}"
 chruby_ruby_version:          "{{ service_ruby_version }}"
 
@@ -20,6 +20,7 @@ rails_env:                    "production"
 # traject vars
 traject_app_name:             "catalyst-traject"
 traject_app_repo:             "https://github.com/jhu-sheridan-libraries/catalyst-traject.git"
+traject_app_branch:           "upgrade-traject-solr-6-6"
 traject_cron_command:         "/bin/bash -lc 'cd {{ service_deploy_dir }} && bundle exec rake horizon:mass_index >> {{ service_log_file }} 2>&1'"
 traject_config_files:
   - template:                 "templates/traject_dotenv.j2"

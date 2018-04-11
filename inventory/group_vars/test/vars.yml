@@ -30,13 +30,13 @@ update_packages:        false
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_test"
+catalyst_db_name:       "catalyst_{{ environ }}"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
-horizon_db_name:        "horizontest"
+horizon_db_name:        "horizonstage"
 horizon_db_host:        "horizontest.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
@@ -59,13 +59,13 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 
 # solr vars for catalyst
 # NOTE: this solr url is ued by catalyst to determine the solr used for searching
-solr_url:               "http://catsolrslave-test.library.jhu.edu:8983/solr/catalyst"
+solr_url:              "{{ vault_solr_url }}" 
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of
 # solr_url_to_index will be used for SOLR_REPLICATE_MASTER_URL (true) or SOLR_URL (false)
 solr_replicate_master:  true
-solr_url_to_index:      "http://localhost:8984/solr/master_prod"
+solr_url_to_index:      "{{ vault_solr_url_index }}"
 # NOTE: only used if solr_replicate_master is true
 solr_url_slave:         "{{ solr_url }}"
 # 23 30 : every night at 11:30PM

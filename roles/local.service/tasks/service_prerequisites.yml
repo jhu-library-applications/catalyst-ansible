@@ -1,0 +1,6 @@
+---
+- name: install prereqs
+  become: true
+  package: name={{ item }} state=present
+  with_items:
+    - git

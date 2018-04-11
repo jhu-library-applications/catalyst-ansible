@@ -36,7 +36,7 @@ Then you can run the deployment commands below.
 #### Upgrade Ruby
 We assume that the application has been tested on dev, and either  test/stage.
 
-Follow the following checklist 
+Follow the following checklist
 * Update the production inventory, choose ruby version, and app_branch
 * Check you have ssh deploy@catalyst.library.jhu.edu works
 * Check free space on server (df -h ) | require at least 2G
@@ -60,8 +60,31 @@ TASK [jetty : get jetty checksum] **********************************************
 objc[86359]: +[__NSPlaceholderDate initialize] may have been in progress in another thread when fork() was called.
 objc[86359]: +[__NSPlaceholderDate initialize] may have been in progress in another thread when fork() was called. We cannot safely call it or ignore it in the fork() child process. Crashing instead. Set a breakpoint on objc_initializeAfterForkError to debug.
 ```
-As a workaround, adding the 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' to your ~/.profile. 
+As a workaround, adding the 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' to your ~/.profile.
 A fix mas been merged into the unreleased ansible-2.5 branch.
+
+### Deploy catalyst
+
+* To local dev vms
+```
+vagrant up
+ansible-playbook playbooks/catalyst_install.yml -i inventory/vagrant --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash> force_default_jhed=<username>" -v
+```
+* To catalyst-test.library.jhu.edu
+```
+ansible-playbook playbooks/catalyst_install.yml -i inventory/test --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash>" -v
+```
+* To catalyst-stage.library.jhu.edu
+```
+ansible-playbook playbooks/catalyst_install.yml -i inventory/stage --extra-vars "app_branch=<branch_or_tag_name_or_commit_hash>" -v
+```
+* To catalyst-prod.library.jhu.edu
+
+Update the `app_branch` variable in `inventory/prod/vars.yml`, and commit it and push.
+
+```
+ansible-playbook playbooks/catalyst_install.yml -i inventory/prod -v
+```
 
 ### Deploy the web service 
 
@@ -69,4 +92,11 @@ A fix mas been merged into the unreleased ansible-2.5 branch.
 
 ```
 ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
+```
+
+Solr
+
+To delete all the data from a core 
+```
+curl http://localhost:8983/solr/catalyst/update?commit=true -H "Content-Type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 ```

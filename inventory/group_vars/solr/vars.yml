@@ -1,7 +1,7 @@
 # solr vars
-solr_major_version:           5
-solr_minor_version:           5
-solr_patch_version:           5
+solr_major_version:           6
+solr_minor_version:           6
+solr_patch_version:           3
 solr_port:                    "8983"
 solr_upgrade:                 true
 solr_cores:
@@ -12,7 +12,7 @@ solr_env_vars:
   value:  "4g"
 # NOTE: this must be the SSH URL. the HTTPS URL will not work
 solr_config_repo:             "git@github.com:jhu-sheridan-libraries/blacklight-solr"
-solr_config_branch:           "upgrade"
+solr_config_branch:           "solr-6.6-fs"
 solr_config_download_dir:     "/home/{{ login_user }}/solr_config"
 solr_config_inventory:        "solr_config_inventory"
 solr_home:                    "/var/solr/data"

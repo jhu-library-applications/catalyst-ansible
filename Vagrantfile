@@ -26,23 +26,25 @@ Vagrant.configure(2) do |config|
 
   @machines = [
     # comment in if testing replication:
-    # { name: 'catalyst-solr-slave',
-    #   ip: '10.11.12.103',
-    #   memory: 2048,
-    #   cpus: 1, name: 'catsolrmaster-dev',
-    #   ansible_group: 'solr',
-    # },
     { name: 'catalyst-dev',
       ip: '10.11.12.101',
       memory: 2048,
       cpus: 1,
     },
-    { name: 'catalyst-solr-dev',
-      ip: '10.11.12.102',
-      memory: 2048,
-      cpus: 1,
-      ansible_group: 'solr'
-    }
+    #{ name: 'catsolrslave-dev',
+    #  aliases: [ 'catalyst-solr-slave-dev' ],
+    #  ip: '10.11.12.103',
+    #  memory: 2048,
+    #  cpus: 1,
+    #  ansible_group: 'solr',
+    #},
+    #{ name: 'catsolrmaster-dev',
+    #  aliases: [ 'catalyst-solr-dev' ],
+    #  ip: '10.11.12.102',
+    #  memory: 4096,
+    #  cpus: 2, #master does indexing, see if 2 cpu's helps
+    #  ansible_group: 'solr'
+    #}
   ]
 
   # limit ansible provisioning to machines
@@ -72,7 +74,7 @@ Vagrant.configure(2) do |config|
           # NOTE: not reading from ansible.cfg
           ansible.inventory_path = "inventory/vagrant"
           # NOTE: comment in if replicating:
-          # ansible.inventory_path = "inventory/dev_replicating"
+          #ansible.inventory_path = "inventory/dev_replicating"
           ansible.galaxy_role_file = "requirements.yml"
           ansible.verbose = "v"
           # NOTE: can't just leave this out and expect it to default to "all"

@@ -12,6 +12,7 @@
       service_app_name:         "{{ traject_app_name }}"
       service_app_user:         "{{ app_user }}"
       service_app_repo:         "{{ traject_app_repo }}"
+      service_app_branch:       "{{ traject_app_branch }}"
       service_cron_minute:      "{{ traject_cron_minute }}"
       service_cron_hour:        "{{ traject_cron_hour }}"
       service_cron_command:     "{{ traject_cron_command }}"
