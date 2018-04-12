@@ -5,12 +5,13 @@ catalyst-dev.test
 
 [solr]
 catsolrslave-dev.test
+catsolrmaster-dev.test
 
 [traject]
-catsolrslave-dev.test
+catsolrmaster-dev.test
 
 [pull-reserves]
-catsolrslave-dev.test
+catsolrmaster-dev.test
 
 [horizon-ws]
 catalyst-dev.test
