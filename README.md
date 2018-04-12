@@ -100,3 +100,14 @@ To delete all the data from a core
 ```
 curl http://localhost:8983/solr/catalyst/update?commit=true -H "Content-Type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
 ```
+
+# Deploy solr master and slave
+
+To local dev vagrant vm
+Update your local Vagrantfile and add catsolrmaster-dev and catsolrslave-dev
+Update your local inventory/vagrant file and ensure the solr group is present
+
+
+vagrant up
+ansible-playbook playbooks/solr.yml -i inventory/vagrant
+
