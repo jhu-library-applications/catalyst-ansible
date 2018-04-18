@@ -57,8 +57,8 @@ borrow_direct_host:     "borrow-direct.relaisd2d.com"
 catalyst_base_url:      "https://catalyst.library.jhu.edu"
 findit_base_url:        "https://findit.library.jhu.edu"
 
-# solr vars
-solr_url:               "http://catsolrslave.library.jhu.edu:8983/solr/prod"
+# solr vars # overrides one in services.yml
+solr_url:               "{{ vault_solr_url }}"
 
 # ip vars
 findit_ip:              "{{ findit_ip_prod }}"
