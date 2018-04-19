@@ -1,0 +1,21 @@
+# traject vars
+traject_app_user:             "{{ app_user }}"
+traject_app_name:             "catalyst-traject"
+traject_app_repo:             "https://github.com/jhu-sheridan-libraries/catalyst-traject.git"
+traject_app_branch:           "solr-6"
+traject_cron_command:         "/bin/bash -lc 'cd {{ service_deploy_dir }} && bundle exec rake horizon:mass_index >> {{ service_log_file }} 2>&1'"
+traject_config_files:
+  - template:                 "templates/traject_dotenv.j2"
+    dest:                     "{{ service_deploy_dir }}/.env"
+# NOTE: set in the group_vars for the environment:
+# DON"T set them here or they will override those environment-specific values
+#
+# REQUIRED
+# traject_cron_minute:
+# traject_cron_hour:
+# solr_replicate_master:
+# solr_url_to_index:
+# OPTIONAL
+# only_bib:
+# first_bib:
+# last_bib:

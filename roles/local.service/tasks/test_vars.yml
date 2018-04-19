@@ -12,6 +12,9 @@
     msg: "service_cron_minute: {{ service_cron_minute }}"
 
 - debug:
+    msg: "service_cron_weekday: {{ service_cron_weekday }}"
+
+- debug:
     msg: "service_cron_command: {{ service_cron_command }}"
 
 - debug:
