@@ -2,7 +2,10 @@
 
 Ansible project to build and deploy [Catalyst](https://github.com/jhu-sheridan-libraries/blacklight-rails), Johns Hopkins University Libraries blacklight-based library catalogue.
 
-## WIP
+This project requires
+
+- Requires Ansible 2.4+ (using import_role)
+- Tested with Vagrant 2.0.3, VirtualBox 5.2.8
 
 ## Setup SSH keys
 
