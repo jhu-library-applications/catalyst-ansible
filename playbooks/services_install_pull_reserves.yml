@@ -6,13 +6,16 @@
     - pull-reserves
 
   tasks:
-  - include_role:
+  - import_role:
       name: local.service
     vars:
       service_app_name:         "{{ pull_reserves_app_name }}"
-      service_app_user:         "{{ app_user }}"
+      service_app_user:         "{{ pull_reserves_app_user }}"
       service_app_repo:         "{{ pull_reserves_app_repo }}"
+      service_app_branch:       "{{ pull_reserves_app_branch | default( 'master') }}"
       service_cron_minute:      "{{ pull_reserves_cron_minute }}"
       service_cron_hour:        "{{ pull_reserves_cron_hour }}"
+      service_cron_weekday:     "{{ pull_reserves_cron_weekday | default('*') }}"
       service_cron_command:     "{{ pull_reserves_cron_command }}"
+      service_cron_action:      "{{ pull_reserves_cron_action | default('create') }}"
       service_config_files:     "{{ pull_reserves_config_files }}"

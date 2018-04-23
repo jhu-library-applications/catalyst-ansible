@@ -3,11 +3,15 @@
 [default]
 catalyst.library.jhu.edu
 
+[solr]
+catsolrslave.library.jhu.edu
+catsolrmaster.library.jhu.edu
+
 [traject]
-catsolrmaster.library.jhu.edu  legacy_server=true
+catsolrmaster.library.jhu.edu
 
 [pull-reserves]
-catsolrmaster.library.jhu.edu  legacy_server=true
+catsolrmaster.library.jhu.edu
 
 [horizon-ws]
 catalyst.library.jhu.edu
@@ -23,6 +27,7 @@ catalyst
 horizon-ws
 pull-reserves
 traject
+solr
 
 [services:children]
 pull-reserves

@@ -1,13 +1,14 @@
-# test:
+# test - replicating solr:
 # ------------------
 [default]
 catalyst-test.library.jhu.edu
 
-[solr]
-catsolrslave-test.library.jhu.edu
+[solr-master]
 catsolrmaster-test.library.jhu.edu
 
-# NOTE: after testing is complete, we probably want to 86 these legacy_server vars...
+[solr-slave]
+catsolrslave-test.library.jhu.edu
+
 [traject]
 catsolrmaster-test.library.jhu.edu
 
@@ -20,16 +21,17 @@ catalyst-test.library.jhu.edu
 [catalyst]
 catalyst-test.library.jhu.edu
 
-[hip-server]
-hip-test.mse.jhu.edu
-
-[test:children]
+[dev:children]
 catalyst
 horizon-ws
 pull-reserves
 traject
-solr
+solr-slave
 
 [services:children]
 pull-reserves
 traject
+
+[solr:children]
+solr-master
+solr-slave

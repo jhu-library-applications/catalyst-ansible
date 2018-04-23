@@ -1,7 +1,13 @@
 ---
+
+- name: "install service prerequisites"
+  include_tasks: service_prerequisites.yml
+
 - name: "install service - {{ service_app_name }}"
-  include: service_install.yml
+  include_tasks: service_install.yml
 
 - name: "configure cron for service - {{ service_app_name }}"
-  include: cron.yml
+  include_tasks: cron.yml
   when: service_cron_action != "none"
+  tags:
+    - cron

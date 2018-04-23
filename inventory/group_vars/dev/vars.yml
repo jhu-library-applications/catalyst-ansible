@@ -1,19 +1,19 @@
 # setup vars
-environ:                "dev" # dev || stage || prod
+environ:                "dev" # dev || test || stage || prod
 debugging:              true
 
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "feature/LAG-1231"
+app_branch:             "release/1.2.3"
 
 # ruby vars
-chruby_ruby_version:     "ruby-2.3.6"
+chruby_ruby_version:    "ruby-2.3.6"
 services_needs_jruby:    true
 
 # apache vars:
-hostname:               "{{ app_name }}-{{environ}}"
+hostname:               "{{ app_name }}-{{ environ }}"
 domainname:             "test"
 
 ssl_self_sign_cert:               false
@@ -27,7 +27,7 @@ ssl_certificate_chain_content:    "{{ vault_ssl_certificate_chain_content }}"
 
 # database config vars
 # catalyst_db
-catalyst_db_name:       "catalyst_dev"
+catalyst_db_name:       "catalyst_{{ environ }}"
 catalyst_db_host:       "mysql.dev.mse.jhu.edu"
 catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
@@ -61,24 +61,24 @@ solr_slave_ip:          "10.11.12.103"
 # NOTE: this is the existing url we are still using until our ansibilization is complete
 # solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
 # FIXME: avoid hard-coding the solr_url
-# FIXME: solr_port & solr_cores vars are not available to catalyst, only catalyst-solr
+# FIXME: solr_port & solr_cores vars are not available to catalyst, only catsolr
 # NOTE: for non-replication:
 solr_url:               "http://{{ solr_master_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: for replication:
-# solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
+solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of
 # solr_url_to_index will be used for SOLR_REPLICATE_MASTER_URL (true) or SOLR_URL (false)
 # ALSO NOTE: solr replication is not currently working with our dev configuration
-solr_replicate_master:  false
-solr_url_to_index:      "http://localhost:{{ solr_port }}/solr/{{ solr_cores[0] }}"
+solr_replicate_master:  true
+solr_url_to_index:      "http://{{ solr_master_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: only used if solr_replicate_master is true
 solr_url_slave:         "http://{{ solr_slave_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # 23 30 : every night at 11:30PM
 # 0-23; apparently in UTC
-traject_cron_minute:    30
-traject_cron_hour:      23
+traject_cron_minute:    0
+traject_cron_hour:      0 
 # NOTE: optional and mutually exclusive (only or (first &/or last))
 # only_bib:               391566
 first_bib:              6270400
@@ -87,8 +87,8 @@ sanity_check_count:       10000
 # traject_cron_action:    "create" # create | remove | none (if absent, create is default)
 
 # pull-reserves vars
-pull_reserves_cron_minute:  25
-pull_reserves_cron_hour:    11
+pull_reserves_cron_minute:  0
+pull_reserves_cron_hour:    0
 
 # ip vars
 findit_ip:                  "10.11.12.102" # local VM

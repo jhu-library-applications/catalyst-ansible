@@ -4,16 +4,16 @@
 catalyst-dev.test
 
 [solr-master]
-catalyst-solr-dev.test
+catsolrmaster-dev.test
 
 [solr-slave]
-catalyst-solr-slave-dev.test
+catsolrslave-dev.test
 
 [traject]
-catalyst-solr-dev.test
+catsolrmaster-dev.test
 
 [pull-reserves]
-catalyst-solr-dev.test
+catsolrmaster-dev.test
 
 [horizon-ws]
 catalyst-dev.test

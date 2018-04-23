@@ -1,0 +1,6 @@
+# solr vars
+solr_patch_version:           2 # as a demo change version to overide the all defaults 
+solr_port:                    "8983"
+solr_env_vars:
+- var:    "SOLR_HEAP"
+  value:  "2g"

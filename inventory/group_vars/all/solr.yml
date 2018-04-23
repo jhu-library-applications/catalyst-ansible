@@ -1,18 +1,20 @@
 # solr vars
-solr_major_version:           5
-solr_minor_version:           5
-solr_patch_version:           5
+solr_major_version:           6
+solr_minor_version:           6
+solr_patch_version:           3
 solr_port:                    "8983"
 solr_upgrade:                 true
 solr_cores:
 - "catalyst"
+
 # solr_env_template:          "solr.in.sh.j2"
 solr_env_vars:
 - var:    "SOLR_HEAP"
   value:  "4g"
+
 # NOTE: this must be the SSH URL. the HTTPS URL will not work
 solr_config_repo:             "git@github.com:jhu-sheridan-libraries/blacklight-solr"
-solr_config_branch:           "upgrade"
+solr_config_branch:           "solr-6.6.3"
 solr_config_download_dir:     "/home/{{ login_user }}/solr_config"
 solr_config_inventory:        "solr_config_inventory"
 solr_home:                    "/var/solr/data"
@@ -22,15 +24,16 @@ solr_user:                    "solr"
 solr_group:                   "{{ solr_user }}"
 
 # firewalld vars:
-firewalld_update_packages:    true
-firewalld_ipsets:
+solr_firewalld_ipsets:
   - name: solr_whitelist
     ips:
       - "{{ hopkins_ip_range }}"
+
 solr_accept_rule_nolog:       'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" accept'
 solr_accept_rule:             'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-allowed" level="info" limit value="1/m" accept'
 solr_reject_rule:             'rule family="ipv4" source NOT ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-denied" level="info" limit value="1/m" reject'
-firewalld_richrules:
+
+solr_firewalld_richrules:
   - rule: "{{ solr_accept_rule }}"
     state: enabled
   - rule: "{{ solr_reject_rule }}"

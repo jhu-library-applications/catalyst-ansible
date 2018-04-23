@@ -2,7 +2,10 @@
 
 Ansible project to build and deploy [Catalyst](https://github.com/jhu-sheridan-libraries/blacklight-rails), Johns Hopkins University Libraries blacklight-based library catalogue.
 
-## WIP
+This project requires
+
+- Requires Ansible 2.4+ (using import_role)
+- Tested with Vagrant 2.0.3, VirtualBox 5.2.8
 
 ## Setup SSH keys
 
@@ -93,3 +96,28 @@ ansible-playbook playbooks/catalyst_install.yml -i inventory/prod -v
 ```
 ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
 ```
+
+Solr
+
+To delete all the data from a core 
+```
+curl http://localhost:8983/solr/catalyst/update?commit=true -H "Content-Type: text/xml" --data-binary '<delete><query>*:*</query></delete>'
+```
+
+# Deploy solr master and slave
+
+To local dev vagrant vm
+Update your local Vagrantfile and add catsolrmaster-dev and catsolrslave-dev
+Update your local inventory/vagrant file and ensure the solr group is present
+
+
+vagrant up
+ansible-playbook playbooks/solr.yml -i inventory/vagrant
+
+# Changing Service Cron times
+
+To just update the cron configuration for catalyst-traject and catalyst-pull-reserves 
+```
+time ansible-playbook -i inventory/test  playbooks/services_install_traject.yml  --tags=cron -v
+```
+took 21s

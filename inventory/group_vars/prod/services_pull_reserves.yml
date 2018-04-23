@@ -1,0 +1,5 @@
+# pull-reserves vars
+# every 5 minutes between the hours of 6am and 11pm; UTC?
+pull_reserves_cron_minute:    "*/5"
+pull_reserves_cron_hour:      "6-23"
+pull_reserves_cron_weekday:   "1-5"

@@ -5,6 +5,7 @@ service_app_repo:                 ""
 service_ruby_version:             "jruby-9.1.14.0"
 service_cron_minute:              0
 service_cron_hour:                0
+service_cron_weekday:             "*"
 service_cron_command:             "cat /proc/meminfo >> {{ log_file }}"
 service_cron_action:              "create" # create | remove | none
 service_config_files:
