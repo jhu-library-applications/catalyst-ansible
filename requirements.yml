@@ -30,6 +30,7 @@
   name: jetty
 
 - src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
+  version: v1.0
   name: shib
 
 - src: https://github.com/dheles/firewalld-ansible-role
