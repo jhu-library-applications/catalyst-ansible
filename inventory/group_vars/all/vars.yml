@@ -124,7 +124,7 @@ bantheman_configs:
 logrotate_configs:
   - name: "catalyst"
     path: "{{ deploy_dir }}/log"
-    # setype: "var_log_t"
+    setype: "var_log_t"
     options:
       - "su catalyst catalyst"
       - "daily"
