@@ -11,9 +11,3 @@
   RewriteCond %{REQUEST_URI} !refworks_marc_txt$
   RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
 
-  # And have to make sure non-https refworks callbacks actually
-  # make it to our passenger deployed app
-  # Removed by DJB by request from Jonathan Rochkind - 12/14/2012
-  #ProxyRequests off
-  #SSLProxyEngine On
-  #RewriteRule /catalog/(.*)\.refworks_marc_txt https://catalyst.library.jhu.edu/catalog/$1.refworks_marc_txt [P]
