@@ -132,6 +132,8 @@ logrotate_configs:
       - "compress"
       - "delaycompress"
       - "missingok"
+      - "create 0600"
+      - "dateext"
 
 testup_cucumber_vars_template: "templates/test_vars.rb"
 
