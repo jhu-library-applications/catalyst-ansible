@@ -1,91 +1,60 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-domain          = "test"
-
-# NOTE: currently using the same OS for all boxen
-OS="centos" # "debian" || "centos"
-
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure(2) do |config|
-  package=""
-  if OS=="debian"
-    config.vm.box = "debian/jessie64"
-    package="_apt"
-  elsif OS=="centos"
-    config.vm.box = "centos/7"
-    config.vm.box_version = "1801.02" # 7.4.1708
-    package="_yum"
-  else
-    puts "you must set the OS variable to a valid value before continuing"
-    exit
+Vagrant.configure('2') do |config|
+
+  # this same file is used for ansible inventory
+  inventory_path = 'inventory/vagrant'
+  inventory = YAML.load_file(inventory_path)
+  ansible_hosts = inventory['all']['hosts']
+
+  # delete status = absent
+  ansible_hosts.map do |name, vars|
+    # skip hosts marked as absent
+    ansible_hosts.delete(name)  if (  vars['state'] == 'absent' )
   end
 
-  @machines = [
-    # comment in if testing replication:
-    { name: 'catalyst-dev',
-      aliases: [ 'catalyst-dev.library.jhu.edu'],
-      ip: '10.11.12.101',
-      memory: 2048,
-      cpus: 1,
-    },
-#    { name: 'catsolrslave-dev',
-#      aliases: [ 'catalyst-solr-slave-dev','catsolrslave-dev.library.jhu.edu' ],
-#      ip: '10.11.12.103',
-#      memory: 2048,
-#      cpus: 1,
-#      ansible_group: 'solr',
-#    },
-#    { name: 'catsolrmaster-dev',
-#      aliases: [ 'catalyst-solr-dev', 'catsolrmaster-dev.library.jhu.edu'],
-#      ip: '10.11.12.102',
-#      memory: 4096,
-#      cpus: 2, #master does indexing, see if 2 cpu's helps
-#      ansible_group: 'solr'
-#    }
-  ]
+  ansible_limit = ansible_hosts.map{ | host_name, host | "#{host_name}" }.join(',') || 'all'
 
-  # limit ansible provisioning to machines
-  @ansible_limit = @machines.map{ |machine| "#{machine[:name]}.#{domain}" }.join(",") || "all"
+  ansible_hosts.each_with_index do | (host_name, host_vars), index|
+    config.vm.define host_name do |host|
+ 
+      # setup box image for each host
+      host.vm.box = host_vars['vagrant_box_image']
+      host.vm.box_version = host_vars['vagrant_box_version']
 
-  @machines.each_with_index do |machine, index|
-    config.vm.define machine[:name] do |host|
-      host.vm.network 'private_network', ip: machine[:ip]
-      host.vm.hostname = "#{machine[:name]}.#{domain}"
-      # presumes installation of https://github.com/cogitatio/vagrant-hostsupdater on host
-      host.hostsupdater.aliases = [ *machine[:aliases], machine[:name] ]  if machine[:aliases]
-      # avoiding "Authentication failure" issue
-      host.ssh.insert_key = false
-      host.vm.synced_folder ".", "/vagrant", disabled: true
-
-      host.vm.provider "virtualbox" do |vb|
-        vb.name = "#{machine[:name]}.#{domain}"
-        vb.memory = machine[:memory]
-        vb.cpus = machine[:cpus]
+      # configure the virtual machine
+      config.vm.provider 'virtualbox' do |vb|
+        vb.name = host_name
+        vb.memory = host_vars['memory']
+        vb.cpus = host_vars['cpus']
         vb.linked_clone = true
       end
 
-      # Note: have tried to move outside the machine.each loop but still triggers
-      #       on first machine creation
-      if index == (@machines.size-1)
-        host.vm.provision "ansible" do |ansible|
-          # NOTE: not reading from ansible.cfg
-          ansible.inventory_path = "inventory/vagrant"
-          # NOTE: comment in if replicating:
-          #ansible.inventory_path = "inventory/dev_replicating"
-          ansible.galaxy_role_file = "requirements.yml"
-          ansible.verbose = "v"
-          # NOTE: can't just leave this out and expect it to default to "all"
-          #ansible.limit = machine[:name]
-          ansible.limit = @ansible_limit
-          ansible.playbook = "setup.yml"
+      # configure network
+      host.vm.hostname = host_name
+      host.vm.network 'private_network', ip: host_vars['ansible_ip']
+      host.hostsupdater.aliases = host_vars['aliases']
+      host.ssh.insert_key = false
+      host.vm.synced_folder '.', '/vagrant', disabled: true
+
+      # only provision the last host, ansible will manage all hosts
+      if index == (ansible_hosts.size-1)
+        host.vm.provision 'ansible' do |ansible|
+          ansible.compatibility_mode = '2.0'
+          ansible.inventory_path = inventory_path
+          # ensure roles installed
+          ansible.galaxy_role_file = 'requirements.yml'
+          ansible.verbose = 'v'
+          ansible.limit = ansible_limit
+          ansible.playbook = 'setup.yml'
         end
       end
     end
 
   end
-
 end

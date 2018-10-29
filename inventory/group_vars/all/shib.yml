@@ -1,0 +1,17 @@
+# shib-sp configuration
+# Also see shib_vault
+shib_idps:                 "{{ vault_shib_idps }}"
+shib_sp_cert:              "{{ vault_shib_sp_cert }}"
+shib_sp_key:               "{{ vault_shib_sp_key }}"
+shib_idp_entity_id:        "{{ vault_shib_idp_entity_id}}"
+shib_idp_metadata:         "{{ vault_shib_idp_metadata}}"
+shib_entity_id:            "https://catalyst.library.jhu.edu/shibboleth"
+shib_virtualhost_template: 'shib_virtualhost.j2'
+shib_attribute_template:   'attribute-map.xml.j2'
+shib_config_template:      'shibboleth2.xml.j2'
+# NOTE: overriding because the official repo is having mirror issues at present (9/13/17)
+# getting alternate urls from:
+# http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/x86_64/shibboleth-2.6.0-2.1.x86_64.rpm.mirrorlist
+# because the official list ( https://mirrors.opensuse.org/ )
+# is mostly mirrors of the openSUSE project, and not the repos we need
+shib_repo_baseurl:      "https://ftp.gwdg.de/pub/opensuse/repositories/security:/shibboleth/CentOS_7/"

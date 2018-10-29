@@ -1,35 +1,46 @@
-# test:
-# ------------------
-[default]
-catalyst-test.library.jhu.edu
+ ---
+all:
+  hosts:
+    catalyst-test.library.jhu.edu:
+    catsolrslave-test.library.jhu.edu:
+    catsolrmaster-test.library.jhu.edu:
+    hip-test.mse.jhu.edu:
+ 
+  children:
+    # groups of hosts
+    default:
+      hosts:
+        catalyst-test.library.jhu.edu:
+    catalyst:
+      hosts:
+        catalyst-test.library.jhu.edu:
+    solr:
+      hosts:
+        catsolrslave-test.library.jhu.edu:
+        catsolrmaster-test.library.jhu.edu:
+    # NOTE: after testing is complete, we probably want to 
+    # 86 these legacy_server vars...
+    traject:
+      hosts:
+        catsolrmaster-test.library.jhu.edu:
+    pull-reserves:
+      hosts:
+        catsolrmaster-test.library.jhu.edu:
+    horizon-ws:
+      hosts:
+        catalyst-test.library.jhu.edu:
+    hip-server:
+      hosts:
+        hip-test.mse.jhu.edu:
 
-[solr]
-catsolrslave-test.library.jhu.edu
-catsolrmaster-test.library.jhu.edu
-
-# NOTE: after testing is complete, we probably want to 86 these legacy_server vars...
-[traject]
-catsolrmaster-test.library.jhu.edu
-
-[pull-reserves]
-catsolrmaster-test.library.jhu.edu
-
-[horizon-ws]
-catalyst-test.library.jhu.edu
-
-[catalyst]
-catalyst-test.library.jhu.edu
-
-[hip-server]
-hip-test.mse.jhu.edu
-
-[test:children]
-catalyst
-horizon-ws
-pull-reserves
-traject
-solr
-
-[services:children]
-pull-reserves
-traject
+    # groups of groups
+    test:
+      children:
+        catalyst:
+        horizon-ws:
+        pull-reserves:
+        traject:
+    services:
+      children:
+        pull-reserves:
+        traject:
