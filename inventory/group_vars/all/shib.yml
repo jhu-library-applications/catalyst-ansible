@@ -9,6 +9,7 @@ shib_entity_id:            "https://catalyst.library.jhu.edu/shibboleth"
 shib_virtualhost_template: 'shib_virtualhost.j2'
 shib_attribute_template:   'attribute-map.xml.j2'
 shib_config_template:      'shibboleth2.xml.j2'
+shib_contact:              "{{ vault_shib_contact }}"
 # NOTE: overriding because the official repo is having mirror issues at present (9/13/17)
 # getting alternate urls from:
 # http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/x86_64/shibboleth-2.6.0-2.1.x86_64.rpm.mirrorlist
