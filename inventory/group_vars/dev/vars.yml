@@ -65,7 +65,7 @@ solr_slave_ip:          "10.11.12.103"
 # NOTE: for non-replication:
 solr_url:               "http://{{ solr_master_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: for replication:
-solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
+# solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of
