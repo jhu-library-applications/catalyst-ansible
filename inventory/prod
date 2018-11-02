@@ -1,34 +1,41 @@
-# prod:
-# ------------------
-[default]
-catalyst.library.jhu.edu
-
-[solr]
-catsolrslave.library.jhu.edu
-catsolrmaster.library.jhu.edu
-
-[traject]
-catsolrmaster.library.jhu.edu
-
-[pull-reserves]
-catsolrmaster.library.jhu.edu
-
-[horizon-ws]
-catalyst.library.jhu.edu
-
-[catalyst]
-catalyst.library.jhu.edu
-
-[hip-server]
-hip.library.jhu.edu
-
-[prod:children]
-catalyst
-horizon-ws
-pull-reserves
-traject
-solr
-
-[services:children]
-pull-reserves
-traject
+---
+all:
+  hosts:
+    catalyst.library.jhu.edu:
+    catsolrslave.library.jhu.edu:
+    catsolrmaster.library.jhu.edu:
+    hip.library.jhu.edu:
+  children:
+    default:
+      hosts:
+        catalyst.library.jhu.edu:
+    catalyst:
+      hosts:
+        catalyst.library.jhu.edu:
+    solr:
+      hosts:
+        catsolrslave.library.jhu.edu:
+        catsolrmaster.library.jhu.edu:
+    traject:
+      hosts:
+        catsolrmaster.library.jhu.edu:
+    pull-reserves:
+      hosts:
+        catsolrmaster.library.jhu.edu:
+    horizon-ws:
+      hosts:
+        catalyst.library.jhu.edu:
+    hip-server:
+      hosts:
+        hip.library.jhu.edu:
+    # groups of groups
+    prod:
+      children:
+        catalyst:
+        horizon-ws:
+        pull-reserves:
+        traject:
+    services:
+      children:
+        pull-reserves:
+        traject:
