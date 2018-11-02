@@ -1,13 +1,11 @@
- ---
+---
 all:
   hosts:
     catalyst-test.library.jhu.edu:
     catsolrslave-test.library.jhu.edu:
     catsolrmaster-test.library.jhu.edu:
     hip-test.mse.jhu.edu:
- 
   children:
-    # groups of hosts
     default:
       hosts:
         catalyst-test.library.jhu.edu:
