@@ -59,11 +59,11 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 solr_master_ip:         "10.11.12.102"
 solr_slave_ip:          "10.11.12.103"
 # NOTE: this is the existing url we are still using until our ansibilization is complete
-# solr_url:               "http://catsolr04.mse.jhu.edu:8080/solr/catalyst_dev1"
+solr_url:               "http://catsolrslave-test.library.jhu.edu:8983/solr/catalyst"
 # FIXME: avoid hard-coding the solr_url
 # FIXME: solr_port & solr_cores vars are not available to catalyst, only catsolr
 # NOTE: for non-replication:
-solr_url:               "http://{{ solr_master_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
+# solr_url:               "http://{{ solr_master_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: for replication:
 # solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
 

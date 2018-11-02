@@ -3,9 +3,9 @@
 shib_idps:                 "{{ vault_shib_idps }}"
 shib_sp_cert:              "{{ vault_shib_sp_cert }}"
 shib_sp_key:               "{{ vault_shib_sp_key }}"
-shib_idp_entity_id:        "{{ vault_shib_idp_entity_id}}"
-shib_idp_metadata:         "{{ vault_shib_idp_metadata}}"
-shib_entity_id:            "https://catalyst.library.jhu.edu/shibboleth"
+shib_idp_entity_id:        "{{ vault_shib_idp_entity_id }}"
+shib_idp_metadata:         "{{ vault_shib_idp_metadata }}"
+shib_entity_id:            'https://catalyst.library.jhu.edu/shibboleth'
 shib_virtualhost_template: 'shib_virtualhost.j2'
 shib_attribute_template:   'attribute-map.xml.j2'
 shib_config_template:      'shibboleth2.xml.j2'
