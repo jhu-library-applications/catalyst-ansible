@@ -2,6 +2,7 @@
 all:
   hosts:
     catalyst-dev.test:
+      state: present # =absent to ignore in vagrant
       vagrant_box_image: 'centos/7'
       vagrant_box_version: '1802.01' # latest 7.4.1708
       cpus: 1
@@ -11,7 +12,7 @@ all:
         - 'catalyst-dev'
         - 'catalyst-dev.library.jhu.edu'
     catsolrslave-dev.test:
-      state: absent # =absent to ignore in vagrant
+      state: present
       vagrant_box_image: 'centos/7'
       vagrant_box_version: '1802.01' # latest 7.4.1708
       cpus: 1
@@ -21,7 +22,7 @@ all:
         - 'catsolrslave-dev'
         - 'catsolrslave-dev.library.jhu.edu'
     catsolrmaster-dev.test:
-      state: absent # =absent to ignore in vagrant
+      state: present
       vagrant_box_image: 'centos/7'
       vagrant_box_version: '1802.01' # latest 7.4.1708
       cpus: 1
@@ -57,6 +58,7 @@ all:
     dev:
       children:
         catalyst:
+        solr:
         horizon-ws:
         pull-reserves:
         traject:
