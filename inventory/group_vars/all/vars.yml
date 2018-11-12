@@ -122,7 +122,9 @@ logrotate_configs:
       - "create 0600"
       - "dateext"
 
-testup_cucumber_vars_template: "templates/test_vars.rb"
+testup_cucumber_vars_template:  "templates/test_vars.rb"
+testup_relative_path_to_root:   "../"
+testup_cucumber_repo:           "https://github.com/dheles/catalyst-cucumber-tests.git"
 
 # NOTE: set within inventory files for particular hosts
 legacy_server:                  false
