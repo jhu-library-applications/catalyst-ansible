@@ -1,0 +1,37 @@
+---
+# NOTE: assumes the existence of:
+# - an environment group that owns all of the variables we will need for our tests
+# - a "default" group containing a (preferably single) host that is a member of the environment group
+# - an "environ" variable set to the name of the environment group
+- hosts: default
+  connection: local
+
+  tasks:
+  - name: add localhost to the environment group to get the vars
+    add_host:
+      name: localhost
+      group: "{{ environ }}"
+    changed_when: false
+
+- name: check servers with cucumber
+  hosts: localhost
+  connection: local
+
+  tasks:
+  - name: set variables for tests
+    template:
+      src: templates/test_vars.rb
+      dest: "../features/support/test_vars.rb"
+      force: true
+
+  - name: test cucumber vars
+    command: "bundle exec cucumber features/test_vars.feature"
+    args:
+      # NOTE: the features are found one level above this playbook
+      chdir: "../"
+
+  - name: run cucumber
+    command: "bundle exec cucumber"
+    args:
+      # NOTE: the features are found one level above this playbook
+      chdir: "../"
