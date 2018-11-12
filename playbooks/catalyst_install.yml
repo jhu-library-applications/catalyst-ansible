@@ -21,7 +21,7 @@
 
   tasks:
   - name: configure application user
-    include: configure_app_user.yml
+    include_tasks: configure_app_user.yml
 
   - name: make sure deploy dir exists
     file:

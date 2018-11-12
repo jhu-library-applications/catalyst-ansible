@@ -1,13 +1,13 @@
 ---
-- include: playbooks/tests_setup.yml
+- import_playbook: playbooks/tests_setup.yml
   tags: ['tests', redeploy]
-- include: playbooks/catalyst.yml
+- import_playbook: playbooks/catalyst.yml
   tags: ['catalyst', redeploy]
-- include: playbooks/horizonws.yml
+- import_playbook: playbooks/horizonws.yml
   tags: ['horizonws']
-- include: playbooks/solr.yml
+- import_playbook: playbooks/solr.yml
   tags: ['solr']
-- include: playbooks/services.yml
+- import_playbook: playbooks/services.yml
   tags: ['services']
-- include: playbooks/run_tests.yml
+- import_playbook: playbooks/run_tests.yml
   tags: ['tests', redeploy]

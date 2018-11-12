@@ -68,19 +68,6 @@ update_packages:        false
 # NOTE: use this to override the passenger virtualhost sub-template
 # passenger_virtualhost_template:     "templates/passenger_virtualhost.j2"
 
-#shib
-shib_sp_cert:           "{{ vault_shib_sp_cert }}"
-shib_sp_key:            "{{ vault_shib_sp_key }}"
-shib_idp_metadata_xml:  "{{ vault_shib_idp_metadata_xml}}"
-shib_entity_id:         "blacklight.mse.jhu.edu"
-shib_idps:              "{{ vault_shib_idps }}"
-# NOTE: overriding because the official repo is having mirror issues at present (9/13/17)
-# getting alternate urls from:
-# http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/x86_64/shibboleth-2.6.0-2.1.x86_64.rpm.mirrorlist
-# because the official list ( https://mirrors.opensuse.org/ )
-# is mostly mirrors of the openSUSE project, and not the repos we need
-shib_repo_baseurl:      "http://ftp.gwdg.de/pub/opensuse/repositories/security:/shibboleth/CentOS_7/"
-
 # ssh vars
 login_group:              "{{ login_user }}"
 ssh_groups:               "{{ login_group }}"

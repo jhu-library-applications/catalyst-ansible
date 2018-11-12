@@ -17,7 +17,7 @@
 - src: https://github.com/dheles/ansible-role-apache.git
   name: apache
 
-- src: https://github.com/dheles/ansible-role-passenger.git
+- src: https://github.com/farooqsadiq/ansible-role-passenger.git
   name: passenger
 
 - src: https://github.com/dheles/ansible-chruby.git
@@ -30,7 +30,6 @@
   name: jetty
 
 - src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
-  version: v1.0
   name: shib
 
 - src: https://github.com/dheles/firewalld-ansible-role

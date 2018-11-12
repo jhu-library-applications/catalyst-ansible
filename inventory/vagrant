@@ -1,30 +1,68 @@
-# dev (vagrant):
-# ------------------
-[default]
-catalyst-dev.test
+---
+all:
+  hosts:
+    catalyst-dev.test:
+      state: present # =absent to ignore in vagrant
+      vagrant_box_image: 'centos/7'
+      vagrant_box_version: '1802.01' # latest 7.4.1708
+      cpus: 1
+      memory: 2048
+      ansible_ip: '10.11.12.101'
+      aliases:
+        - 'catalyst-dev'
+        - 'catalyst-dev.library.jhu.edu'
+    catsolrslave-dev.test:
+      state: present
+      vagrant_box_image: 'centos/7'
+      vagrant_box_version: '1802.01' # latest 7.4.1708
+      cpus: 1
+      memory: 2048
+      ansible_ip: '10.11.12.103'
+      aliases:
+        - 'catsolrslave-dev'
+        - 'catsolrslave-dev.library.jhu.edu'
+    catsolrmaster-dev.test:
+      state: present
+      vagrant_box_image: 'centos/7'
+      vagrant_box_version: '1802.01' # latest 7.4.1708
+      cpus: 1
+      memory: 2048
+      ansible_ip: '10.11.12.102'
+      aliases:
+        - 'catsolrmaster-dev'
+        - 'catsolrmaster-dev.library.jhu.edu'
 
-[solr]
-catsolrslave-dev.test
-catsolrmaster-dev.test
+  children:
+    # groups of hosts
+    default:
+      hosts:
+        catalyst-dev.test:
+    catalyst:
+      hosts:
+        catalyst-dev.test:
+    solr:
+      hosts:
+        catsolrslave-dev.test:
+        catsolrmaster-dev.test:
+    traject:
+      hosts:
+        catsolrmaster-dev.test:
+    pull-reserves:
+      hosts:
+        catsolrmaster-dev.test:
+    horizon-ws:
+      hosts:
+        catalyst-dev.test:
 
-[traject]
-catsolrmaster-dev.test
-
-[pull-reserves]
-catsolrmaster-dev.test
-
-[horizon-ws]
-catalyst-dev.test
-
-[catalyst]
-catalyst-dev.test
-
-[dev:children]
-catalyst
-horizon-ws
-pull-reserves
-traject
-
-[services:children]
-pull-reserves
-traject
+    # groups of groups
+    dev:
+      children:
+        catalyst:
+        solr:
+        horizon-ws:
+        pull-reserves:
+        traject:
+    services:
+      children:
+        pull-reserves:
+        traject:
