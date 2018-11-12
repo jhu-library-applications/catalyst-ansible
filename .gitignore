@@ -20,4 +20,6 @@ features/support/test_vars.rb
 features/
 Gemfile
 Gemfile.lock
+.bundle/
+vendor/
 # END testup
