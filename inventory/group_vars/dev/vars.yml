@@ -16,14 +16,7 @@ services_needs_jruby:    true
 hostname:               "{{ app_name }}-{{ environ }}"
 domainname:             "test"
 
-ssl_self_sign_cert:               false
-ssl_provided_cert:                true
-ssl_certificate_file:             "{{ vault_ssl_certificate_file }}"
-ssl_certificate_content:          "{{ vault_ssl_certificate_content }}"
-ssl_certificate_key_file:         "{{ vault_ssl_certificate_key_file }}"
-ssl_certificate_key_content:      "{{ vault_ssl_certificate_key_content }}"
-ssl_certificate_chain_file:       "{{ vault_ssl_certificate_chain_file }}"
-ssl_certificate_chain_content:    "{{ vault_ssl_certificate_chain_content }}"
+ssl_self_sign_cert:               true
 
 # database config vars
 # catalyst_db
