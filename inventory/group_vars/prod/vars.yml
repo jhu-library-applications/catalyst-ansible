@@ -37,7 +37,7 @@ catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
 horizon_db_name:        "horizon"
-horizon_db_host:        "horizontest.mse.jhu.edu"
+horizon_db_host:        "horizon.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
