@@ -6,7 +6,7 @@ debugging:              false
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "v1.3.3"
+app_branch:                   "v1.4.13"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"
@@ -37,7 +37,7 @@ catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
 horizon_db_name:        "horizon"
-horizon_db_host:        "horizon.mse.jhu.edu"
+horizon_db_host:        "horizontest.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
