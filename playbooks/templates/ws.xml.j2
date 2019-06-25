@@ -21,7 +21,7 @@
       <Arg>
         <New class="org.apache.commons.dbcp.BasicDataSource">
           <Set name="driverClassName">net.sourceforge.jtds.jdbcx.JtdsDataSource</Set>
-          <Set name="url">jdbc:jtds:sybase://{{ horizon_db_host }}:{{ horizon_db_port }}/{{ horizon_db_name }};charset=cp850;socketTimeout=10;loginTimeout=5</Set>
+          <Set name="url">jdbc:jtds:sqlserver://{{ horizon_db_host }}:{{ horizon_db_port }}/{{ horizon_db_name }};charset=cp850;socketTimeout=10;loginTimeout=5</Set>
           <Set name="username">{{ horizon_db_user }}</Set>
           <Set name="password">{{ horizon_db_pass }}</Set>
           <Set name="maxWait">200</Set>

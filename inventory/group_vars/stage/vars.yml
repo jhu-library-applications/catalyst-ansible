@@ -6,7 +6,7 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:             "v1.2.3"
+app_branch:             "feature/LAG-2777_mssql"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"
@@ -36,11 +36,11 @@ catalyst_db_user:       "{{ vault_catalyst_db_user }}"
 catalyst_db_pass:       "{{ vault_catalyst_db_pass }}"
 catalyst_db_port:       3306
 # horizon_db
-horizon_db_name:        "horizonstage"
-horizon_db_host:        "horizontest.mse.jhu.edu"
+horizon_db_name:        "horizon"
+horizon_db_host:        "horizonstage.mse.jhu.edu"
 horizon_db_user:        "{{ vault_horizon_db_user }}"
 horizon_db_pass:        "{{ vault_horizon_db_pass }}"
-horizon_db_port:        2025
+horizon_db_port:        1433
 
 # hip server vars
 hip_host:               "hip-stage.library.jhu.edu"
@@ -58,7 +58,7 @@ catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu" # we do not have a findit-stage server
 
 # solr vars
-solr_url:               "{{ vault_solr_url }}" 
+solr_url:               "{{ vault_solr_url }}"
 
 # firewalld vars:
 # NOTE: this is important to do at least once, as we are using some of
