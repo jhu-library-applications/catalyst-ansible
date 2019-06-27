@@ -4,7 +4,7 @@ all:
     catalyst-test.library.jhu.edu:
     catsolrslave-test.library.jhu.edu:
     catsolrmaster-test.library.jhu.edu:
-    hip-test.mse.jhu.edu:
+    hip-stage.mse.jhu.edu:
   children:
     default:
       hosts:
@@ -16,7 +16,7 @@ all:
       hosts:
         catsolrslave-test.library.jhu.edu:
         catsolrmaster-test.library.jhu.edu:
-    # NOTE: after testing is complete, we probably want to 
+    # NOTE: after testing is complete, we probably want to
     # 86 these legacy_server vars...
     traject:
       hosts:
