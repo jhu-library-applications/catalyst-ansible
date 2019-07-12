@@ -8,6 +8,11 @@ login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 # deployment vars
 app_branch:             "v1.2.3"
 
+# SSH vars
+login_group:            "{{ lookup('ini', 'login_group section=dev file=~/.ansible.ini default=' + login_user ) }}"
+login_password:         "{{ lookup('ini', 'login_password section=dev file=~/.ansible.ini') }}"
+login_user_grant_sudo:  true
+
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"
 services_needs_jruby:    true
