@@ -120,6 +120,14 @@ ansible-playbook playbooks/catalyst_install.yml -i inventory/vagrant --extra-var
 
 This is very rare. Only necessary if you need to update the Java based web service at https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet
 
+Note: The process of building and release the war file is convuluted and should be improved. It was originally designed for the old file structure of catalyst. The ansible scripts should be update the war file. 
+
+After packaging the war file, copy it to blacklight-rails/horizon-servlet/deploy/ws.war
+
+Git commit the new war file. Push it to the remote. Create a new release of Catalyst. Deploy the new release (See steps above). 
+
+Then run the ansible playbook `playbooks/horizonws_install.yml` to release the war file. For example, 
+
 * To catalyst-prod.library.jhu.edu
 
 ```
