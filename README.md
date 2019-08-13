@@ -122,7 +122,7 @@ This is very rare. Only necessary if you need to update the Java based web servi
 
 Note: The process of building and release the war file is convuluted and should be improved. It was originally designed for the old file structure of catalyst. The ansible scripts should be update the war file. 
 
-After packaging the war file, copy it to blacklight-rails/horizon-servlet/deploy/ws.war
+After packaging the war file (See https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet for instructions), copy the war file in the target directory to blacklight-rails/horizon-servlet/deploy/ws.war
 
 Git commit the new war file. Push it to the remote. Create a new release of Catalyst. Deploy the new release (See steps above). 
 
