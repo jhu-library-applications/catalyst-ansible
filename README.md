@@ -73,7 +73,7 @@ Verify that you can ssh to stage without login
 ssh catalyst-stage
 ```
 
-## Set up a deploy key
+### Set up a deploy key
 
 Create a key on your local development machine with a generic name: 
 
