@@ -43,13 +43,13 @@ login_group = msel-libraryapplications
 
 Creat SSH key, and copy the key to the remote server.  Here're the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles. 
 
-If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. This file only needs to be created once. Skip if it's already there. 
+If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. This file only needs to be created once. Skip the following command if it's already there. 
 
 ```
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/jhu_ssh_key
 ```
 
-Put the following in `~/.ssh/config`
+Put the following in `~/.ssh/config`. Here I'm using stage as an example. Repeat this step for prod and test. 
 
 ```
 Host catalyst-stage catalyst-stage.library.jhu.edu
