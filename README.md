@@ -81,6 +81,8 @@ Now you're ready to run the setup script.
 ansible-playbook -i inventory/stage setup.yml -v -K
 ```
 
+When asked for the become password, use your jhedid password. 
+
 Now you're ready to run the deployment scripts.
 
 ## deployment
