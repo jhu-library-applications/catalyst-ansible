@@ -64,7 +64,7 @@ Host catalyst-stage catalyst-stage.library.jhu.edu
 Copy your ssh key to the remote server
 
 ```
-ssh-copy-id catalyst-stage
+ssh-copy-id -i ~/.ssh/catalyst_ansible catalyst-stage
 ```
 
 Verify that you can ssh to stage without login
