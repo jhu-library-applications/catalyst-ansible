@@ -73,6 +73,22 @@ Verify that you can ssh to stage without login
 ssh catalyst-stage
 ```
 
+## Set up a deploy key
+
+Create a key on your local development machine with a generic name: 
+
+```
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/catalyst_deploy_key -C '<jhedid>@blacklight-rails'
+```
+
+Copy the private and public key file to the remote servers. For example to stage: 
+
+```
+scp ~/.ssh/catalyst_deploy_key* catalyst-stage:~/.ssh/
+```
+
+Register the key on https://github.com/jhu-sheridan-libraries/blacklight-rails/settings/keys
+
 ## deployment
 
 The usually tasks of catalyst deployment is to deploy the blacklight-rails app.
