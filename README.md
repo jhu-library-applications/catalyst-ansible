@@ -41,12 +41,12 @@ login_group = msel-libraryapplications
 
 ### Set up SSH keys
 
-Creat SSH key, and copy the key to the remote server.  Here're the steps to do it manually. These steps may also be done via Ansible. However, the steps are not documented. You may need to find the documentation on a different project by Drew Heles. 
+Creat SSH key, and copy the key to the remote server.  Here're the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles. 
 
-Here the key is in ~/.ssh/catalyst-ansible. You may also use a generic key in your ~/.ssh directory that was already created.
+If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. This file only needs to be created once. Skip if it's already there. 
 
 ```
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/catalyst_ansible
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/jhu_ssh_key
 ```
 
 Put the following in `~/.ssh/config`
@@ -55,7 +55,7 @@ Put the following in `~/.ssh/config`
 Host catalyst-stage catalyst-stage.library.jhu.edu
         Hostname catalyst-stage.library.jhu.edu
         User <jhedid>
-        IdentityFile ~/.ssh/catalyst_ansible
+        IdentityFile ~/.ssh/jhu_ssh_key
         IdentitiesOnly yes
         StrictHostKeyChecking no
         UserKnownHostsFile=/dev/null
@@ -64,7 +64,7 @@ Host catalyst-stage catalyst-stage.library.jhu.edu
 Copy your ssh key to the remote server
 
 ```
-ssh-copy-id -i ~/.ssh/catalyst_ansible catalyst-stage
+ssh-copy-id -i ~/.ssh/jhu_ssh_key catalyst-stage
 ```
 
 Verify that you can ssh to stage without login
@@ -72,18 +72,6 @@ Verify that you can ssh to stage without login
 ```
 ssh catalyst-stage
 ```
-
-### Set up the stage
-
-Now you're ready to run the setup script.
-
-```
-ansible-playbook -i inventory/stage setup.yml -v -K
-```
-
-When asked for the become password, use your jhedid password. 
-
-Now you're ready to run the deployment scripts.
 
 ## deployment
 
