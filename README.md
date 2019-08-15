@@ -78,7 +78,7 @@ ssh catalyst-stage
 Now you're ready to run the setup script.
 
 ```
-ansible-playbook -i inventory/stage setup.yml -v
+ansible-playbook -i inventory/stage setup.yml -v -K
 ```
 
 Now you're ready to run the deployment scripts.
