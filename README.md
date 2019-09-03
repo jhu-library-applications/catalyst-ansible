@@ -24,7 +24,7 @@ touch ~/.ssh/catalyst-ansible/vault_password_file
 
 Go to lastpass, find the vault password, and put it in the file
 
-Install the required rols. You may check the `requirements.yml` file for details.
+Install the required roles. You may check the `requirements.yml` file for details.
 
 ```
 ansible-galaxy install -r requirements.yml
