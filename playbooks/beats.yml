@@ -13,6 +13,6 @@
     es_username: "lagsvc"
     es_password: "wewillwewillrockyou"
     es_verify_ssl: false
-    prepend_index_name: lag
+    prepend_index_name: lag-
   roles:
     - { role: beats, tags: ['beats-install'], become: true }
