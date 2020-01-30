@@ -17,6 +17,7 @@
       key_file: "{{ solr_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
       accept_hostkey: true
+    become: true
     register: configs
 
   - name: deploy the configs inventory

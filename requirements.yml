@@ -2,51 +2,56 @@
 # REM: maunally install before using with
 # $ ansible-galaxy install -r requirements.yml
 
-- src: https://github.com/dheles/ansible-role-login-user
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-login-user
   name: login-user
 
-- src: https://github.com/dheles/ansible-role-secure-ssh
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-secure-ssh
   name: secure-ssh
 
-- src: https://github.com/dheles/deploy-keys-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/deploy-keys-ansible-role
   name: deploy-keys
 
-- src: https://github.com/dheles/ansible-role-java.git
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-java.git
   name: java
 
-- src: https://github.com/dheles/ansible-role-apache.git
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-apache.git
   name: apache
 
-- src: https://github.com/farooqsadiq/ansible-role-passenger.git
+- src: https://github.com/jhu-sheridan-libraries/ansible-role-passenger.git
   name: passenger
 
-- src: https://github.com/dheles/ansible-chruby.git
+- src: https://github.com/jhu-sheridan-libraries/ansible-chruby.git
   name: chruby
 
 - src: https://github.com/jhu-sheridan-libraries/ansible-role-mysql
   name: mysql
 
-- src: https://github.com/dheles/jetty-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/jetty-ansible-role
   name: jetty
 
-- src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/shibboleth-sp-ansible-role
   name: shib
 
-- src: https://github.com/dheles/firewalld-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/firewalld-ansible-role
   name: firewalld
 
-- src: https://github.com/dheles/bantheman-ansible-role
+- src: https://github.com/jhu-sheridan-librariesbantheman-ansible-role
   name: bantheman
 
-- src: https://github.com/dheles/logrotate-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/logrotate-ansible-role
   name: logrotate
 
-- src: https://github.com/dheles/testup-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/testup-ansible-role
   name: testup
 
-- src: https://github.com/dheles/solr-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/solr-ansible-role
   name: solr
 
-- src: https://github.com/dheles/fail2ban-ansible-role
+- src: https://github.com/jhu-sheridan-libraries/fail2ban-ansible-role
   name: fail2ban
+
+- src: https://github.com/jhu-sheridan-libraries/beats-ansible-role
+  name: beats
+
+
 

@@ -13,8 +13,8 @@ solr_env_vars:
   value:  "4g"
 
 # NOTE: this must be the SSH URL. the HTTPS URL will not work
-solr_config_repo:             "git@github.com:jhu-sheridan-libraries/blacklight-solr"
-solr_config_branch:           "solr-6.6.3"
+solr_config_repo:             "git@github.com:jhu-sheridan-libraries/blacklight-solr.git"
+solr_config_branch:           "feature/HELP-23643"
 solr_config_download_dir:     "/home/{{ login_user }}/solr_config"
 solr_config_inventory:        "solr_config_inventory"
 solr_home:                    "/var/solr/data"

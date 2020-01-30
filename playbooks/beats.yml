@@ -1,0 +1,18 @@
+---
+- name: beat bops
+  hosts: catalyst
+  vars:
+    install_filebeat: true
+    install_metricbeat: true
+    install_heartbeat: false
+    install_auditbeat: false
+    install_journalbeat: false
+    run_setup: true
+    kibana_server: "msel-logger.mse.jhu.edu:5601"
+    elasticsearch_host: ["msel-logger.mse.jhu.edu:9200"]
+    es_username: "lagsvc"
+    es_password: "wewillwewillrockyou"
+    es_verify_ssl: false
+    prepend_index_name: lag
+  roles:
+    - { role: beats, tags: ['beats-install'], become: true }

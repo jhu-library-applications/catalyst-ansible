@@ -10,3 +10,4 @@
   - { role: shib,         tags: ['shib'] }
   - { role: firewalld,    tags: ['firewalld'], become: true}
   - { role: logrotate,    tags: ['logrotate'] }
+  - { role: beats,        tags: ['beats'] }

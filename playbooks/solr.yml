@@ -1,3 +1,3 @@
 ---
-- include: solr_install.yml
+#- include: solr_install.yml
 - include: solr_config.yml
