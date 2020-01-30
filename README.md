@@ -192,6 +192,9 @@ Update your local inventory/vagrant file and ensure the solr group is present
 vagrant up
 ansible-playbook playbooks/solr.yml -i inventory/vagrant
 
+Deploy to Test
+ansible-playbook playbooks/solr.yml -i inventory/test -v -K
+
 # Changing Service Cron times
 
 To just update the cron configuration for catalyst-traject and catalyst-pull-reserves
