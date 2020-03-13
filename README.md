@@ -137,7 +137,7 @@ Then run the ansible playbook `playbooks/horizonws_install.yml` to release the w
 * To catalyst-prod.library.jhu.edu
 
 ```
-ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v
+ansible-playbook playbooks/horizonws_install.yml -i inventory/prod -v -K
 ```
 
 ## Deploy the Solr servers
