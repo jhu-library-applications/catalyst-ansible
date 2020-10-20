@@ -11,9 +11,11 @@
 	sudo yum remove -y nodejs npm
 	curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 	```
-3. Update the jruby version and chruby version in Ansible for your environment (prod, stage, test)
+3. Update the jruby version, chruby version and bundler version in Ansible for your environment (prod, stage, test)
 	```
-	chruby_ruby_version:    "ruby-2.5.5" 	service_bundler_version:    "2.1.4"
+	chruby_ruby_version:    "ruby-2.5.5" 	
+	service_bundler_version:    "2.1.4"
+	service_ruby_version
 	```
 4. Run the following ansible command:
 	```
