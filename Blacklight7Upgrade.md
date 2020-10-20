@@ -16,7 +16,7 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 	```
 	chruby_ruby_version:    "ruby-2.5.5" 	
 	service_bundler_version:    "2.1.4"
-	service_ruby_version
+	service_ruby_version: 	"jruby-9.1.16.0"
 	```
 4. Run the following ansible command:
 	```
