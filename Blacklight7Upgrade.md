@@ -1,5 +1,6 @@
 # Blacklight 7 Upgrade 
 
+Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install based on steps in README.md
 
 
 1. Back up the host config, it is out of sync with what’s in Ansible. You will need to manually replace it after running step 4
