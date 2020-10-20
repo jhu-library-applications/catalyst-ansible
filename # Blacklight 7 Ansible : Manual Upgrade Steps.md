@@ -1,4 +1,4 @@
-# Blacklight 7 Ansible / Manual Upgrade Steps
+# Blacklight 7 Upgrade 
 
 
 
