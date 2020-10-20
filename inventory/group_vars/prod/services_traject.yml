@@ -6,8 +6,8 @@ solr_url_to_index:      "{{ vault_solr_url_index }}"
 # NOTE: only used if solr_replicate_master is true
 solr_url_slave:         "{{ vault_solr_url }}"
 traject_cron_minute:    30 
-traject_cron_hour:      3 
-traject_cron_weekday:   "1-5" 
+traject_cron_hour:      18 
+traject_cron_weekday:   "1-5"  
 # NOTE: optional and mutually exclusive (only or (first &/or last))
 #only_bib:               391566
 #first_bib:              6270400
