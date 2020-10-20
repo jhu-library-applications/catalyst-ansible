@@ -4,12 +4,12 @@
 
 1. Back up the host config, it is out of sync with what’s in Ansible. You will need to manually replace it after running step 4
 	```
-		cp /etc/httpd/conf.d/01_catalyst-test.conf (copy this to somewhere safe, maybe even your local machine)
+	cp /etc/httpd/conf.d/01_catalyst-test.conf (copy this to somewhere safe, maybe even your local machine)
 	```
 2. Upgrade Node 
 	```
-		sudo yum remove -y nodejs npm
-		curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+	sudo yum remove -y nodejs npm
+	curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 	```
 3. Update the jruby version and chruby version in Ansible for your environment (prod, stage, test)
 	```
