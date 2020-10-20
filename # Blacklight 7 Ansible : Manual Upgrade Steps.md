@@ -3,7 +3,9 @@
 
 
 1. Back up the host config, it is out of sync with what’s in Ansible. You will need to manually replace it after running step 4
-		/etc/httpd/conf.d/01_catalyst-test.conf
+	```
+		cp /etc/httpd/conf.d/01_catalyst-test.conf (copy this to somewhere safe, maybe even your local machine)
+	```
 2. Upgrade Node 
 	```
 		sudo yum remove -y nodejs npm
