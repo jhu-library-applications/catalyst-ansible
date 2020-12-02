@@ -43,7 +43,7 @@ horizon_db_pass:        "{{ vault_horizon_db_pass }}"
 horizon_db_port:        2025
 
 # hip server vars
-hip_host:               "hip-test.library.jhu.edu"
+hip_host:               "hip-stage.library.jhu.edu"
 horizon_ws_url:         "http://localhost:8080/ws" # default
 borrower_ws_username:   "{{ vault_borrower_ws_username }}"
 borrower_ws_password:   "{{ vault_borrower_ws_password }}"
@@ -51,6 +51,10 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
 borrow_direct_host:     "bdtest.relaisd2d.com"
+
+# Flipper auth vars
+flipper_username:       "{{ vault_flipper_username }}"
+flipper_password:       "{{ vault_flipper_password }}"
 
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
