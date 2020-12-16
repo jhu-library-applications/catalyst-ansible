@@ -22,7 +22,7 @@ mkdir ~/.ssh/catalyst-ansible
 touch ~/.ssh/catalyst-ansible/vault_password_file
 ```
 
-Go to lastpass, find the vault password, and put it in the file
+Go to lastpass, search for "catalyst-ansible" to retrieve the vault password, and put it in the vault_password_file file
 
 Install the required roles. You may check the `requirements.yml` file for details.
 
@@ -39,19 +39,30 @@ login_user  = <jhedid>
 login_group = msel-libraryapplications
 ```
 
-### Set up SSH keys
+### Create and copy SSH keys
 
-Creat SSH key, and copy the key to the remote server.  Here're the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles. 
+Creat SSH key, and copy the key to the remote server.  Here are the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles. 
 
-If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. This file only needs to be created once. Skip the following command if it's already there. 
+If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. You will be prompted to enter a passphrase, but you should leave it empty. This file only needs to be created once. Skip the following command if it's already there. 
 
 ```
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/jhu_ssh_key
 ```
 
-Put the following in `~/.ssh/config`. Here I'm using stage as an example. Repeat this step for prod and test. 
+Put the following in `~/.ssh/config` and add your JHEDID to the User line.  
 
 ```
+# --- Catalyst ---
+Host catalyst catalyst.library.jhu.edu
+        Hostname catalyst.library.jhu.edu
+        User <jhedid>
+        IdentityFile ~/.ssh/jhu_ssh_key
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+# ----------------------------
+
+# --- Catalyst Staging ---
 Host catalyst-stage catalyst-stage.library.jhu.edu
         Hostname catalyst-stage.library.jhu.edu
         User <jhedid>
@@ -59,9 +70,20 @@ Host catalyst-stage catalyst-stage.library.jhu.edu
         IdentitiesOnly yes
         StrictHostKeyChecking no
         UserKnownHostsFile=/dev/null
+# ----------------------------
+
+# --- Catalyst Test ---
+Host catalyst-test catalyst-test.library.jhu.edu
+        Hostname catalyst-test.library.jhu.edu
+        User <jhedid>
+        IdentityFile ~/.ssh/jhu_ssh_key
+        IdentitiesOnly yes
+        StrictHostKeyChecking no
+        UserKnownHostsFile=/dev/null
+# ----------------------------
 ```
 
-Copy your ssh key to the remote server
+Copy your ssh key to the remote server. You will be prompted to enter your JHED password.
 
 ```
 ssh-copy-id -i ~/.ssh/jhu_ssh_key catalyst-stage
@@ -89,13 +111,15 @@ scp ~/.ssh/catalyst_deploy_key* catalyst-stage:~/.ssh/
 
 Register the key on https://github.com/jhu-sheridan-libraries/blacklight-rails/settings/keys
 
-## deployment
+## Deployment
 
-The usually tasks of catalyst deployment is to deploy the blacklight-rails app.
+The usual tasks of catalyst deployment is to deploy the blacklight-rails app.
 
 ### Deploy blacklight-rails
 
 To deploy the blacklight app, run the commands list below. Replace `<branch_or_tag_name_or_commit_hash>` with a release tag, or a branch name. For example, you may use `v1.4.14`, `master`, or `hotfix/v1.4.11`.
+
+You will be prompted to enter a BECOME password. This will be your JHED password.
 
 * To catalyst-prod.library.jhu.edu
 
