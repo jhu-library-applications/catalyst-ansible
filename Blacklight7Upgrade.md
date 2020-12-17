@@ -10,7 +10,8 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 2. Upgrade Node 
 	```
 	sudo yum remove -y nodejs npm
-	curl -sL https://rpm.nodesource.com/setup_12.x | bash -
+	curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+	sudo yum install -y nodejs
 	```
 3. Update the jruby version, chruby version and bundler version in Ansible for your environment (prod, stage, test)
 	```
