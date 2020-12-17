@@ -9,7 +9,7 @@ login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 app_branch:             "v1.2.3"
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.3.6"
+chruby_ruby_version:    "ruby-2.5.5"
 
 # rails vars
 rails_env:              "production"
