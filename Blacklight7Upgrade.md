@@ -21,8 +21,8 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 	```
 4. Run the following ansible command:
 	```
-    ansible-playbook -i inventory/test playbooks/catalyst.yml   --extra-vars="app_branch=feature/curb-side"  --extra-vars="chruby_ruby_version=ruby-2.5.5" -v -K
-    ansible-playbook playbooks/services_prereqs.yml -i inventory/test  -v -K
+    ansible-playbook -i inventory/test playbooks/catalyst.yml   --extra-vars="chruby_ruby_version=ruby-2.5.5" -v -K
+    ## don't think this is necessary: ansible-playbook playbooks/services_prereqs.yml -i inventory/test  -v -K
     ```
 5. Update the host config with back up from step 1 if you copy the ensure file permissions are the same
 6. Deploy the app:
