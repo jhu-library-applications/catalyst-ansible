@@ -28,7 +28,6 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 5.  get the lastest bundler, delete the Gemfile.lock file and run bundler again if Gemfile.lock requires a specific version:
 	```
 	gem install bundler
-	bundle install --path vendor/bundle
 	```
 6. Deploy the app:
 	```
