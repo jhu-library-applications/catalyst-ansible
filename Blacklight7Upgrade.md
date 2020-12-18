@@ -31,6 +31,6 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 	ansible-playbook playbooks/catalyst_install.yml -i inventory/test --extra-vars "app_branch=blacklight-7.0" -v -K
 	```
 7. To initialize the flipper feature for the first time, run db:migrate to create the tables (TODO: add this to playbook):
-        ```
+	```
 	RAILS_ENV=production bundle exec rails db:migrate
 	```
