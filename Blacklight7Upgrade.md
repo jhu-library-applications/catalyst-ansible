@@ -25,7 +25,7 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
     ansible-playbook -i inventory/test playbooks/catalyst.yml   --extra-vars="chruby_ruby_version=ruby-2.5.5" -v -K
     ##  this is unnecessary: ansible-playbook playbooks/services_prereqs.yml -i inventory/test  -v -K
     ```
-5.  get the lastest bundler, delete the Gemfile.lock file and run bundler again if Gemfile.lock requires a specific version:
+5.  get the lastest bundler:
 	```
 	gem install bundler
 	```
