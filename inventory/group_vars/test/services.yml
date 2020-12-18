@@ -1,0 +1,8 @@
+# services vars
+# NOTE: anything set here will override environment-specific values
+
+# ruby vars
+service_ruby_version:         "jruby-9.2.13.0"
+service_ruby_path:            "/opt/rubies/{{ service_ruby_version }}"
+
+
