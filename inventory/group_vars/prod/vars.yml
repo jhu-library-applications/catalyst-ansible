@@ -6,7 +6,7 @@ debugging:              false
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:                   "v1.4.14"
+app_branch:             "main"
 
 # ruby vars
 chruby_ruby_version:    "ruby-2.3.6"

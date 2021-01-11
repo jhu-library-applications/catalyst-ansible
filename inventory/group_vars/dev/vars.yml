@@ -6,7 +6,7 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:             "v1.2.3"
+app_branch:             "develop"
 
 # SSH vars
 login_group:            "{{ lookup('ini', 'login_group section=dev file=~/.ansible.ini default=' + login_user ) }}"
