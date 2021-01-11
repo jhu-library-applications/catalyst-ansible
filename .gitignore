@@ -24,3 +24,4 @@ Gemfile.lock
 vendor/
 # END testup
 *.tmp
+.idea
