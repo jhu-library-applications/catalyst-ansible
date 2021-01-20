@@ -53,6 +53,11 @@
       exclude: "development, test"
     when: rails_env == 'production'
 
+  - name: install bundler
+    shell:
+      chdir: "{{ deploy_dir }}"
+      cmd: "gem install bundler -v {{ bundler_version }}"
+
   - name: install the project's gems for deployment
     bundler:
       chdir: "{{ deploy_dir }}"
