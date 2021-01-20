@@ -36,6 +36,9 @@ rails_env:                    "development"
 rails_version:                "4.2.4"
 secret_key_base:              "" # will be generated
 
+# bundler
+bundler_version: ">= 2.2.6"
+
 # apache vars
 apache_remove_welcome:        true
 apache_https:                 true
