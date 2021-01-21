@@ -35,7 +35,11 @@ Prereqs: checkout the blacklight-7.0-upgrade branch of the project. Install base
 	```
 7. Copy the Updated file /etc/httpd/conf.d/01_catalyst.conf from step 1,  ensure file permissions are the same
 8. Reboot the server: sudo reboot
-9. To initialize the flipper feature for the first time, run db:migrate to create the tables (TODO: add this to playbook):
+9. To run any migrations, switch to catalyst user and run db:migrate (using the command below) to create the tables (TODO: add this to playbook):
 	```
 	RAILS_ENV=production bundle exec rails db:migrate
+	```
+	It's possible that bundle might need installed or upgraded for the catalyst user. Example:
+	```
+	gem install bundler:2.2.5
 	```
