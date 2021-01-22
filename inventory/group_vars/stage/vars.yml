@@ -50,7 +50,7 @@ borrower_ws_password:   "{{ vault_borrower_ws_password }}"
 force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
-borrow_direct_host:     "bdtest.relaisd2d.com"
+borrow_direct_host:     "bd-test.relaisd2d.com"
 
 # Flipper auth vars
 flipper_username:       "{{ vault_flipper_username }}"
