@@ -34,7 +34,7 @@
   - name: get application from repo
     git:
       repo: "{{ app_repo }}"
-      dest: "{{ deploy_dir }}"
+      dest: "{{ ansible_env.HOME }}/{{ app_name }}"
       version: "{{ app_branch | default('HEAD') }}"
       key_file: "{{ catalyst_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
@@ -55,19 +55,23 @@
 
   - name: install bundler
     shell:
-      chdir: "{{ deploy_dir }}"
+      chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
       cmd: "gem install bundler -v {{ bundler_version }}"
+
+  # This is a global config that will be used
+  # whenever the bundle command is used. This
+  # needs to be set so it will apply when bundle is ran
+  # by capistrano.
+  - name: set bundler shared local path
+    shell:
+      cmd: "bundle config --local path '{{bundle_dir}}'"
 
   - name: install gems with bundler
     bundler:
       state: present
-      gemfile: "{{ deploy_dir }}/Gemfile"
-      exclude_groups:
-        - development
-        - test
+      gemfile: "{{ ansible_env.HOME }}/{{ app_name }}/Gemfile"
       deployment_mode: yes
-      gem_path: "{{deploy_dir}}/vendor/bundle"
-
+      gem_path: "{{ bundle_dir }}"
 
   - name: generate rails secret_key_base
     # TODO: use or lose

@@ -11,10 +11,10 @@ app_repo:                     "git@github.com:jhu-library-applications/catalyst-
 app_branch:                   "main"
 app_name:                     "catalyst"
 app_user:                     "{{ app_name }}"
-app_group:                    "{{ app_user }}"
+app_group:                    "{{ app_name }}"
 base_deploy_dir:              "/opt"
 deploy_dir:                   "{{ base_deploy_dir }}/{{ app_name }}"
-
+bundle_dir:                   "{{ base_deploy_dir }}/{{ app_name }}/shared/bundle"
 # deploy keys vars
 deploy_user:                  "{{ login_user }}"
 deploy_key_path:              "/home/{{ deploy_user }}/.ssh"
@@ -61,6 +61,8 @@ apache_http_redirect_marker:  "http redirect"
 
 # passenger vars
 # TODO: adopt and move up
+passenger_deploy_dir:         "{{ deploy_dir }}/current/public"
+
 update_packages:        false
 # NOTE: use this to override the passenger virtualhost sub-template
 # passenger_virtualhost_template:     "templates/passenger_virtualhost.j2"
