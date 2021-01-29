@@ -14,19 +14,31 @@
       - "@Development tools"
       - mysql-devel
 
+  - name: ensure that yarn is installed
+    block:
+      - name: see if yarn is present
+        command: yarn -v
+    rescue:
+    - name: install yarn
+      shell:
+        cmd: npm install yarn -g
+        become: true
+
   - name: include apache role to get its handlers
     include_role:
       name: apache
       tasks_from: dolittle
 
-
+  tasks:
   - name: configure application user
     include_tasks: configure_app_user.yml
 
   - name: make sure deploy dir exists
     file:
       path: "{{ deploy_dir }}"
-      owner: "{{ login_user }}"
+      owner: "{{ app_name }}"
+      group: "{{ app_name }}"
+      mode: g+w
       state: directory
       recurse: true
     become: true
@@ -34,46 +46,37 @@
   - name: get application from repo
     git:
       repo: "{{ app_repo }}"
-      dest: "{{ deploy_dir }}"
+      dest: "{{ ansible_env.HOME }}/{{ app_name }}"
       version: "{{ app_branch | default('HEAD') }}"
       key_file: "{{ catalyst_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
 
-  - name: configure bundle install based on mode
-    set_fact:
-      deployment_mode: false
-  - set_fact:
-      deployment_mode: true
-    when: mode == "deploy"
+  - name: ensure capistrano is installed
+    block:
+      - name: see if cap is present
+        command: bundle exec cap -v
+    rescue:
+    - name: run bundle install to get cap
+      shell:
+        chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
+        cmd: bundle install
 
-  # NOTE: don't install spring in production environments:
-  # https://github.com/projecthydra/hydra-head/issues/201
-  - name: adjust for the rails environment
-    set_fact:
-      exclude: "development, test"
-    when: rails_env == 'production'
+  - name: ensure webpack is installed
+    block:
+      - name: see if webpack is present
+        shell:
+          chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
+          cmd: "./bin/weback -v"
+    rescue:
+      - name: install yarn dependencies to get webpack
+        shell:
+          chdir: "{{ deploy_dir }}"
+          cmd: "yarn install"
 
-  - name: install bundler
+  - name: cap deploy
     shell:
-      chdir: "{{ deploy_dir }}"
-      cmd: "gem install bundler -v {{ bundler_version }}"
-
-  - name: set bundle config for local deployment_mode
-    shell:
-      cmd: "bundle config --local deployment true"
-
-  - name: set bundle config to not install dev or test
-    shell:
-      cmd: "bundle config --local without 'development test'"
-
-  - name: set bundle config path
-    shell:
-      cmd: "bundle config --local path '{{deploy_dir}}/vendor/bundle'"
-
-  - name: install the project's gems for deployment
-    shell:
-      chdir: "{{ deploy_dir }}"
-      cmd: "bundle install --quiet --jobs 4"
+      chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
+      cmd: "BRANCH={{ app_branch }} bundle exec cap localhost deploy"
 
   - name: generate rails secret_key_base
     # TODO: use or lose
@@ -102,6 +105,24 @@
     notify: restart apache
     become: true
 
+  # - name: make sure that apache uses the capistrano deploy directory
+  #   lineinfile:
+  #     path: "{{ apache_config_file }}"
+  #     regexp: '^DocumentRoot '
+  #     insertafter: '^#DocumentRoot '
+  #     line: 'DocumentRoot "{{ passenger_deploy_dir }}"'
+  #   notify: restart apache
+  #   become: true
+
+  # - name: ensure that apache uses the correct security settings on the catalyst directory
+  #   lineinfile:
+  #     path: "{{ apache_config_file }}"
+  #     regexp: '^Directory '
+  #     insertafter: '^#Directory '
+  #     line: 'Directory "{{ passenger_deploy_dir }}"'
+  #   notify: restart apache
+  #   become: true
+
   - name: override default http redirect in virtualhost config
     blockinfile:
       block:  "{{ lookup('template', 'templates/http_redirect.j2') }}"
@@ -110,73 +131,3 @@
       insertafter: "<VirtualHost *:80>"
     notify: restart apache
     become: true
-
-
-
-  # NOTE: example
-  # - name: override default http logging in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/http_log.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_http_logging_marker }}"
-  #     insertafter: "<VirtualHost *:80>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default https logging in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/https_log.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_https_logging_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default ssl config in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/ssl_config.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_ssl_config_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default header modification in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/header_mod.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_header_mod_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  - name: install yarn
-    shell:
-      cmd: npm install yarn -g
-    become: true
-
-  - name: install yarn packages
-    shell:
-      chdir: "{{ deploy_dir }}"
-      cmd: "yarn install"
-
-  # TODO: update to rails command upon updating rails version
-  - name: precompile assets
-    command: bash -lc "RAILS_ENV={{ rails_env }} bundle exec rake assets:precompile"
-    args:
-      chdir: "{{ deploy_dir }}"
-    when: rails_env == "production"
-
-  - name: set ownership of deploy dir and contents
-    file:
-      path: "{{ deploy_dir }}"
-      owner: "{{ app_user }}"
-      group: "{{ app_group }}"
-      state: directory
-      recurse: true
-    become: true
-    notify: restart apache
-    when: mode == "deploy"
