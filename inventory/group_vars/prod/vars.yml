@@ -83,3 +83,5 @@ firewalld_richrules:
 
 # BanTheMan!
 bantheman_configs: []
+
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"

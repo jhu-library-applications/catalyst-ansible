@@ -64,3 +64,5 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 # solr vars for catalyst
 # NOTE: this solr url is ued by catalyst to determine the solr used for searching
 solr_url:              "{{ vault_solr_url }}"
+
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"

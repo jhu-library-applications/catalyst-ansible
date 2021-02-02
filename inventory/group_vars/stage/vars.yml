@@ -62,7 +62,7 @@ catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu" # we do not have a findit-stage server
 
 # solr vars
-solr_url:               "{{ vault_solr_url }}" 
+solr_url:               "{{ vault_solr_url }}"
 
 # firewalld vars:
 # NOTE: this is important to do at least once, as we are using some of
@@ -87,3 +87,5 @@ firewalld_richrules:
     state: enabled
   - rule: "{{ catalyst_https_reject_rule }}"
     state: enabled
+
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"
