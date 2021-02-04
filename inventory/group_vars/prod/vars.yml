@@ -56,6 +56,10 @@ borrow_direct_host:     "bd.relaisd2d.com"
 flipper_username:       "{{ vault_flipper_username }}"
 flipper_password:       "{{ vault_flipper_password }}"
 
+# Rollbar access token vars
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"
+rollbar_env:            "production"
+
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
 catalyst_base_url:      "https://catalyst.library.jhu.edu"
