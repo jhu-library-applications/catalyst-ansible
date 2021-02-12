@@ -60,6 +60,11 @@ flipper_password:       "{{ vault_flipper_password }}"
 rollbar_access_token:   "{{ vault_rollbar_access_token }}"
 rollbar_env:            "stage"
 
+# AppSignal
+appsignal_push_api_key: "{{ vault_appsignal_push_api_key }}"
+appsignal_frontend_key: "{{ vault_appsignal_frontend_key }}"
+appsignal_app_name:     "catalyst"
+appsignal_app_env:      "stage"
 
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access

@@ -34,6 +34,14 @@ FLIPPER_PASSWORD={{ flipper_password }}
 ROLLBAR_ACCESS_TOKEN={{ rollbar_access_token }}
 ROLLBAR_ENV={{ rollbar_env }}
 
+# AppSignal vars
+APPSIGNAL_PUSH_API_KEY={{ appsignal_push_api_key }}
+APPSIGNAL_APP_NAME={{ appsignal_app_name }}
+APPSIGNAL_APP_ENV={{ appsignal_app_env }}
+
+# Used by AppSignal, but useful for other things
+# Don't remove if AppSignal is removed
+APP_REVISION={{ app_branch }}
 
 # catalyst/findit vars
 CATALYST_BASE_URL={{ catalyst_base_url }}
