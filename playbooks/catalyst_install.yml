@@ -3,6 +3,7 @@
   hosts: catalyst
 
   pre_tasks:
+
   - name: install required packages
     package:
       name: "{{ item }}"
@@ -10,9 +11,16 @@
     become: true
     with_items:
       - http-parser
-      - 'nodejs'
       - "@Development tools"
       - mysql-devel
+
+  - name: install nodejs
+    include_role:
+      name: ansible-role-nodejs
+    vars:
+      ansible_become: yes
+      nodejs_install_npm_user: "{{ ansible_ssh_user }}"
+      nodejs_version: "12.x"
 
   - name: include apache role to get its handlers
     include_role:
@@ -36,7 +44,6 @@
       repo: "{{ app_repo }}"
       dest: "{{ deploy_dir }}"
       version: "{{ app_branch | default('HEAD') }}"
-      key_file: "{{ catalyst_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
 
   - name: configure bundle install based on mode

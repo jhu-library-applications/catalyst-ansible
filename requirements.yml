@@ -50,3 +50,5 @@
 - src: https://github.com/dheles/fail2ban-ansible-role
   name: fail2ban
 
+- src: https://github.com/geerlingguy/ansible-role-nodejs
+  name: ansible-role-nodejs

@@ -3,7 +3,7 @@ all:
   hosts:
     catalyst-dev.test:
       state: present # =absent to ignore in vagrant
-      vagrant_box_version: '1902.01' # latest 7.6.1811
+      vagrant_box_version: '2004.01' # latest 7.6.1811
       vagrant_box_image: 'centos/7'
       cpus: 1
       memory: 2048
@@ -11,26 +11,26 @@ all:
       aliases:
         - 'catalyst-dev'
         - 'catalyst-dev.library.jhu.edu'
-    catsolrslave-dev.test:
-      state: present
+    catsolrmain-dev.test:
+      state: absent
       vagrant_box_image: 'centos/7'
-      vagrant_box_version: '1802.01' # latest 7.4.1708
-      cpus: 1
-      memory: 2048
-      ansible_ip: '10.11.12.103'
-      aliases:
-        - 'catsolrslave-dev'
-        - 'catsolrslave-dev.library.jhu.edu'
-    catsolrmaster-dev.test:
-      state: present
-      vagrant_box_image: 'centos/7'
-      vagrant_box_version: '1802.01' # latest 7.4.1708
+      vagrant_box_version: '2004.01' # latest 7.4.1708
       cpus: 1
       memory: 2048
       ansible_ip: '10.11.12.102'
       aliases:
-        - 'catsolrmaster-dev'
-        - 'catsolrmaster-dev.library.jhu.edu'
+        - 'catsolrmain-dev'
+        - 'catsolrmain-dev.library.jhu.edu'
+    catsolrreplica-dev.test:
+      state: absent
+      vagrant_box_image: 'centos/7'
+      vagrant_box_version: '2004.01' # latest 7.4.1708
+      cpus: 1
+      memory: 2048
+      ansible_ip: '10.11.12.103'
+      aliases:
+        - 'catsolrreplica-dev'
+        - 'catsolrreplica-dev.library.jhu.edu'
 
   children:
     # groups of hosts
@@ -42,11 +42,11 @@ all:
         catalyst-dev.test:
     solr:
       hosts:
-        catsolrslave-dev.test:
-        catsolrmaster-dev.test:
+        catsolrreplica-dev.test:
+        catsolrmain-dev.test:
     traject:
       hosts:
-        catsolrmaster-dev.test:
+        catsolrmain-dev.test:
     pull-reserves:
       hosts:
         catsolrmaster-dev.test:

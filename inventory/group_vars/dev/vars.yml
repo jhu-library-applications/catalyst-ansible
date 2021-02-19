@@ -2,6 +2,8 @@
 environ:                "dev" # dev || test || stage || prod
 debugging:              true
 
+create_login_user:      true
+
 # private vars
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
@@ -14,7 +16,7 @@ login_password:         "{{ lookup('ini', 'login_password section=dev file=~/.an
 login_user_grant_sudo:  true
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.3.6"
+chruby_ruby_version:    "ruby-2.6.6"
 services_needs_jruby:    true
 
 # apache vars:
@@ -76,7 +78,7 @@ solr_url_slave:         "http://{{ solr_slave_ip }}:{{ solr_port }}/solr/{{ solr
 # 23 30 : every night at 11:30PM
 # 0-23; apparently in UTC
 traject_cron_minute:    0
-traject_cron_hour:      0 
+traject_cron_hour:      0
 # NOTE: optional and mutually exclusive (only or (first &/or last))
 # only_bib:               391566
 first_bib:              6270400
