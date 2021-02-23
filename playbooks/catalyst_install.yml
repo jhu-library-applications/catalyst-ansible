@@ -14,19 +14,26 @@
       - "@Development tools"
       - mysql-devel
 
+  - name: install yarn
+    shell:
+      cmd: npm install -G yarn
+    become: true
+
   - name: include apache role to get its handlers
     include_role:
       name: apache
       tasks_from: dolittle
 
-
+  tasks:
   - name: configure application user
     include_tasks: configure_app_user.yml
 
   - name: make sure deploy dir exists
     file:
       path: "{{ deploy_dir }}"
-      owner: "{{ login_user }}"
+      owner: "{{ app_name }}"
+      group: "{{ app_name }}"
+      mode: g+w
       state: directory
       recurse: true
     become: true
@@ -39,20 +46,6 @@
       key_file: "{{ catalyst_deploy_key_full_path }}"
       ssh_opts: "-o StrictHostKeyChecking=no"
 
-  - name: configure bundle install based on mode
-    set_fact:
-      deployment_mode: false
-  - set_fact:
-      deployment_mode: true
-    when: mode == "deploy"
-
-  # NOTE: don't install spring in production environments:
-  # https://github.com/projecthydra/hydra-head/issues/201
-  - name: adjust for the rails environment
-    set_fact:
-      exclude: "development, test"
-    when: rails_env == 'production'
-
   - name: install bundler
     shell:
       chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
@@ -62,16 +55,20 @@
   # whenever the bundle command is used. This
   # needs to be set so it will apply when bundle is ran
   # by capistrano.
-  - name: set bundler shared local path
+  - name: set bundler shared path
     shell:
-      cmd: "bundle config --local path '{{bundle_dir}}'"
+      cmd: "bundle config --global path '{{bundle_dir}}'"
 
   - name: install gems with bundler
     bundler:
       state: present
       gemfile: "{{ ansible_env.HOME }}/{{ app_name }}/Gemfile"
-      deployment_mode: yes
       gem_path: "{{ bundle_dir }}"
+
+  - name: cap deploy
+    shell:
+      chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
+      cmd: "BRANCH={{ app_branch }} bundle exec cap localhost deploy"
 
   - name: generate rails secret_key_base
     # TODO: use or lose
@@ -108,73 +105,3 @@
       insertafter: "<VirtualHost *:80>"
     notify: restart apache
     become: true
-
-
-
-  # NOTE: example
-  # - name: override default http logging in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/http_log.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_http_logging_marker }}"
-  #     insertafter: "<VirtualHost *:80>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default https logging in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/https_log.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_https_logging_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default ssl config in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/ssl_config.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_ssl_config_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  # NOTE: example
-  # - name: override default header modification in virtualhost config
-  #   blockinfile:
-  #     block:  "{{ lookup('template', 'templates/header_mod.j2') }}"
-  #     dest: "{{ apache_config_file }}"
-  #     marker: "# {mark} {{ apache_header_mod_marker }}"
-  #     insertbefore: "</VirtualHost>"
-  #   notify: restart apache
-  #   become: true
-
-  - name: install yarn
-    shell:
-      cmd: npm install yarn -g
-    become: true
-
-  - name: install yarn packages
-    shell:
-      chdir: "{{ deploy_dir }}"
-      cmd: "yarn install"
-
-  # TODO: update to rails command upon updating rails version
-  - name: precompile assets
-    command: bash -lc "RAILS_ENV={{ rails_env }} bundle exec rake assets:precompile"
-    args:
-      chdir: "{{ deploy_dir }}"
-    when: rails_env == "production"
-
-  - name: set ownership of deploy dir and contents
-    file:
-      path: "{{ deploy_dir }}"
-      owner: "{{ app_user }}"
-      group: "{{ app_group }}"
-      state: directory
-      recurse: true
-    become: true
-    notify: restart apache
-    when: mode == "deploy"
