@@ -6,10 +6,10 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # deployment vars
-app_branch:             "v1.2.3"
+app_branch:             "main"
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.3.6"
+chruby_ruby_version:    "ruby-2.6.6"
 
 # rails vars
 rails_env:              "production"
@@ -50,11 +50,16 @@ borrower_ws_password:   "{{ vault_borrower_ws_password }}"
 force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
-borrow_direct_host:     "bdtest.relaisd2d.com"
+borrow_direct_host:     "bd-test.relaisd2d.com"
 
 # Flipper auth vars
 flipper_username:       "{{ vault_flipper_username }}"
 flipper_password:       "{{ vault_flipper_password }}"
+
+# Rollbar access token vars
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"
+rollbar_env:            "stage"
+
 
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
@@ -62,7 +67,7 @@ catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
 findit_base_url:        "https://findit-test.library.jhu.edu" # we do not have a findit-stage server
 
 # solr vars
-solr_url:               "{{ vault_solr_url }}" 
+solr_url:               "{{ vault_solr_url }}"
 
 # firewalld vars:
 # NOTE: this is important to do at least once, as we are using some of

@@ -7,6 +7,11 @@
 
   tasks:
   - import_role:
+      name: chruby
+    vars:
+      chruby_ruby_version:      "{{ service_ruby_version }}"
+    become: true
+  - import_role:
       name: local.service
     vars:
       service_app_name:         "{{ traject_app_name }}"

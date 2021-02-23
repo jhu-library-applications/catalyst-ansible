@@ -19,7 +19,7 @@
       name: apache
       tasks_from: dolittle
 
-  tasks:
+
   - name: configure application user
     include_tasks: configure_app_user.yml
 
@@ -53,12 +53,21 @@
       exclude: "development, test"
     when: rails_env == 'production'
 
-  - name: install the project's gems for deployment
-    bundler:
+  - name: install bundler
+    shell:
       chdir: "{{ deploy_dir }}"
-      gem_path: "vendor/bundle"
-      deployment_mode: "{{ deployment_mode }}"
-      exclude_groups: "{{ exclude | default(omit) }}"
+      cmd: "gem install bundler -v {{ bundler_version }}"
+
+  - name: install gems with bundler
+    bundler:
+      state: present
+      gemfile: "{{ deploy_dir }}/Gemfile"
+      exclude_groups:
+        - development
+        - test
+      deployment_mode: yes
+      gem_path: "{{deploy_dir}}/vendor/bundle"
+
 
   - name: generate rails secret_key_base
     # TODO: use or lose
@@ -95,6 +104,8 @@
       insertafter: "<VirtualHost *:80>"
     notify: restart apache
     become: true
+
+
 
   # NOTE: example
   # - name: override default http logging in virtualhost config
@@ -135,6 +146,16 @@
   #     insertbefore: "</VirtualHost>"
   #   notify: restart apache
   #   become: true
+
+  - name: install yarn
+    shell:
+      cmd: npm install yarn -g
+    become: true
+
+  - name: install yarn packages
+    shell:
+      chdir: "{{ deploy_dir }}"
+      cmd: "yarn install"
 
   # TODO: update to rails command upon updating rails version
   - name: precompile assets

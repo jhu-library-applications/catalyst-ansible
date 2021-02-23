@@ -7,8 +7,8 @@ version:                      "1.0.0"
 
 mode:                         "deploy" # dev || deploy
 
-app_repo:                     "git@github.com:jhu-sheridan-libraries/blacklight-rails.git" #"https://github.com/jhu-sheridan-libraries/blacklight-rails"
-app_branch:                   "v1.1.2"
+app_repo:                     "git@github.com:jhu-library-applications/catalyst-blacklight.git" #"https://github.com/jhu-library-applications/catalyst-blacklight"
+app_branch:                   "main"
 app_name:                     "catalyst"
 app_user:                     "{{ app_name }}"
 app_group:                    "{{ app_user }}"
@@ -35,6 +35,9 @@ rails_env:                    "development"
 # TODO: test updating to recent version
 rails_version:                "4.2.4"
 secret_key_base:              "" # will be generated
+
+# bundler
+bundler_version: ">= 2.2.6"
 
 # apache vars
 apache_remove_welcome:        true
