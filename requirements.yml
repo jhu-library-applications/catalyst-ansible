@@ -2,51 +2,51 @@
 # REM: maunally install before using with
 # $ ansible-galaxy install -r requirements.yml
 
-- src: https://github.com/dheles/ansible-role-login-user
+- src: https://github.com/jhu-library-applications/ansible-role-login-user
   name: login-user
 
-- src: https://github.com/dheles/ansible-role-secure-ssh
+- src: https://github.com/jhu-library-applications/ansible-role-secure-ssh
   name: secure-ssh
 
-- src: https://github.com/dheles/deploy-keys-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-deploy-keys
   name: deploy-keys
 
-- src: https://github.com/dheles/ansible-role-java.git
+- src: https://github.com/jhu-library-applications/ansible-role-java
   name: java
 
-- src: https://github.com/dheles/ansible-role-apache.git
+- src: https://github.com/jhu-library-applications/ansible-role-apache
   name: apache
 
-- src: https://github.com/farooqsadiq/ansible-role-passenger.git
+- src: https://github.com/jhu-library-applications/ansible-role-passenger
   name: passenger
 
-- src: https://github.com/dheles/ansible-chruby.git
+- src: https://github.com/jhu-library-applications/ansible-role-chruby
   name: chruby
 
-- src: https://github.com/jhu-sheridan-libraries/ansible-role-mysql
+- src: https://github.com/jhu-library-applications/ansible-role-mysql
   name: mysql
 
-- src: https://github.com/dheles/jetty-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-jetty
   name: jetty
 
-- src: https://github.com/farooqsadiq/shibboleth-sp-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-shibboleth-sp
   name: shib
 
-- src: https://github.com/dheles/firewalld-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-firewalld
   name: firewalld
 
-- src: https://github.com/dheles/bantheman-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-bantheman
   name: bantheman
 
-- src: https://github.com/dheles/logrotate-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-logrotate
   name: logrotate
 
-- src: https://github.com/dheles/testup-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-testup
   name: testup
 
-- src: https://github.com/dheles/solr-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-solr
   name: solr
 
-- src: https://github.com/dheles/fail2ban-ansible-role
+- src: https://github.com/jhu-library-applications/ansible-role-fail2ban
   name: fail2ban
 
