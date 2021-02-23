@@ -23,15 +23,15 @@
   # Cache Rails finger-printed assets, as per
   # http://guides.rubyonrails.org/asset_pipeline.html#precompiling-assets
   # Try only match if the asset actually has a fingerprint in it.
-  # <LocationMatch "^/assets/.*-[0-9a-f]{32}.*$">
-  <Location /assets/>
+  <LocationMatch "^/assets/.*-[0-9a-f]{32}.*$">
+  #<Location /assets/>
     # Use of ETag is discouraged when Last-Modified is present
     Header unset ETag
     FileETag None
     # RFC says only cache for 1 year
     ExpiresActive On
     ExpiresDefault "access plus 1 year"
-  </Location>
+  </LocationMatch>
 
   ### TODO: research
   # Let apache serve the pre-compiled .gz version of static assets,
