@@ -58,22 +58,16 @@
       chdir: "{{ deploy_dir }}"
       cmd: "gem install bundler -v {{ bundler_version }}"
 
-  - name: set bundle config for local deployment_mode
-    shell:
-      cmd: "bundle config --local deployment true"
+  - name: install gems with bundler
+    bundler:
+      state: present
+      gemfile: "{{ deploy_dir }}/Gemfile"
+      exclude_groups:
+        - development
+        - test
+      deployment_mode: yes
+      gem_path: "{{deploy_dir}}/vendor/bundle"
 
-  - name: set bundle config to not install dev or test
-    shell:
-      cmd: "bundle config --local without 'development test'"
-
-  - name: set bundle config path
-    shell:
-      cmd: "bundle config --local path '{{deploy_dir}}/vendor/bundle'"
-
-  - name: install the project's gems for deployment
-    shell:
-      chdir: "{{ deploy_dir }}"
-      cmd: "bundle install --quiet --jobs 4"
 
   - name: generate rails secret_key_base
     # TODO: use or lose
