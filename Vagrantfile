@@ -28,7 +28,7 @@ Vagrant.configure('2') do |config|
       host.vm.box_version = host_vars['vagrant_box_version']
 
       # configure the virtual machine
-      config.vm.provider 'virtualbox' do |vb|
+      host.vm.provider 'virtualbox' do |vb|
         vb.name = host_name
         vb.memory = host_vars['memory']
         vb.cpus = host_vars['cpus']
