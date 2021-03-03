@@ -60,6 +60,10 @@ flipper_password:       "{{ vault_flipper_password }}"
 rollbar_access_token:   "{{ vault_rollbar_access_token }}"
 rollbar_env:            "test"
 
+# Sentry.io
+sentry_dsn:             "{{ vault_sentry_dsn }}"
+sentry_env:             "test"
+
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
 catalyst_base_url:      "https://catalyst-test.library.jhu.edu"
