@@ -10,14 +10,8 @@
     become: true
     with_items:
       - http-parser
-      - 'nodejs'
       - "@Development tools"
       - mysql-devel
-
-  - name: install yarn
-    shell:
-      cmd: npm install -G yarn
-    become: true
 
   - name: include apache role to get its handlers
     include_role:
@@ -38,6 +32,79 @@
       recurse: true
     become: true
 
+  - name: make sure cap shared folder exists
+    file:
+      path: "{{ deploy_dir }}/shared/config"
+      owner: "{{ app_name }}"
+      group: "{{ app_name }}"
+      mode: g+w
+      state: directory
+      recurse: true
+    become: true
+
+  - name: make sure shared bundle folder exists
+    file:
+      path: "{{ deploy_dir }}/shared/bundle"
+      owner: "{{ app_name }}"
+      group: "{{ app_name }}"
+      mode: g+w
+      state: directory
+      recurse: true
+    become: true
+
+  - name: add '{{ ansible_env.USER }}' to catalyst group
+    user:
+      name: '{{ ansible_env.USER }}'
+      groups: catalyst
+      append: yes
+    become: true
+
+  - name: make sure bundle dir exists
+    file:
+      path: "{{ bundle_dir }}"
+      owner: "{{ ansible_env.USER }}"
+      group: "{{ app_name }}"
+      mode: g+w
+      state: directory
+      recurse: true
+    become: true
+
+  - name: copy database.yml to shared config
+    ansible.builtin.template:
+      src: database.yml.j2
+      dest: /opt/catalyst/shared/config/database.yml
+      owner: '{{ ansible_env.USER }}'
+      group: catalyst
+      mode: g+w
+    become: true
+
+  - name: copy blacklight.yml to shared config
+    ansible.builtin.template:
+      src: blacklight.yml.j2
+      dest: /opt/catalyst/shared/config/blacklight.yml
+      owner: '{{ ansible_env.USER }}'
+      group: catalyst
+      mode: g+w
+    become: true
+
+  - name: generate rails secret_key_base
+    # TODO: use or lose
+    # command: bash -lc "bundle exec rake secret"
+    command: "openssl rand -hex 64"
+    register: secret_key_base_result
+    no_log: "{{ not debugging }}"
+
+  - name: set secret_key_base
+    set_fact:
+      secret_key_base: "{{ secret_key_base_result.stdout }}"
+
+  - name: Configure environment variables
+    no_log: "{{ not debugging }}"
+    template:
+      src:  "templates/dotenv.j2"
+      dest:  "{{ deploy_dir }}/shared/.env"
+    notify: restart apache
+
   - name: get application from repo
     git:
       repo: "{{ app_repo }}"
@@ -47,9 +114,13 @@
       ssh_opts: "-o StrictHostKeyChecking=no"
 
   - name: install bundler
-    shell:
-      chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
-      cmd: "gem install bundler -v {{ bundler_version }}"
+    gem:
+      name: bundler
+      version: "{{ bundler_version }}"
+      state: present
+      user_install: no
+      executable: "/opt/rubies/{{ chruby_ruby_version }}/bin/gem"
+    become: true
 
   # This is a global config that will be used
   # whenever the bundle command is used. This
@@ -69,24 +140,6 @@
     shell:
       chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
       cmd: "BRANCH={{ app_branch }} bundle exec cap localhost deploy"
-
-  - name: generate rails secret_key_base
-    # TODO: use or lose
-    # command: bash -lc "bundle exec rake secret"
-    command: "openssl rand -hex 64"
-    register: secret_key_base_result
-    no_log: "{{ not debugging }}"
-
-  - name: set secret_key_base
-    set_fact:
-      secret_key_base: "{{ secret_key_base_result.stdout }}"
-
-  - name: Configure environment variables
-    no_log: "{{ not debugging }}"
-    template:
-      src:  "templates/dotenv.j2"
-      dest:  "{{ deploy_dir }}/shared/.env"
-    notify: restart apache
 
   - name: insert catalyst configs into virtualhost config
     blockinfile:
