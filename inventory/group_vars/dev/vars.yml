@@ -14,7 +14,7 @@ login_password:         "{{ lookup('ini', 'login_password section=dev file=~/.an
 login_user_grant_sudo:  true
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.3.6"
+chruby_ruby_version:    "ruby-2.6.6"
 services_needs_jruby:    true
 
 # apache vars:
@@ -47,6 +47,18 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 # borrow_direct vars
 borrow_direct_host:     "bdtest.relaisd2d.com"
 
+# Flipper auth vars
+flipper_username:       "{{ vault_flipper_username }}"
+flipper_password:       "{{ vault_flipper_password }}"
+
+# Rollbar access token vars
+rollbar_access_token:   "{{ vault_rollbar_access_token }}"
+rollbar_env:            "test"
+
+# Sentry.io
+sentry_dsn:             "{{ vault_sentry_dsn }}"
+sentry_env:             "test"
+
 # catalyst/findit vars.
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
 catalyst_base_url:      "https://catalyst-stage.library.jhu.edu"
@@ -76,7 +88,7 @@ solr_url_slave:         "http://{{ solr_slave_ip }}:{{ solr_port }}/solr/{{ solr
 # 23 30 : every night at 11:30PM
 # 0-23; apparently in UTC
 traject_cron_minute:    0
-traject_cron_hour:      0 
+traject_cron_hour:      0
 # NOTE: optional and mutually exclusive (only or (first &/or last))
 # only_bib:               391566
 first_bib:              6270400
