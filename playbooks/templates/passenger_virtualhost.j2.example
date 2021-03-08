@@ -14,7 +14,7 @@
 #}
 # EXAMPLE TEMPLATE
   # Tell Apache and Passenger where your app's 'public' directory is
-  DocumentRoot {{ passenger_deploy_dir }}/public
+  DocumentRoot {{ passenger_deploy_dir }}
 
   PassengerRuby {{ ruby_interpreter }}
   PassengerAppEnv {{ passenger_app_environment }}
@@ -26,7 +26,7 @@
   # endif
 
   # Relax Apache security settings
-  <Directory {{ passenger_deploy_dir }}/public>
+  <Directory {{ passenger_deploy_dir }}
     Allow from all
     Options -MultiViews
   {% if apache_version is version('2.4', '>=') %}

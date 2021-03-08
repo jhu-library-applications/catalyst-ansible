@@ -2,7 +2,7 @@
 # REM: maunally install before using with
 # $ ansible-galaxy install -r requirements.yml
 
-- src: https://github.com/jhu-library-applications/ansible-role-login-user
+- src: https://github.com/jhu-library-operations/ansible-role-login-user
   name: login-user
 
 - src: https://github.com/jhu-library-applications/ansible-role-secure-ssh
@@ -50,3 +50,5 @@
 - src: https://github.com/jhu-library-applications/ansible-role-fail2ban
   name: fail2ban
 
+- src: https://github.com/geerlingguy/ansible-role-nodejs
+  name: ansible-role-nodejs
