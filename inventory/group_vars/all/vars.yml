@@ -35,6 +35,7 @@ rails_env:                    "development"
 # TODO: test updating to recent version
 rails_version:                "4.2.4"
 secret_key_base:              "" # will be generated
+rails_master_key:             "{{ vault_rails_master_key }}"
 
 # bundler
 bundler_version: ">= 2.2.6"
@@ -67,7 +68,7 @@ apache_http_redirect_marker:  "http redirect"
 
 # passenger vars
 # TODO: adopt and move up
-passenger_deploy_dir:         "{{ deploy_dir }}/current/public"
+passenger_deploy_dir:         "{{ deploy_dir }}/current"
 
 update_packages:        false
 # NOTE: use this to override the passenger virtualhost sub-template
