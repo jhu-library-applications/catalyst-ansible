@@ -59,6 +59,9 @@
       append: yes
     become: true
 
+  - name: reset ssh connection to enable user group change
+    meta: reset_connection
+
   - name: make sure bundle dir exists
     file:
       path: "{{ bundle_dir }}"
