@@ -64,7 +64,7 @@
 
   # begin legacy server ruby version block
   - block:
-    # NOTE: our existing stage & prod services servers (catsolrmaster & -test)
+    # NOTE: our existing stage & prod services servers (catsolrmain & -test)
     # have an atypical home dir for the application user (catalyst)
     - name: get app user info
       getent:

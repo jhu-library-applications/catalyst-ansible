@@ -66,25 +66,25 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 
 # solr vars
 # FIXME: figure out a more elegant solution than this...
-solr_master_ip:         "10.11.12.102"
-solr_slave_ip:          "10.11.12.103"
+solr_main_ip:         "10.11.12.102"
+solr_replica_ip:          "10.11.12.103"
 # NOTE: this is the existing url we are still using until our ansibilization is complete
-solr_url:               "http://catsolrslave-test.library.jhu.edu:8983/solr/catalyst"
+solr_url:               "http://catsolrreplica-test.library.jhu.edu:8983/solr/catalyst"
 # FIXME: avoid hard-coding the solr_url
 # FIXME: solr_port & solr_cores vars are not available to catalyst, only catsolr
 # NOTE: for non-replication:
-# solr_url:               "http://{{ solr_master_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
+# solr_url:               "http://{{ solr_main_ip }}:8983/solr/catalyst" # :{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: for replication:
-# solr_url:               "http://{{ solr_slave_ip }}:8983/solr/catalyst"
+# solr_url:               "http://{{ solr_replica_ip }}:8983/solr/catalyst"
 
 # traject vars
 # NOTE: the value of solr_replicate_master will determine whether the value of
 # solr_url_to_index will be used for SOLR_REPLICATE_MASTER_URL (true) or SOLR_URL (false)
 # ALSO NOTE: solr replication is not currently working with our dev configuration
 solr_replicate_master:  true
-solr_url_to_index:      "http://{{ solr_master_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
+solr_url_to_index:      "http://{{ solr_main_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # NOTE: only used if solr_replicate_master is true
-solr_url_slave:         "http://{{ solr_slave_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
+solr_url_replica:         "http://{{ solr_replica_ip }}:{{ solr_port }}/solr/{{ solr_cores[0] }}"
 # 23 30 : every night at 11:30PM
 # 0-23; apparently in UTC
 traject_cron_minute:    0

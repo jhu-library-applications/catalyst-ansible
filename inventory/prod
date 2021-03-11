@@ -2,8 +2,8 @@
 all:
   hosts:
     catalyst.library.jhu.edu:
-    catsolrslave.library.jhu.edu:
-    catsolrmaster.library.jhu.edu:
+    catsolrreplica.library.jhu.edu:
+    catsolrmain.library.jhu.edu:
     hip.library.jhu.edu:
   children:
     default:
@@ -14,14 +14,14 @@ all:
         catalyst.library.jhu.edu:
     solr:
       hosts:
-        catsolrslave.library.jhu.edu:
-        catsolrmaster.library.jhu.edu:
+        catsolrreplica.library.jhu.edu:
+        catsolrmain.library.jhu.edu:
     traject:
       hosts:
-        catsolrmaster.library.jhu.edu:
+        catsolrmain.library.jhu.edu:
     pull-reserves:
       hosts:
-        catsolrmaster.library.jhu.edu:
+        catsolrmain.library.jhu.edu:
     horizon-ws:
       hosts:
         catalyst.library.jhu.edu:
