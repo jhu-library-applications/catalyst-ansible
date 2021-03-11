@@ -49,7 +49,7 @@ all:
         catsolrmain-dev.test:
     pull-reserves:
       hosts:
-        catsolrmaster-dev.test:
+        catsolrmain-dev.test:
     horizon-ws:
       hosts:
         catalyst-dev.test:

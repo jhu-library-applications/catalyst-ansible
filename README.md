@@ -41,15 +41,15 @@ login_group = msel-libraryapplications
 
 ### Create and copy SSH keys
 
-Creat SSH key, and copy the key to the remote server.  Here are the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles. 
+Creat SSH key, and copy the key to the remote server.  Here are the steps to do it manually. These steps may also be done via Ansible playbook setup.yml. However, the steps are not documented and are not working at the moment. You may need to find the documentation on a different project by Drew Heles.
 
-If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. You will be prompted to enter a passphrase, but you should leave it empty. This file only needs to be created once. Skip the following command if it's already there. 
+If this file doesn't exist,  ~/.ssh/jhu_ssh_key, generate one. You will be prompted to enter a passphrase, but you should leave it empty. This file only needs to be created once. Skip the following command if it's already there.
 
 ```
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/jhu_ssh_key
 ```
 
-Put the following in `~/.ssh/config` and add your JHEDID to the User line.  
+Put the following in `~/.ssh/config` and add your JHEDID to the User line.
 
 ```
 # --- Catalyst ---
@@ -97,13 +97,13 @@ ssh catalyst-stage
 
 ### Set up a deploy key
 
-Create a key on your local development machine with a generic name: 
+Create a key on your local development machine with a generic name:
 
 ```
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/catalyst_deploy_key -C '<jhedid>@blacklight-rails'
 ```
 
-Copy the private and public key file to the remote servers. For example to stage: 
+Copy the private and public key file to the remote servers. For example to stage:
 
 ```
 scp ~/.ssh/catalyst_deploy_key* catalyst-stage:~/.ssh/
@@ -150,13 +150,13 @@ ansible-playbook playbooks/catalyst_install.yml -i inventory/vagrant --extra-var
 
 This is very rare. Only necessary if you need to update the Java based web service at https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet
 
-Note: The process of building and release the war file is convuluted and should be improved. It was originally designed for the old file structure of catalyst. The ansible scripts should be update the war file. 
+Note: The process of building and release the war file is convuluted and should be improved. It was originally designed for the old file structure of catalyst. The ansible scripts should be update the war file.
 
 After packaging the war file (See https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet for instructions), copy the war file in the target directory to blacklight-rails/horizon-servlet/deploy/ws.war
 
-Git commit the new war file. Push it to the remote. Create a new release of Catalyst. Deploy the new release (See steps above). 
+Git commit the new war file. Push it to the remote. Create a new release of Catalyst. Deploy the new release (See steps above).
 
-Then run the ansible playbook `playbooks/horizonws_install.yml` to release the war file. For example, 
+Then run the ansible playbook `playbooks/horizonws_install.yml` to release the war file. For example,
 
 * To catalyst-prod.library.jhu.edu
 
@@ -206,10 +206,10 @@ As a workaround, adding the 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' to 
 A fix mas been merged into the unreleased ansible-2.5 branch.
 
 
-# Deploy solr master and slave
+# Deploy solr main and replica
 
 To local dev vagrant vm
-Update your local Vagrantfile and add catsolrmaster-dev and catsolrslave-dev
+Update your local Vagrantfile and add catsolrmain-dev and catsolrreplica-dev
 Update your local inventory/vagrant file and ensure the solr group is present
 
 

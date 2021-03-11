@@ -49,10 +49,10 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 # borrow_direct vars
 borrow_direct_host:     "borrow-direct.relaisd2d.com"
 
-# NOTE: we could test against prod by using catsolrslave instead of catsolr04
-# this would necessitate adding the IP of catalyst-preprod to catsolrslave's firewall
+# NOTE: we could test against prod by using catsolrreplica instead of catsolr04
+# this would necessitate adding the IP of catalyst-preprod to catsolrreplica's firewall
 # this may not be a worthwhile endeavor, however, as our understanding is that both
-# catsolrslave and catsolr04 both follow catsolr master. at some point,
+# catsolrreplica and catsolr04 both follow catsolr master. at some point,
 # it may be edifying to retest this assumption by checking the propagation of
 # a changed record in master. perhaps not today, however...
 # solr vars
