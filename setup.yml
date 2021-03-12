@@ -2,12 +2,8 @@
 - name: create login user for installation & configuration
   hosts: all
 
+  vars:
+    using_vagrant: true
+    
   roles:
   - { role: login-user, tags: ['login-user'] }
-
-- name: secure SSH
-  hosts: all
-  become: true
-
-  roles:
-  - { role: secure-ssh, tags: ['secure-ssh'] }
