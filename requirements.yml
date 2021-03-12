@@ -5,9 +5,6 @@
 - src: https://github.com/jhu-library-operations/ansible-role-login-user
   name: login-user
 
-- src: https://github.com/jhu-library-applications/ansible-role-secure-ssh
-  name: secure-ssh
-
 - src: https://github.com/jhu-library-applications/ansible-role-deploy-keys
   name: deploy-keys
 
