@@ -3,7 +3,7 @@ all:
   hosts:
     catalyst-dev.test:
       state: present # =absent to ignore in vagrant
-      vagrant_box_version: '1902.01' # latest 7.6.1811
+      vagrant_box_version: '2004.01'
       vagrant_box_image: 'centos/7'
       cpus: 1
       memory: 2048
@@ -14,7 +14,7 @@ all:
     catsolrslave-dev.test:
       state: present
       vagrant_box_image: 'centos/7'
-      vagrant_box_version: '1802.01' # latest 7.4.1708
+      vagrant_box_version: '2004.01'
       cpus: 1
       memory: 2048
       ansible_ip: '10.11.12.103'
@@ -24,7 +24,7 @@ all:
     catsolrmaster-dev.test:
       state: present
       vagrant_box_image: 'centos/7'
-      vagrant_box_version: '1802.01' # latest 7.4.1708
+      vagrant_box_version: '2004.01'
       cpus: 1
       memory: 2048
       ansible_ip: '10.11.12.102'
