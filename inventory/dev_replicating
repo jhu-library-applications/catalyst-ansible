@@ -6,14 +6,14 @@ catalyst-dev.test
 [solr-master]
 catsolrmaster-dev.test
 
-[solr-slave]
-catsolrslave-dev.test
+[solr-replica]
+catsolrreplica-dev.test
 
 [traject]
-catsolrmaster-dev.test
+catsolrmain-dev.test
 
 [pull-reserves]
-catsolrmaster-dev.test
+catsolrmain-dev.test
 
 [horizon-ws]
 catalyst-dev.test
@@ -26,12 +26,12 @@ catalyst
 horizon-ws
 pull-reserves
 traject
-solr-slave
+solr-replica
 
 [services:children]
 pull-reserves
 traject
 
 [solr:children]
-solr-master
-solr-slave
+solr-main
+solr-replica

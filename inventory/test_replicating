@@ -4,16 +4,16 @@
 catalyst-test.library.jhu.edu
 
 [solr-master]
-catsolrmaster-test.library.jhu.edu
+catsolrmain-test.library.jhu.edu
 
-[solr-slave]
-catsolrslave-test.library.jhu.edu
+[solr-replica]
+catsolrreplica-test.library.jhu.edu
 
 [traject]
-catsolrmaster-test.library.jhu.edu
+catsolrmain-test.library.jhu.edu
 
 [pull-reserves]
-catsolrmaster-test.library.jhu.edu
+catsolrmain-test.library.jhu.edu
 
 [horizon-ws]
 catalyst-test.library.jhu.edu
@@ -26,12 +26,12 @@ catalyst
 horizon-ws
 pull-reserves
 traject
-solr-slave
+solr-replica
 
 [services:children]
 pull-reserves
 traject
 
 [solr:children]
-solr-master
-solr-slave
+solr-main
+solr-replica

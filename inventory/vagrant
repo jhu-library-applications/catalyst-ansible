@@ -11,7 +11,7 @@ all:
       aliases:
         - 'catalyst-dev'
         - 'catalyst-dev.library.jhu.edu'
-    catsolrslave-dev.test:
+    catsolrreplica-dev.test:
       state: present
       vagrant_box_image: 'centos/7'
       vagrant_box_version: '2004.01'
@@ -19,9 +19,9 @@ all:
       memory: 2048
       ansible_ip: '10.11.12.103'
       aliases:
-        - 'catsolrslave-dev'
-        - 'catsolrslave-dev.library.jhu.edu'
-    catsolrmaster-dev.test:
+        - 'catsolrreplica-dev'
+        - 'catsolrreplica-dev.library.jhu.edu'
+    catsolrmain-dev.test:
       state: present
       vagrant_box_image: 'centos/7'
       vagrant_box_version: '2004.01'
@@ -29,8 +29,8 @@ all:
       memory: 2048
       ansible_ip: '10.11.12.102'
       aliases:
-        - 'catsolrmaster-dev'
-        - 'catsolrmaster-dev.library.jhu.edu'
+        - 'catsolrmain-dev'
+        - 'catsolrmain-dev.library.jhu.edu'
 
   children:
     # groups of hosts
@@ -42,14 +42,14 @@ all:
         catalyst-dev.test:
     solr:
       hosts:
-        catsolrslave-dev.test:
-        catsolrmaster-dev.test:
+        catsolrreplica-dev.test:
+        catsolrmain-dev.test:
     traject:
       hosts:
-        catsolrmaster-dev.test:
+        catsolrmain-dev.test:
     pull-reserves:
       hosts:
-        catsolrmaster-dev.test:
+        catsolrmain-dev.test:
     horizon-ws:
       hosts:
         catalyst-dev.test:

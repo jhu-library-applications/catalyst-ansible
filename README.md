@@ -46,6 +46,7 @@ were able to clone the repo above you have setup SSH based login with GitHub. Yo
 find your public key here: `https://github.com/<github-username>.keys`. Your private
 key is stored in the `~/.ssh` folder.
 
+
 You will need to add your private key to your ssh agent like this (on macOS):
 ```
 ssh-add -K ~/.ssh/id_rsa
@@ -134,7 +135,7 @@ on your connection speed. After they have been cached this step takes around
 
 3. Run `ansible-playbook playbooks/catalyst.yml -i inventory/vagrant --extra-vars "app_branch=main”`
 
-This step may take around 25 minutes to complete.
+Create a key on your local development machine with a generic name:
 
 4. Connect to the VPN. The Vagrant environment relies on servers in the test environment.
 
@@ -210,8 +211,6 @@ ansible-playbook playbooks/catalyst_install.yml -i inventory/vagrant --extra-var
 
 This is very rare. Only necessary if you need to update the Java based web service at https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet
 
-Note: The process of building and release the war file is complex and should be improved. It was originally designed for the old file structure of catalyst. The ansible scripts should update the war file.
-
 After packaging the war file (See https://github.com/jhu-sheridan-libraries/horizon-holding-info-servlet for instructions), copy the war file in the target directory to blacklight-rails/horizon-servlet/deploy/ws.war
 
 Git commit the new war file. Push it to the remote. Create a new release of Catalyst. Deploy the new release (See steps above).
@@ -266,10 +265,10 @@ As a workaround, adding the 'export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES' to 
 A fix mas been merged into the unreleased ansible-2.5 branch.
 
 
-# Deploy solr master and slave
+# Deploy solr main and replica
 
 To local dev vagrant vm
-Update your local Vagrantfile and add catsolrmaster-dev and catsolrslave-dev
+Update your local Vagrantfile and add catsolrmain-dev and catsolrreplica-dev
 Update your local inventory/vagrant file and ensure the solr group is present
 
 

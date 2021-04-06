@@ -4,12 +4,12 @@
 catalyst-preprod.library.jhu.edu
 
 [traject]
-catsolrmaster-test.library.jhu.edu
-# catsolrmaster.library.jhu.edu
+catsolrmain-test.library.jhu.edu
+# catsolrmain.library.jhu.edu
 
 [pull-reserves]
-catsolrmaster-test.library.jhu.edu
-# catsolrmaster.library.jhu.edu
+catsolrmain-test.library.jhu.edu
+# catsolrmain.library.jhu.edu
 
 [horizon-ws]
 catalyst-preprod.library.jhu.edu
