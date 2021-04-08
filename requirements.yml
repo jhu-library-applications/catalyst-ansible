@@ -35,7 +35,7 @@
 - src: https://github.com/jhu-library-applications/ansible-role-bantheman
   name: bantheman
 
-- src: https://github.com/jhu-library-applications/ansible-role-logrotate
+- src: https://github.com/arillso/ansible.logrotate.git
   name: logrotate
 
 - src: https://github.com/jhu-library-applications/ansible-role-testup
