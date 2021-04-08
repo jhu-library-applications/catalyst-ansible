@@ -110,19 +110,44 @@ bantheman_configs:
       # - "^/catalog/bib_.*$"
       # - "^/catalog\\?.*$"
 
-logrotate_configs:
-  - name: "catalyst"
-    path: "{{ deploy_dir }}/log"
-    setype: "var_log_t"
-    options:
-      - "su catalyst catalyst"
-      - "daily"
-      - "rotate 24"
-      - "compress"
-      - "delaycompress"
-      - "missingok"
-      - "create 0600"
-      - "dateext"
+# Logrotate for wtmp
+logrotate_wtmp_enable: true
+logrotate_wtmp:
+  logs:
+    - /var/log/wtmp
+  options:
+    - monthly
+    - create 0664 root utmp
+    - "    minsize 1M"
+    - rotate 1
+
+logrotate_applications:
+  - name: catalyst
+    definitions:
+      - logs:
+        - "{{ deploy_dir }}/log/*log"
+        options:
+          - su catalyst catalyst
+          - daily
+          - rotate 24
+          - compress
+          - delaycompress
+          - missingok
+          - create 0600
+          - dateext
+  - name: httpd
+    definitions:
+      - logs:
+        - "/var/log/httpd/*log"
+        options:
+          - missingok
+          - notifempty
+          - sharedscripts
+          - compress
+          - delaycompress
+          - postrotate
+          - "    /bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true"
+          - endscript
 
 testup_cucumber_vars_template:  "templates/test_vars.rb"
 testup_relative_path_to_root:   "../"
