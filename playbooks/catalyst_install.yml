@@ -13,10 +13,10 @@
       - "@Development tools"
       - mysql-devel
 
-  - name: include apache role to get its handlers
-    include_role:
-      name: apache
-      tasks_from: dolittle
+        #  - name: include apache role to get its handlers
+        #    include_role:
+        #      name: apache
+        #      tasks_from: dolittle
 
   tasks:
   - name: configure application user
@@ -153,11 +153,19 @@
     notify: restart apache
     become: true
 
-  - name: override default http redirect in virtualhost config
-    blockinfile:
-      block:  "{{ lookup('template', 'templates/http_redirect.j2') }}"
-      dest: "{{ apache_config_file }}"
-      marker: "# {mark} {{ apache_http_redirect_marker }}"
-      insertafter: "<VirtualHost *:80>"
-    notify: restart apache
+    #  - name: override default http redirect in virtualhost config
+    #    blockinfile:
+    #      block:  "{{ lookup('template', 'templates/http_redirect.j2') }}"
+    #      dest: "{{ apache_config_file }}"
+    #      marker: "# {mark} {{ apache_http_redirect_marker }}"
+    #      insertafter: "<VirtualHost *:80>"
+    #    notify: restart apache
+    #    become: true
+
+  handlers:
+  - name: restart apache
+    service:
+      name: "{{ apache_service }}"
+      enabled: true
+      state: restarted
     become: true
