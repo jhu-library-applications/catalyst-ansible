@@ -47,24 +47,37 @@ nodejs_npm_global_packages:
 nodejs_install_npm_user: "root"
 
 # apache vars
-apache_remove_welcome:        true
-apache_https:                 true
-# TODO: only works for CentOS. + needs refactoring
+#
+# These three variables are needed by playbooks/catalyst_install.yml
+#
 apache_service:               "httpd"
 apache_config_file:           "/etc/{{ apache_service }}/conf.d/01_{{ hostname }}.conf"
-# NOTE: use this to override the whole apache config template
-# apache_config_template:     "templates/apache.conf.j2"
 apache_http_redirect_marker:  "http redirect"
-# NOTE: uncomment to override apache defaults
-# apache_header_mod_marker:     "header modification"
-# apache_http_logging_marker:   "http logging"
-# apache_https_logging_marker:  "https logging"
-# apache_ssl_config_marker:     "ssl config"
-# # NOTE: if you use these vars in your logging (or other) local templates,
-# # as we do in our examples, you must define the values here,
-# # they won't take values defined only in the role
-# apache_log_level:             "debug"
-# apache_log_path:              "/var/log/{{ apache_service }}"
+
+apache_global_vhost_settings: |
+  SSLUseStapling On
+  SSLStaplingCache "shmcb:logs/ssl_stapling(32768)"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains"
+  Header always set X-Frame-Options "ALLOW-FROM https://jhu.libwizard.com/"
+  Header always set X-Content-Type-Options nosniff
+apache_vhosts_filename: "01_{{ hostname | default('myapp') }}.conf"
+apache_vhosts:
+  # Additional optional properties: 'serveradmin, serveralias, extra_parameters'.
+  - servername: "{{ hostname | default('myapp') }}.{{ domainname | default('test.test') }}"
+    extra_parameters: |
+      Redirect "/" "https://{{ hostname | default('myapp') }}.{{ domainname | default('test.test') }}"
+
+apache_vhosts_ssl:
+  - servername: "{{ hostname | default('myapp') }}.{{ domainname | default('test.test') }}"
+    #    documentroot: "/opt/catalyst/current/public"
+    certificate_file: "{{ ssl_certificate_path }}/{{ ssl_certificate_file }}"
+    certificate_key_file: "{{ ssl_key_path }}/{{ ssl_certificate_key_file }}"
+    certificate_chain_file: "{{ ssl_certificate_path }}/{{ ssl_certificate_chain_file }}"
+    #    extra_parameters: |
+
+apache_ssl_protocol: "all -SSLv3 -TLSv1 -TLSv1.1"
+apache_ssl_cipher_suite: "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+
 
 # passenger vars
 # TODO: adopt and move up

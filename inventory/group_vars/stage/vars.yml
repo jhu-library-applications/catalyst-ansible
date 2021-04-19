@@ -18,12 +18,6 @@ rails_env:              "production"
 hostname:               "{{ app_name }}"
 domainname:             "library.jhu.edu"
 
-ssl_self_sign_cert:               false
-ssl_provided_cert:                false
-ssl_certificate_file:             "{{ vault_ssl_certificate_file }}"
-ssl_certificate_key_file:         "{{ vault_ssl_certificate_key_file }}"
-ssl_certificate_chain_file:       "{{ vault_ssl_certificate_chain_file }}"
-
 # passenger vars
  # TODO: adopt and move up
 update_packages:        false

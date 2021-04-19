@@ -11,7 +11,10 @@
 - src: https://github.com/jhu-library-applications/ansible-role-java
   name: java
 
-- src: https://github.com/jhu-library-applications/ansible-role-apache
+- src: https://github.com/jhu-library-devops/ansible-role-ssl-certs.git
+  name: ssl-certs
+
+- src: https://github.com/geerlingguy/ansible-role-apache.git
   name: apache
 
 - src: https://github.com/jhu-library-applications/ansible-role-passenger
