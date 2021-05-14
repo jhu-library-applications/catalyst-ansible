@@ -61,6 +61,10 @@ sentry_env:             "production"
 # Google API for retrieving book covers
 google_books_api_key: "{{ vault_google_books_api_key }}"
 
+# AppSignal
+
+appsignal_push_api_key: "{{ vault_appsignal_push_api_key }}"
+
 # catalyst/findit vars
 # catalyst_base_url is a callback used by findit. It has to be a server that findit can access
 catalyst_base_url:      "https://catalyst.library.jhu.edu"
