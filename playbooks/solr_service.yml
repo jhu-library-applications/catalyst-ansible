@@ -1,0 +1,44 @@
+---
+- name: install solr as a systemd service
+  hosts: solr
+  tags:
+    - solr
+
+  tasks:
+    - name: Stop solr server
+      ansible.builtin.service:
+        name: solr
+        state: stopped
+        Enabled: no
+      become: yes
+
+    - name: Remove solr init.d file
+      file:
+        path: /etc/init.d/solr
+        state: absent
+      become: yes
+
+    - name: Copy solr service
+      template:
+        src: "solr_service.j2"
+        dest: "/lib/systemd/system/solr.service"
+        owner: root
+        mode: 0755
+      become: yes
+
+    - name: Enable solr service
+      systemd:
+        name: "solr"
+        enabled: yes
+        masked: no
+        daemon_reload: yes
+        state: restarted
+      become: yes
+
+    - name: make sure daemon is reloaded (ansible bug)
+      shell: systemctl daemon-reload
+      become: yes
+
+    - name: Restart Solr
+      service: name=solr state=restarted enabled=yes
+      become: yes
