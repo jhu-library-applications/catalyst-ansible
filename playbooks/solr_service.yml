@@ -9,7 +9,7 @@
       ansible.builtin.service:
         name: solr
         state: stopped
-        Enabled: no
+        enabled: no
       become: yes
 
     - name: Remove solr init.d file
