@@ -92,3 +92,5 @@ firewalld_richrules:
     state: enabled
   - rule: "{{ catalyst_https_reject_rule }}"
     state: enabled
+
+sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"

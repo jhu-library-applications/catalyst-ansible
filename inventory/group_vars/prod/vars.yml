@@ -92,3 +92,5 @@ firewalld_richrules:
 
 # BanTheMan!
 bantheman_configs: []
+
+sfx_base_url: "https://sfx.library.jhu.edu/sfxlcl41"
