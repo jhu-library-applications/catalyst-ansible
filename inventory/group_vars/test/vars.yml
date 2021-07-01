@@ -9,8 +9,9 @@ login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 app_branch:             "develop"
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.6.6"
-
+chruby_ruby_version:    "ruby-3.0.2"
+chruby_ruby_install_version: "0.8.2"
+chruby_ruby_install_checksum: "72a998b76f787c32a1575f10494594ec2d963f5ad5748004292841b33f8013e7"
 # rails vars
 rails_env:              "production"
 
@@ -58,6 +59,9 @@ rollbar_env:            "test"
 sentry_dsn:             "{{ vault_sentry_dsn }}"
 sentry_env:             "test"
 
+# AppSignal
+appsignal_push_api_key: "{{ vault_appsignal_push_api_key }}"
+appsignal_app_name:     APPSIGNAL_APP_NAME=catalyst-test
 # Google API for retrieving book covers
 google_books_api_key: "{{ vault_google_books_api_key }}"
 
@@ -69,3 +73,5 @@ findit_base_url:        "https://findit-test.library.jhu.edu"
 # solr vars for catalyst
 # NOTE: this solr url is ued by catalyst to determine the solr used for searching
 solr_url:              "{{ vault_solr_url }}"
+
+sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"

@@ -14,7 +14,7 @@ login_password:         "{{ lookup('ini', 'login_password section=dev file=~/.an
 login_user_grant_sudo:  true
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.6.6"
+chruby_ruby_version:    "ruby-3.0.2"
 services_needs_jruby:    true
 
 # apache vars:
@@ -110,3 +110,5 @@ findit_ip:                  "10.11.12.102" # local VM
 # NOTE: this is important to do at least once, as we are using some of
 # firewall-cmd's recently added capabilities
 firewalld_update_packages:  true
+
+sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"

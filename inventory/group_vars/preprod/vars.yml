@@ -6,7 +6,7 @@ debugging:              true
 login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.2.2"
+chruby_ruby_version:    "ruby-3.0.2
 
 # rails vars
 rails_env:              "production"

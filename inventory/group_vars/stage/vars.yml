@@ -9,7 +9,7 @@ login_user_passphrase:  "{{ vault_login_user_passphrase }}"
 app_branch:             "main"
 
 # ruby vars
-chruby_ruby_version:    "ruby-2.6.6"
+chruby_ruby_version:    "ruby-3.0.2"
 
 # rails vars
 rails_env:              "production"
@@ -92,3 +92,5 @@ firewalld_richrules:
     state: enabled
   - rule: "{{ catalyst_https_reject_rule }}"
     state: enabled
+
+sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"
