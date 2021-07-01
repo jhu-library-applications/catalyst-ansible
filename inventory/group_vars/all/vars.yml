@@ -205,3 +205,5 @@ firewalld_services:
 # fail2ban vars
 fail2ban_failregex: '^<HOST>.*/catalog/bib_.*$'
 fail2ban_logpath:   "/var/log/httpd/catalyst-ssl-access.log"
+
+ezproxy_prefix: "http://proxy1.library.jhu.edu/login?url="
