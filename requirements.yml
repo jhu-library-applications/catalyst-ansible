@@ -8,7 +8,7 @@
 - src: https://github.com/jhu-library-applications/ansible-role-deploy-keys
   name: deploy-keys
 
-- src: https://github.com/jhu-library-applications/ansible-role-java
+- src: https://github.com/geerlingguy/ansible-role-java
   name: java
 
 - src: https://github.com/jhu-library-devops/ansible-role-ssl-certs.git
