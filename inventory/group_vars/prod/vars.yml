@@ -45,6 +45,14 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
 borrow_direct_host:     "bd.relaisd2d.com"
+relais_api_url:         "borrow-direct.relais-host.com"
+relais_api_key:         "{{ vault_relais_api_key }}"
+relais_partnership_id:  "BD"
+relais_library_symbol:  "JOHNSHOPKINS"
+relais_patron_id:       "{{ vault_relais_patron_id }}"
+
+# ILLiad vars
+illiad_url:             "https://ill.library.jhu.edu/msel/illiad.dll"
 
 # Flipper auth vars
 flipper_username:       "{{ vault_flipper_username }}"
@@ -62,7 +70,6 @@ sentry_env:             "production"
 google_books_api_key: "{{ vault_google_books_api_key }}"
 
 # AppSignal
-
 appsignal_push_api_key: "{{ vault_appsignal_push_api_key }}"
 
 # catalyst/findit vars
