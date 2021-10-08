@@ -69,28 +69,4 @@ findit_base_url:        "https://findit-test.library.jhu.edu" # we do not have a
 # solr vars
 solr_url:               "{{ vault_solr_url }}"
 
-# firewalld vars:
-# NOTE: this is important to do at least once, as we are using some of
-# firewall-cmd's recently added capabilities:
-firewalld_update_packages:  true
-firewalld_ipsets:
-  - name: jetty_whitelist
-    ips:
-      - "{{ findit_ip_test }}"
-  - name: catalyst_whitelist
-    ips: "{{ refworks_ips + [findit_ip_test] + [hopkins_ip_range] }}"
-firewalld_richrules:
-  - rule: "{{ jetty_accept_rule }}"
-    state: enabled
-  - rule: "{{ jetty_reject_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_http_accept_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_http_reject_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_https_accept_rule }}"
-    state: enabled
-  - rule: "{{ catalyst_https_reject_rule }}"
-    state: enabled
-
 sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"

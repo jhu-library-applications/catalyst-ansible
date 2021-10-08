@@ -2,12 +2,25 @@
 - name: install and configure solr
   hosts: solr
 
+  vars:
+    firewalld_solr_rules:
+      filtered:
+        - solr:
+          zone_name: solr
+          allowed:
+            - catalyst.library.jhu.edu
+            - catalyst-test.library.jhu.edu
+            - catalyst-stage.library.jhu.edu
+            - catsolrmain.library.jhu.edu
+            - catsolrreplica.library.jhu.edu
+            - catsolrmain-test.library.jhu.edu
+            - catsolrreplica-test.library.jhu.edu
+          ports:
+            - 8081/tcp
+            - 8983-8986/tcp
+
   roles:
   - { role: java,         tags: ['java'],         become: true }
   - { role: deploy-keys,  tags: ['deploy-keys'],  deploy_keys: "{{ solr_deploy_keys }}" }
   - { role: solr,         tags: ['solr'] }
-  - role: firewalld
-    tags: ['firewalld']
-    become: true
-    firewalld_ipsets: "{{ solr_firewalld_ipsets }}"
-    firewalld_richrules: "{{ solr_firewalld_richrules }}"
+  - { role: firewalld,    tags: ['firewalld'],    apps: "{{ firewalld_solr_rules }}", become: true }

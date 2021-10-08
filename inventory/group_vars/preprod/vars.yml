@@ -58,13 +58,5 @@ jetty_user:             "jetty"
 jetty_group:            "{{ jetty_user }}"
 jetty_port:             8080
 
-# firewalld vars:
-firewalld_ipsets:
-  - name: jetty_whitelist
-    ips:
-      - "{{ findit_ip_test }}"
-      - "{{ findit_ip_prod }}"
-      - "{{ nagios_ip }}"
-
 # BanTheMan!
 bantheman_configs: []
