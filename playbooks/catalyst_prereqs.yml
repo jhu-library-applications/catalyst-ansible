@@ -11,9 +11,7 @@
       filtered:
         - jetty:
           zone_name: jetty
-          allowed:
-            - findit.library.jhu.edu
-            - findit-failover.mse.jhu.edu
+          allowed: "{{ vault_firewalld_jetty_whitelist }}"
           ports:
             - 8080/tcp
 

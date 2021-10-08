@@ -7,14 +7,7 @@
       filtered:
         - solr:
           zone_name: solr
-          allowed:
-            - catalyst.library.jhu.edu
-            - catalyst-test.library.jhu.edu
-            - catalyst-stage.library.jhu.edu
-            - catsolrmain.library.jhu.edu
-            - catsolrreplica.library.jhu.edu
-            - catsolrmain-test.library.jhu.edu
-            - catsolrreplica-test.library.jhu.edu
+          allowed: "{{ vault_firewalld_solr_whitelist }}"
           ports:
             - 8081/tcp
             - 8983-8986/tcp
