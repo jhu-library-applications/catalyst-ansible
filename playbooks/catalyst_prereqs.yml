@@ -4,14 +4,14 @@
   vars:
     catalyst_firewalld_rules:
       public:
-        - apache:
+        - app_name: apache
           services:
             - http
             - https
-      filtered:
-        - jetty:
+      restricted:
+        - app_name: jetty
           zone_name: jetty
-          allowed: "{{ vault_firewalld_jetty_whitelist }}"
+          allowed_hosts: "{{ vault_firewalld_jetty_whitelist }}"
           ports:
             - 8080/tcp
 

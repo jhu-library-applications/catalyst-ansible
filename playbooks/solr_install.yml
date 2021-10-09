@@ -4,10 +4,10 @@
 
   vars:
     firewalld_solr_rules:
-      filtered:
-        - solr:
+      restricted:
+        - app_name: solr
           zone_name: solr
-          allowed: "{{ vault_firewalld_solr_whitelist }}"
+          allowed_hosts: "{{ vault_firewalld_solr_whitelist }}"
           ports:
             - 8081/tcp
             - 8983-8986/tcp
