@@ -32,7 +32,7 @@
 - src: https://github.com/jhu-library-applications/ansible-role-shibboleth-sp
   name: shib
 
-- src: https://github.com/jhu-library-applications/ansible-role-firewalld
+- src: https://github.com/jhu-library-devops/ansible-role-firewalld
   name: firewalld
 
 - src: https://github.com/jhu-library-applications/ansible-role-bantheman

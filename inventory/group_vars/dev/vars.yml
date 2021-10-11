@@ -106,9 +106,4 @@ pull_reserves_cron_hour:    0
 # ip vars
 findit_ip:                  "10.11.12.102" # local VM
 
-# firewalld vars:
-# NOTE: this is important to do at least once, as we are using some of
-# firewall-cmd's recently added capabilities
-firewalld_update_packages:  true
-
 sfx_base_url: "https://sfx-stage.library.jhu.edu/sfxlcl41"
