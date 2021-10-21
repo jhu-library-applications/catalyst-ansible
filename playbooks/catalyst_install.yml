@@ -2,6 +2,12 @@
 - name: install catalyst rails application
   hosts: catalyst
 
+  vars:
+    my_jails:
+      - name: catalyst
+        jail_template: fail2ban-catalyst-jail.local.j2
+        filter_template: fail2ban-catalyst-filter.local.j2
+
   pre_tasks:
   - name: install required packages
     package:
@@ -169,3 +175,6 @@
       enabled: true
       state: restarted
     become: true
+
+  roles:
+    - { role: fail2ban, tags: ['fail2ban'], jails: "{{ my_jails }}", become:true }

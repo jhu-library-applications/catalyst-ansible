@@ -47,7 +47,7 @@
 - src: https://github.com/jhu-library-applications/ansible-role-solr
   name: solr
 
-- src: https://github.com/jhu-library-applications/ansible-role-fail2ban
+- src: https://github.com/jhu-library-devops/ansible-role-fail2ban
   name: fail2ban
 
 - src: https://github.com/geerlingguy/ansible-role-nodejs

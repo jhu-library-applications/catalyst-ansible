@@ -1,0 +1,11 @@
+[DEFAULT]
+ignoreip = {{ vault_fail2ban_ignoreip }}
+destemail = {{ vault_fail2ban_destemail }}
+
+[catalyst]
+enabled  = True
+backend  = polling
+logpath  = /var/log/httpd/catalyst-ssl-access.log
+maxretry = 60
+findtime = 60
+bantime  = 86400

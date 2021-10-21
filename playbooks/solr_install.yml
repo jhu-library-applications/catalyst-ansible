@@ -17,3 +17,4 @@
   - { role: deploy-keys,  tags: ['deploy-keys'],  deploy_keys: "{{ solr_deploy_keys }}" }
   - { role: solr,         tags: ['solr'] }
   - { role: firewalld,    tags: ['firewalld'],    apps: "{{ firewalld_solr_rules }}", become: true }
+  - { role: fail2ban,     tags: ['fail2ban'],     become: true }

@@ -1,9 +1,0 @@
----
-- name: install and configure fail2ban
-  hosts: all
-
-  vars:
-    fail2ban_enabled: true
-
-  roles:
-    - { role: fail2ban, tags: ['fail2ban'], become: true }
