@@ -150,7 +150,51 @@
       chdir: "{{ ansible_env.HOME }}/{{ app_name }}"
       cmd: "BRANCH={{ app_branch }} bundle exec cap localhost deploy"
 
+
+  - name: insert passenger default user configs
+    tags: ['apache']
+    blockinfile:
+      block:  |
+        PassengerDefaultUser {{ app_name }}
+        PassengerDefaultGroup {{ app_name }}
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} passenger default user configs"
+      insertbefore: "<VirtualHost>"
+    notify: restart apache
+    become: true
+
+  - name: insert passenger configs into virtualhost config
+    tags: ['apache']
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/header_mod.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} header mod configs"
+      insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
+
+  - name: insert passenger configs into virtualhost config
+    tags: ['apache']
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/https_log.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} https log configs"
+      insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
+
+  - name: insert passenger configs into virtualhost config
+    tags: ['apache']
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/passenger_virtualhost.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} passenger configs"
+      insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
+
   - name: insert catalyst configs into virtualhost config
+    tags: ['apache']
     blockinfile:
       block:  "{{ lookup('template', 'templates/catalyst_virtualhost.j2') }}"
       dest: "{{ apache_config_file }}"
@@ -159,14 +203,15 @@
     notify: restart apache
     become: true
 
-    #  - name: override default http redirect in virtualhost config
-    #    blockinfile:
-    #      block:  "{{ lookup('template', 'templates/http_redirect.j2') }}"
-    #      dest: "{{ apache_config_file }}"
-    #      marker: "# {mark} {{ apache_http_redirect_marker }}"
-    #      insertafter: "<VirtualHost *:80>"
-    #    notify: restart apache
-    #    become: true
+  - name: insert shib configs into virtualhost config
+    tags: ['apache']
+    blockinfile:
+      block:  "{{ lookup('template', 'templates/shib_virtualhost.j2') }}"
+      dest: "{{ apache_config_file }}"
+      marker: "# {mark} shib configs"
+      insertbefore: "</VirtualHost>"
+    notify: restart apache
+    become: true
 
   handlers:
   - name: restart apache

@@ -1,0 +1,20 @@
+  DocumentRoot {{ deploy_dir }}/current/public
+
+  PassengerRuby /opt/rubies/{{ chruby_ruby_version }}/bin/ruby
+  PassengerAppEnv production
+
+  # TODO: for the sake of stage, pin this on something else:
+  # if passenger_app_environment != 'production'
+  PassengerFriendlyErrorPages on
+  # endif
+
+  # Relax Apache security settings
+  <Directory {{ deploy_dir }}/current/public>
+    Allow from all
+    Options -MultiViews
+    Require all granted
+  </Directory>
+
+  # no idea why this is needed, but apparently it is:
+  AddType text/javascript .js
+  AddType text/css .css
