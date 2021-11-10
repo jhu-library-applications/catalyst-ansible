@@ -177,4 +177,4 @@
     become: true
 
   roles:
-    - { role: fail2ban, tags: ['fail2ban'], jails: "{{ my_jails }}", become:true }
+    - { role: fail2ban, tags: ['fail2ban'], jails: "{{ my_jails }}", become: true }
