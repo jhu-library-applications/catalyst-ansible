@@ -23,6 +23,6 @@
   - { role: apache,       tags: ['apache'],      become: true }
   - { role: passenger,    tags: ['passenger'] }
   - { role: deploy-keys,  tags: ['deploy-keys'], deploy_keys: "{{ catalyst_deploy_keys }}" }
-  - { role: shib,         tags: ['shib'] }
+  - { role: shib,         tags: ['shib'], become: true }
   - { role: firewalld,    tags: ['firewalld'],   apps: "{{ catalyst_firewalld_rules }}", become: true }
   - { role: logrotate,    tags: ['logrotate'] }
