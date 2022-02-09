@@ -22,19 +22,3 @@ solr_instance_dir:            "{{ solr_home }}/{{ solr_cores[0] }}"
 solr_backup_dir:              "/home/{{ solr_user }}/{{ solr_cores[0] }}_backup"
 solr_user:                    "solr"
 solr_group:                   "{{ solr_user }}"
-
-# firewalld vars:
-solr_firewalld_ipsets:
-  - name: solr_whitelist
-    ips:
-      - "{{ hopkins_ip_range }}"
-
-solr_accept_rule_nolog:       'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" accept'
-solr_accept_rule:             'rule family="ipv4" source ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-allowed" level="info" limit value="1/m" accept'
-solr_reject_rule:             'rule family="ipv4" source NOT ipset="solr_whitelist" port port="{{ solr_port }}" protocol="tcp" log prefix="solr-access-denied" level="info" limit value="1/m" reject'
-
-solr_firewalld_richrules:
-  - rule: "{{ solr_accept_rule }}"
-    state: enabled
-  - rule: "{{ solr_reject_rule }}"
-    state: enabled

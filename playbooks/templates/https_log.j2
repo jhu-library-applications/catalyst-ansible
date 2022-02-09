@@ -1,0 +1,3 @@
+  LogLevel {{ apache_log_level }}
+  ErrorLog "{{ apache_log_path }}/{{ hostname }}-ssl-error.log"
+  CustomLog "{{ apache_log_path }}/{{ hostname }}-ssl-access.log" combined

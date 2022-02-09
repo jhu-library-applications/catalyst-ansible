@@ -112,6 +112,8 @@ ssh catalyst-stage
 
 ## Local Vagrant environment
 
+*NOTE: If using VirtualBox 6.1.28 (at least on a Mac), it is necessary to modify/create the `/etc/vbox/networks.conf` file such that it has one and only one line in it: `* 0.0.0.0/0 ::/0`. See: https://forums.virtualbox.org/viewtopic.php?f=7&t=104218#p507770
+
 1. Edit `setup.yml` to indicate that you are using vagrant:
 
 ```yaml
