@@ -46,7 +46,7 @@ force_default_jhed:     "{{ vault_force_default_jhed }}"
 
 # borrow_direct vars
 borrow_direct_host:     "bdtest.relaisd2d.com"
-relais_api_url:         "borrow-direct.relais-host.com"
+relais_api_url:         "bdtest.relais-host.com"
 relais_api_key:         "{{ vault_relais_api_key }}"
 relais_partnership_id:  "BD"
 relais_library_symbol:  "JOHNSHOPKINS"
